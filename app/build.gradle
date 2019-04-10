@@ -53,9 +53,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
-//    implementation files('libs/xUtils-2.5.5.jar')
-//    implementation files('libs/jxl.jar')
-//    implementation files('libs/cw-deviceapi20180918.jar')
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     implementation 'android.arch.paging:runtime:1.0.1'
     implementation "android.arch.navigation:navigation-fragment:$rootProject.ext.navigationFragmentVersion"
@@ -77,7 +74,8 @@ dependencies {
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leakCanaryVersion"
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
-    implementation files('C:/Users/User/AndroidStudioProjects/IQSklad/libs/cw-deviceapi20180918.jar')
-    implementation files('C:/Users/User/AndroidStudioProjects/IQSklad/libs/jxl.jar')
-    implementation files('C:/Users/User/AndroidStudioProjects/IQSklad/libs/xUtils-2.5.5.jar')
+
+    implementation rootProject.files('libs/cw-deviceapi20180918.jar')
+    implementation rootProject.files('libs/jxl.jar')
+    implementation rootProject.files('libs/xUtils-2.5.5.jar')
 }

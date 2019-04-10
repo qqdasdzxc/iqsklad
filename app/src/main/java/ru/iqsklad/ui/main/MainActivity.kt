@@ -1,7 +1,8 @@
-package ru.iqsklad
+package ru.iqsklad.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.iqsklad.R
 
 class MainActivity : AppCompatActivity() {
 
