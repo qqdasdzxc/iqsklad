@@ -5,25 +5,26 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
+import ru.iqsklad.data.dto.user.Forwarder
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.ui.base.fragment.BaseFragment
-import ru.iqsklad.databinding.FragmentAuthChooseUserBinding
+import ru.iqsklad.databinding.FragmentAuthChooseForwarderBinding
 import ru.iqsklad.domain.App
-import ru.iqsklad.presentation.implementation.auth.ChooseUserViewModel
-import ru.iqsklad.presentation.presenter.auth.ChooseUserPresenter
+import ru.iqsklad.presentation.implementation.auth.ChooseForwarderViewModel
+import ru.iqsklad.presentation.presenter.auth.ChooseForwarderPresenter
 import ru.iqsklad.ui.auth.adapter.UsersAdapter
 import ru.iqsklad.utils.extensions.injectViewModel
 import javax.inject.Inject
 
-class ChooseUserAuthFragment : BaseFragment<FragmentAuthChooseUserBinding>(), UsersAdapter.UserClickListener {
+class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBinding>(), UsersAdapter.UserClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var presenter: ChooseUserPresenter
+    private lateinit var presenter: ChooseForwarderPresenter
 
     private var adapter = UsersAdapter(this)
 
-    override fun getLayoutResId(): Int = R.layout.fragment_auth_choose_user
+    override fun getLayoutResId(): Int = R.layout.fragment_auth_choose_forwarder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +35,12 @@ class ChooseUserAuthFragment : BaseFragment<FragmentAuthChooseUserBinding>(), Us
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = injectViewModel<ChooseUserViewModel>(viewModelFactory)
+        presenter = injectViewModel<ChooseForwarderViewModel>(viewModelFactory)
         initObserve()
     }
 
     private fun initObserve() {
-        presenter.getUsers().observe(this, Observer { setUsers(it) })
+        presenter.getForwarders().observe(this, Observer { setUsers(it) })
     }
 
     private fun setUsers(userList: List<User>) {
@@ -58,7 +59,7 @@ class ChooseUserAuthFragment : BaseFragment<FragmentAuthChooseUserBinding>(), Us
     }
 
     override fun onUserClicked(user: User) {
-        val action = ChooseUserAuthFragmentDirections.actionAuthChooseUserToConfirmUser(user)
+        val action = ChooseForwarderAuthFragmentDirections.actionAuthChooseForwarderToConfirmForwarder(user as Forwarder)
         navController.navigate(action)
     }
 }

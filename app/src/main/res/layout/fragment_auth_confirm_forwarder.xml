@@ -5,8 +5,8 @@
 
     <data>
         <variable
-                name="user"
-                type="ru.iqsklad.data.dto.user.User"/>
+                name="forwarder"
+                type="ru.iqsklad.data.dto.user.Forwarder"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,31 +16,19 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/start_end_margin"
                 android:text="@string/auth_confirm_user_info_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/confirm_user_name_view"/>
+                app:layout_constraintBottom_toTopOf="@id/user_info_view"/>
 
-        <TextView
-                android:id="@+id/confirm_user_name_view"
-                android:layout_width="wrap_content"
+        <include
+                android:id="@+id/user_info_view"
+                layout="@layout/block_user_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/start_end_margin"
-                android:text="@{user.name}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/confirm_user_id_view"/>
-
-        <TextView
-                android:id="@+id/confirm_user_id_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/start_end_margin"
-                android:text="@{String.format(@string/auth_confirm_user_id, user.ID)}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/confirm_user_change_view"/>
+                app:layout_constraintBottom_toTopOf="@id/confirm_user_change_view"
+                app:user="@{forwarder}"/>
 
         <TextView
                 android:id="@+id/confirm_user_change_view"

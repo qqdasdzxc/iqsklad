@@ -3,20 +3,20 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/navigation_auth_graph"
-        app:startDestination="@id/choose_user_auth_fragment">
+        app:startDestination="@id/choose_forwarder_auth_fragment">
 
     <fragment
-            android:id="@+id/choose_user_auth_fragment"
-            android:name="ru.iqsklad.ui.auth.fragment.ChooseUserAuthFragment"
-            android:label="ChooseUserAuthFragment"
-            tools:layout="@layout/fragment_auth_choose_user">
+            android:id="@+id/choose_forwarder_auth_fragment"
+            android:name="ru.iqsklad.ui.auth.fragment.ChooseForwarderAuthFragment"
+            android:label="ChooseForwarderAuthFragment"
+            tools:layout="@layout/fragment_auth_choose_forwarder">
 
         <action
-                android:id="@+id/action_auth_choose_user_to_confirm_user"
-                app:destination="@id/confirm_user_auth_fragment">
+                android:id="@+id/action_auth_choose_forwarder_to_confirm_forwarder"
+                app:destination="@id/confirm_forwarder_auth_fragment">
             <argument
-                    android:name="user"
-                    app:argType="ru.iqsklad.data.dto.user.User"
+                    android:name="forwarder"
+                    app:argType="ru.iqsklad.data.dto.user.Forwarder"
                     app:nullable="false"/>
         </action>
 
@@ -24,13 +24,13 @@
     </fragment>
 
     <fragment
-            android:id="@+id/confirm_user_auth_fragment"
-            android:name="ru.iqsklad.ui.auth.fragment.ConfirmUserAuthFragment"
-            android:label="ConfirmUserAuthFragment"
-            tools:layout="@layout/fragment_auth_confirm_user">
+            android:id="@+id/confirm_forwarder_auth_fragment"
+            android:name="ru.iqsklad.ui.auth.fragment.ConfirmForwarderAuthFragment"
+            android:label="ConfirmForwarderAuthFragment"
+            tools:layout="@layout/fragment_auth_confirm_forwarder">
         <argument
-                android:name="user"
-                app:argType="ru.iqsklad.data.dto.user.User"
+                android:name="forwarder"
+                app:argType="ru.iqsklad.data.dto.user.Forwarder"
                 app:nullable="false"/>
     </fragment>
 

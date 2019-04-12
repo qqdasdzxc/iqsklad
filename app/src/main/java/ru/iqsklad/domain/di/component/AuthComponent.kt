@@ -4,8 +4,8 @@ import dagger.Subcomponent
 import ru.iqsklad.domain.di.module.auth.AuthRepositoryModule
 import ru.iqsklad.domain.di.module.auth.AuthViewModelModule
 import ru.iqsklad.domain.di.scope.AuthScope
-import ru.iqsklad.presentation.implementation.auth.ChooseUserViewModel
-import ru.iqsklad.ui.auth.fragment.ChooseUserAuthFragment
+import ru.iqsklad.presentation.implementation.auth.ChooseForwarderViewModel
+import ru.iqsklad.ui.auth.fragment.ChooseForwarderAuthFragment
 
 @AuthScope
 @Subcomponent(
@@ -13,7 +13,7 @@ import ru.iqsklad.ui.auth.fragment.ChooseUserAuthFragment
 )
 interface AuthComponent {
 
-    fun inject(fragment: ChooseUserAuthFragment)
+    fun inject(fragment: ChooseForwarderAuthFragment)
 
-    fun inject(presenter: ChooseUserViewModel)
+    fun inject(presenter: ChooseForwarderViewModel)
 }

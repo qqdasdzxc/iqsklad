@@ -3,7 +3,7 @@ package ru.iqsklad.data.repository.contract
 import androidx.lifecycle.LiveData
 import ru.iqsklad.data.dto.user.User
 
-interface IUsersRepository {
+interface IForwardersRepository {
 
-    fun getUsers(): LiveData<List<User>>
+    fun getForwarders(): LiveData<List<User>>
 }

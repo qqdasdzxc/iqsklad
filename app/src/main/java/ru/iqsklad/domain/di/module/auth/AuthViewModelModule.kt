@@ -4,13 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.IntoMap
-import ru.iqsklad.domain.di.component.AuthComponent
-import ru.iqsklad.domain.di.scope.AuthScope
 import ru.iqsklad.presentation.factory.ViewModelFactory
 import ru.iqsklad.presentation.factory.ViewModelKey
-import ru.iqsklad.presentation.implementation.auth.ChooseUserViewModel
+import ru.iqsklad.presentation.implementation.auth.ChooseForwarderViewModel
 
 @Module
 abstract class AuthViewModelModule {
@@ -21,6 +18,6 @@ abstract class AuthViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(ChooseUserViewModel::class)
-    abstract fun chooseUserViewModel(viewModel: ChooseUserViewModel): ViewModel
+    @ViewModelKey(ChooseForwarderViewModel::class)
+    abstract fun chooseUserViewModel(viewModel: ChooseForwarderViewModel): ViewModel
 }
