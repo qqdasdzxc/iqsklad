@@ -50,7 +50,7 @@ ext {
 
     supportLibraryVersion = "1.1.0-alpha03"
 
-    daggerVersion = '2.16'
+    daggerVersion = '2.17'
     leakCanaryVersion = '1.6.3'
     navigationFragmentVersion = '1.0.0'
     roomVersion = "2.0.0"

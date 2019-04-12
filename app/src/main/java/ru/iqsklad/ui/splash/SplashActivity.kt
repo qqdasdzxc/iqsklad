@@ -3,7 +3,7 @@ package ru.iqsklad.ui.splash
 import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.os.Bundle
-import ru.iqsklad.ui.auth.AuthActivity
+import ru.iqsklad.ui.auth.activity.AuthActivity
 
 
 class SplashActivity: AppCompatActivity() {

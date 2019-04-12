@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">IQ-Sklad</string>
+
+    <!-- Auth -->
+    <string name="auth_choose_user_search_hint">Укажите ФИО или ID экспедитора</string>
+    <string name="auth_confirm_user_info_label">Вы авторизуетесь в системе как:</string>
+    <string name="auth_confirm_user_id">ID: %s</string>
+    <string name="auth_confirm_user_action_title">Всё верно, авторизоваться</string>
+    <string name="auth_confirm_change_user_action_title">Нет, авторизоваться другим экспедитором</string>
 </resources>
