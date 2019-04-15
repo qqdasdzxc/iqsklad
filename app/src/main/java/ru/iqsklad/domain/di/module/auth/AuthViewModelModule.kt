@@ -19,5 +19,5 @@ abstract class AuthViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ChooseForwarderViewModel::class)
-    abstract fun chooseUserViewModel(viewModel: ChooseForwarderViewModel): ViewModel
+    abstract fun chooseForwarderViewModel(viewModel: ChooseForwarderViewModel): ViewModel
 }

@@ -1,4 +1,4 @@
-package ru.iqsklad.ui.auth.adapter
+package ru.iqsklad.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

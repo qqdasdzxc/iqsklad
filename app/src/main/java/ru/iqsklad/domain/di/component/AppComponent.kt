@@ -10,5 +10,7 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    fun plus(): AuthComponent
+    fun plusAuth(): AuthComponent
+
+    fun plusProcedure(): ProcedureComponent
 }

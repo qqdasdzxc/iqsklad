@@ -3,10 +3,10 @@ package ru.iqsklad.ui.auth.fragment
 import android.os.Bundle
 import android.view.View
 import ru.iqsklad.R
-import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.databinding.FragmentAuthConfirmForwarderBinding
+import ru.iqsklad.ui.base.fragment.BaseFragment
 
-class ConfirmForwarderAuthFragment: BaseFragment<FragmentAuthConfirmForwarderBinding>() {
+class ConfirmForwarderAuthFragment : BaseFragment<FragmentAuthConfirmForwarderBinding>() {
 
     override fun getLayoutResId(): Int = R.layout.fragment_auth_confirm_forwarder
 
@@ -17,8 +17,15 @@ class ConfirmForwarderAuthFragment: BaseFragment<FragmentAuthConfirmForwarderBin
     }
 
     private fun initView() {
-        binding.forwarder = ConfirmForwarderAuthFragmentArgs.fromBundle(arguments!!).forwarder
+        binding.user = ConfirmForwarderAuthFragmentArgs.fromBundle(arguments!!).user
 
         binding.confirmUserChangeView.setOnClickListener { navController.navigateUp() }
+
+        binding.confirmUserAcceptView.setOnClickListener {
+            val action =
+                ConfirmForwarderAuthFragmentDirections.actionAuthConfirmForwarderToChooseProcedure(binding.user!!)
+            navController.navigate(action)
+            activity!!.finish()
+        }
     }
 }

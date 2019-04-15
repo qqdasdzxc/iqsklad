@@ -7,4 +7,14 @@
     <string name="auth_confirm_user_id">ID: %s</string>
     <string name="auth_confirm_user_action_title">Всё верно, авторизоваться</string>
     <string name="auth_confirm_change_user_action_title">Нет, авторизоваться другим экспедитором</string>
+
+    <!-- Choose procedure -->
+    <string name="choose_procedure_pass_title">Сдать\nэкипировочное\nимущество</string>
+    <string name="choose_procedure_receive_title">Принять\nэкипировочное\nимущество</string>
+
+    <string name="choose_steward_search_hint">Укажите ФИО или ID бортпроводника</string>
+    <string name="procedure_confirm_steward_info_label">Бортпроводником назначен:</string>
+    <string name="procedure_confirm_change_steward_action_title">Нет, выбрать другого бортпроводника</string>
+    <string name="procedure_confirm_steward_action_title">Всё верно, выбрать бортпроводника</string>
+    <string name="procedure_without_steward_action_title">Сдать имущество без бортпроводника</string>
 </resources>

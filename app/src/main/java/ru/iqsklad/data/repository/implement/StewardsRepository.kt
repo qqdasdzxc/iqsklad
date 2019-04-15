@@ -3,9 +3,9 @@ package ru.iqsklad.data.repository.implement
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.iqsklad.data.dto.user.User
-import ru.iqsklad.data.repository.contract.IForwardersRepository
+import ru.iqsklad.data.repository.contract.IStewardsRepository
 
-class ForwardersRepository : IForwardersRepository {
+class StewardsRepository : IStewardsRepository {
 
     private val stubUsersList = listOf(
         User("Кузьмин Дмитрий Игоревич", "111111"),
@@ -14,7 +14,7 @@ class ForwardersRepository : IForwardersRepository {
         User("Александров Сан Саныч", "444444")
     )
 
-    override fun getForwarders(): LiveData<List<User>> {
+    override fun getStewards(): LiveData<List<User>> {
         val result = MutableLiveData<List<User>>()
         result.postValue(stubUsersList)
         return result

@@ -1,4 +1,4 @@
-package ru.iqsklad.ui.auth.fragment
+package ru.iqsklad.ui.procedure.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -7,39 +7,39 @@ import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.ui.base.fragment.BaseFragment
-import ru.iqsklad.databinding.FragmentAuthChooseForwarderBinding
+import ru.iqsklad.databinding.FragmentChooseStewardBinding
 import ru.iqsklad.domain.App
-import ru.iqsklad.presentation.implementation.auth.ChooseForwarderViewModel
-import ru.iqsklad.presentation.presenter.auth.ChooseForwarderPresenter
+import ru.iqsklad.presentation.implementation.procedure.ChooseStewardViewModel
+import ru.iqsklad.presentation.presenter.procedure.ChooseStewardPresenter
 import ru.iqsklad.ui.adapter.UsersAdapter
 import ru.iqsklad.utils.extensions.injectViewModel
 import javax.inject.Inject
 
-class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBinding>(), UsersAdapter.UserClickListener {
+class ChooseStewardFragment: BaseFragment<FragmentChooseStewardBinding>(), UsersAdapter.UserClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var presenter: ChooseForwarderPresenter
+    private lateinit var presenter: ChooseStewardPresenter
 
     private var adapter = UsersAdapter(this)
 
-    override fun getLayoutResId(): Int = R.layout.fragment_auth_choose_forwarder
+    override fun getLayoutResId(): Int = R.layout.fragment_choose_steward
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        App.authComponent?.inject(this)
+        App.procedureComponent?.inject(this)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = injectViewModel<ChooseForwarderViewModel>(viewModelFactory)
+        presenter = injectViewModel<ChooseStewardViewModel>(viewModelFactory)
         initObserve()
     }
 
     private fun initObserve() {
-        presenter.getForwarders().observe(this, Observer { setUsers(it) })
+        presenter.getStewards().observe(this, Observer { setUsers(it) })
     }
 
     private fun setUsers(userList: List<User>) {
@@ -54,11 +54,15 @@ class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBind
     }
 
     private fun initView() {
-        binding.chooseForwarderRecyclerView.adapter = adapter
+        binding.chooseStewardRecyclerView.adapter = adapter
+
+        binding.chooseStewardContinueWithoutStewardActionView.setOnClickListener {
+            navController.navigate(ChooseStewardFragmentDirections.actionChooseStewardToInvoiceScan())
+        }
     }
 
     override fun onUserClicked(user: User) {
-        val action = ChooseForwarderAuthFragmentDirections.actionAuthChooseForwarderToConfirmForwarder(user)
+        val action = ChooseStewardFragmentDirections.actionChooseStewardToConfirmSteward(user)
         navController.navigate(action)
     }
 }

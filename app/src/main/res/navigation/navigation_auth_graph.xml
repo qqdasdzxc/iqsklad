@@ -15,8 +15,8 @@
                 android:id="@+id/action_auth_choose_forwarder_to_confirm_forwarder"
                 app:destination="@id/confirm_forwarder_auth_fragment">
             <argument
-                    android:name="forwarder"
-                    app:argType="ru.iqsklad.data.dto.user.Forwarder"
+                    android:name="user"
+                    app:argType="ru.iqsklad.data.dto.user.User"
                     app:nullable="false"/>
         </action>
 
@@ -28,10 +28,34 @@
             android:name="ru.iqsklad.ui.auth.fragment.ConfirmForwarderAuthFragment"
             android:label="ConfirmForwarderAuthFragment"
             tools:layout="@layout/fragment_auth_confirm_forwarder">
+
         <argument
-                android:name="forwarder"
-                app:argType="ru.iqsklad.data.dto.user.Forwarder"
+                android:name="user"
+                app:argType="ru.iqsklad.data.dto.user.User"
                 app:nullable="false"/>
+
+        <action
+                android:id="@+id/action_auth_confirm_forwarder_to_choose_procedure"
+                app:destination="@id/procedure_activity">
+            <argument
+                    android:name="user"
+                    app:argType="ru.iqsklad.data.dto.user.User"
+                    app:nullable="false"/>
+        </action>
+
     </fragment>
+
+    <activity
+            android:id="@+id/procedure_activity"
+            android:name="ru.iqsklad.ui.procedure.activity.ProcedureActivity"
+            android:label="ProcedureActivity"
+            tools:layout="@layout/activity_procedure">
+
+        <argument
+                android:name="user"
+                app:argType="ru.iqsklad.data.dto.user.User"
+                app:nullable="false"/>
+
+    </activity>
 
 </navigation>

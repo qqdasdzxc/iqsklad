@@ -24,7 +24,7 @@
 
         <activity android:name=".ui.auth.activity.AuthActivity"/>
 
-        <activity android:name=".ui.main.MainActivity"/>
+        <activity android:name=".ui.procedure.activity.ProcedureActivity"/>
 
     </application>
 

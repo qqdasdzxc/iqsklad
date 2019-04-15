@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navigation_procedure_graph"
+        app:startDestination="@id/choose_procedure_fragment">
+
+    <fragment
+            android:id="@+id/choose_procedure_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.ChooseProcedureFragment"
+            android:label="ChooseProcedureFragment"
+            tools:layout="@layout/fragment_choose_procedure">
+
+        <action
+                android:id="@+id/action_choose_procedure_to_choose_steward"
+                app:destination="@id/choose_steward_fragment"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/choose_steward_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.ChooseStewardFragment"
+            android:label="ChooseStewardFragment"
+            tools:layout="@layout/fragment_choose_steward">
+
+        <action
+                android:id="@+id/action_choose_steward_to_confirm_steward"
+                app:destination="@id/confirm_steward_fragment">
+            <argument
+                    android:name="user"
+                    app:argType="ru.iqsklad.data.dto.user.User"
+                    app:nullable="false"/>
+        </action>
+
+        <action
+                android:id="@+id/action_choose_steward_to_invoice_scan"
+                app:destination="@id/invoice_scan_fragment"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/confirm_steward_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.ConfirmStewardFragment"
+            android:label="ConfirmStewardFragment"
+            tools:layout="@layout/fragment_confirm_steward">
+
+        <argument
+                android:name="user"
+                app:argType="ru.iqsklad.data.dto.user.User"
+                app:nullable="false"/>
+
+        <action
+                android:id="@+id/action_confirm_steward_to_invoice_scan"
+                app:destination="@id/invoice_scan_fragment"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/invoice_scan_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.InvoiceScanFragment"
+            android:label="InvoiceScanFragment"
+            tools:layout="@layout/fragment_invoice_scan">
+
+    </fragment>
+
+</navigation>
