@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools" package="ru.iqsklad">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
             android:name=".domain.App"
             android:allowBackup="false"
@@ -22,9 +24,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.auth.activity.AuthActivity"/>
+        <activity android:name=".ui.auth.activity.AuthActivity"
+                  android:configChanges="screenSize|orientation|keyboardHidden"
+                  android:screenOrientation="portrait"/>
 
-        <activity android:name=".ui.procedure.activity.ProcedureActivity"/>
+        <activity android:name=".ui.procedure.activity.ProcedureActivity"
+                  android:configChanges="screenSize|orientation|keyboardHidden"
+                  android:screenOrientation="portrait"/>
 
     </application>
 

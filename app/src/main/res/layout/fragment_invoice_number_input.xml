@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="presenter"
+                type="ru.iqsklad.presentation.presenter.procedure.InvoiceNumberInputPresenter"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/invoice_number_input_example_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="@dimen/start_end_margin"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="ContentDescription"/>
+
+        <TextView
+                android:id="@+id/invoice_number_input_scan_action_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginTop="@dimen/start_end_margin"
+                android:text="@string/invoice_number_input_back_to_scan_action_title"
+                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_example_image_view"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/invoice_number_input_scan_wrapper_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/invoice_number_input_scan_hint"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginTop="@dimen/start_end_margin"
+                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_scan_action_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:isError="@{safeUnbox(presenter.getInvoiceNumberObservable().observeWrapperEdit)}">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/invoice_number_input_scan_edit_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@{presenter.getInvoiceNumberObservable().observeEdit}"
+                    app:addTextWatcher="@{presenter.getInvoiceNumberObservable().observeEdit}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/invoice_number_input_action_view"
+                style="@style/PrimaryButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/start_end_margin"
+                android:text='@{String.format(@string/invoice_number_input_action_message, presenter.getInvoiceNumberObservable.observeEdit.get() ?? "")}'
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

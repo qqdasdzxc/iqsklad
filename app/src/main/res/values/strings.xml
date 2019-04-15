@@ -12,9 +12,20 @@
     <string name="choose_procedure_pass_title">Сдать\nэкипировочное\nимущество</string>
     <string name="choose_procedure_receive_title">Принять\nэкипировочное\nимущество</string>
 
+    <!-- Choose steward -->
     <string name="choose_steward_search_hint">Укажите ФИО или ID бортпроводника</string>
     <string name="procedure_confirm_steward_info_label">Бортпроводником назначен:</string>
     <string name="procedure_confirm_change_steward_action_title">Нет, выбрать другого бортпроводника</string>
     <string name="procedure_confirm_steward_action_title">Всё верно, выбрать бортпроводника</string>
     <string name="procedure_without_steward_action_title">Сдать имущество без бортпроводника</string>
+
+    <!-- Invoice scan -->
+    <string name="invoice_scan_message">Поместите штрихкод накладной в центр рамки</string>
+    <string name="invoice_scan_error_message">Накладная не найдена?</string>
+    <string name="invoice_scan_error_action_title">Ввести номер накладной вручную</string>
+    <string name="invoice_number_input_back_to_scan_action_title">Повторно отсканировать накладную</string>
+    <string name="invoice_number_input_scan_hint">Номер накладной</string>
+    <string name="invoice_number_input_action_message">Сдать ЭИ по накладной №%s</string>
+
+
 </resources>

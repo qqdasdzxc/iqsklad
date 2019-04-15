@@ -22,4 +22,12 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="ErrorHintAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@android:color/holo_red_light</item>
+    </style>
+
+    <style name="DefaultHintAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
 </resources>

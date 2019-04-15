@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/invoice_scan_message"
+                android:textAlignment="center"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/start_end_margin"
+                app:layout_constraintBottom_toTopOf="@id/guideline_top"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:background="@drawable/camera_invoice_scan_background"
+                app:layout_constraintTop_toBottomOf="@id/guideline_top"
+                app:layout_constraintBottom_toTopOf="@id/guideline_bottom"/>
+
+        <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.75"/>
+
+        <TextView
+                android:id="@+id/invoice_scan_error_message_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/invoice_scan_error_message"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/start_end_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guideline_bottom"/>
+
+        <TextView
+                android:id="@+id/invoice_scan_error_action_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/invoice_scan_error_action_title"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/start_end_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/invoice_scan_error_message_title"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

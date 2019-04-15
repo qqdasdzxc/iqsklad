@@ -62,6 +62,18 @@
             android:label="InvoiceScanFragment"
             tools:layout="@layout/fragment_invoice_scan">
 
+        <action
+                android:id="@+id/action_invoice_scan_to_invoice_number_input"
+                app:destination="@id/invoice_number_input_fragment"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/invoice_number_input_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.InvoiceNumberInputFragment"
+            android:label="InvoiceNumberInputFragment"
+            tools:layout="@layout/fragment_invoice_number_input">
+
     </fragment>
 
 </navigation>
