@@ -20,5 +20,8 @@ class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
         binding.invoiceScanErrorActionTitle.setOnClickListener {
             navController.navigate(InvoiceScanFragmentDirections.actionInvoiceScanToInvoiceNumberInput())
         }
+
+        //TODO integrate sdk for invoice scan
+        //TODO navigate to invoice plan
     }
 }

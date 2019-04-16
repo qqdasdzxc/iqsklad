@@ -27,5 +27,10 @@
     <string name="invoice_number_input_scan_hint">Номер накладной</string>
     <string name="invoice_number_input_action_message">Сдать ЭИ по накладной №%s</string>
 
+    <!-- Invoice preview -->
+    <string name="invoice_preview_title">Накладная №%s</string>
+    <string name="invoice_preview_start_scan_action_title">Сканировать экипировочное имущество</string>
+    <string name="invoice_preview_title_label">Наименование</string>
+    <string name="invoice_preview_plan_label">План</string>
 
 </resources>

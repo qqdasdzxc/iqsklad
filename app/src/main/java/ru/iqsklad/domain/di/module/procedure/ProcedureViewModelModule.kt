@@ -10,6 +10,7 @@ import ru.iqsklad.presentation.factory.ViewModelKey
 import ru.iqsklad.presentation.implementation.procedure.ChooseProcedureViewModel
 import ru.iqsklad.presentation.implementation.procedure.ChooseStewardViewModel
 import ru.iqsklad.presentation.implementation.procedure.InvoiceNumberInputViewModel
+import ru.iqsklad.presentation.implementation.procedure.InvoicePreviewViewModel
 
 @Module
 abstract class ProcedureViewModelModule {
@@ -32,4 +33,9 @@ abstract class ProcedureViewModelModule {
     @IntoMap
     @ViewModelKey(InvoiceNumberInputViewModel::class)
     abstract fun invoiceNumberInputViewModel(viewModel: InvoiceNumberInputViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(InvoicePreviewViewModel::class)
+    abstract fun invoicePreviewViewModel(viewModel: InvoicePreviewViewModel): ViewModel
 }

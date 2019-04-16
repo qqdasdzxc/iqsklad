@@ -27,7 +27,7 @@ class InvoiceNumberInputViewModel @Inject constructor(private var procedureDataH
             return
         }
 
-        procedureDataHolder.procedureInvoiceNumber = invoiceNumberObservable.observeEdit.get()
+        procedureDataHolder.procedureInvoice.invoiceID = invoiceNumberObservable.observeEdit.get()
         acceptInvoiceNumber.postValue(true)
     }
 }

@@ -42,8 +42,6 @@
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/confirm_user_accept_view"
                 style="@style/PrimaryButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/start_end_margin"
                 android:text="@string/procedure_confirm_steward_action_title"
                 app:layout_constraintStart_toStartOf="parent"
