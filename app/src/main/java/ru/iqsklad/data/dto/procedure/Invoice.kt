@@ -32,4 +32,15 @@ class Invoice {
             )
         )
     )
+
+    fun containsRfid(rfid: String): Boolean {
+        for (inventory in inventoryList) {
+            if (inventory.rfidList.contains(rfid)) {
+                inventory.scannedCount++
+                return true
+            }
+        }
+
+        return false
+    }
 }

@@ -6,10 +6,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.Inventory
+import ru.iqsklad.data.dto.procedure.InventoryScanMode
 import ru.iqsklad.ui.base.adapter.RecyclerListAdapter
 import ru.iqsklad.databinding.ItemInventoryBinding
 
 class InventoryAdapter : RecyclerListAdapter<Inventory, InventoryAdapter.InventoryViewHolder>() {
+
+    private var inventoryScanMode: InventoryScanMode = InventoryScanMode.PREVIEW
 
     override fun onBindCustomViewHolder(holder: InventoryViewHolder, position: Int) {
         holder.populate(getItem(position))
@@ -25,10 +28,18 @@ class InventoryAdapter : RecyclerListAdapter<Inventory, InventoryAdapter.Invento
         return InventoryViewHolder(binding)
     }
 
+    fun setScanMode(inventoryScanMode: InventoryScanMode) {
+        this.inventoryScanMode = inventoryScanMode
+        notifyDataSetChanged()
+    }
+
     inner class InventoryViewHolder(private var binding: ItemInventoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun populate(inventory: Inventory) {
             binding.inventory = inventory
+            binding.inventoryScanMode = inventoryScanMode
+
+            //TODO scanned count color
         }
     }
 }

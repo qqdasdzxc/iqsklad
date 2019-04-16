@@ -32,5 +32,6 @@
     <string name="invoice_preview_start_scan_action_title">Сканировать экипировочное имущество</string>
     <string name="invoice_preview_title_label">Наименование</string>
     <string name="invoice_preview_plan_label">План</string>
+    <string name="invoice_preview_fact_label">Факт</string>
 
 </resources>

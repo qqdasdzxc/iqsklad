@@ -75,14 +75,14 @@
             tools:layout="@layout/fragment_invoice_number_input">
 
         <action
-                android:id="@+id/action_invoice_number_input_to_invoice_preview"
-                app:destination="@id/invoice_preview_fragment"/>
+                android:id="@+id/action_invoice_number_input_to_inventory_scan"
+                app:destination="@id/inventory_scan_fragment"/>
 
     </fragment>
 
     <fragment
-            android:id="@+id/invoice_preview_fragment"
-            android:name="ru.iqsklad.ui.procedure.fragment.InvoicePreviewFragment"
+            android:id="@+id/inventory_scan_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.InventoryScanFragment"
             android:label="InvoicePreviewFragment"
             tools:layout="@layout/fragment_invoice_preview">
 

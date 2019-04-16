@@ -38,7 +38,7 @@ class InvoiceNumberInputFragment: BaseFragment<FragmentInvoiceNumberInputBinding
 
     private fun initObservable() {
         presenter.getAcceptInvoiceNumber().observe(this, Observer {
-            navController.navigate(InvoiceNumberInputFragmentDirections.actionInvoiceNumberInputToInvoicePreview())
+            navController.navigate(InvoiceNumberInputFragmentDirections.actionInvoiceNumberInputToInventoryScan())
         })
     }
 

@@ -6,6 +6,14 @@
 
     <data>
 
+        <import type="ru.iqsklad.data.dto.procedure.InventoryScanMode"/>
+
+        <import type="android.view.View"/>
+
+        <variable
+                name="inventoryScanMode"
+                type="ru.iqsklad.data.dto.procedure.InventoryScanMode"/>
+
         <variable
                 name="inventory"
                 type="ru.iqsklad.data.dto.procedure.Inventory"/>
@@ -26,6 +34,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="Плед эконом. класса (RFID)"/>
 
+        <View
+                android:id="@+id/planned_divider"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:background="@color/black"
+                app:layout_constraintEnd_toStartOf="@id/inventory_item_planned_count_label"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         <TextView
                 android:id="@+id/inventory_item_planned_count_label"
                 android:layout_width="wrap_content"
@@ -34,19 +52,35 @@
                 android:layout_marginBottom="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@{String.valueOf(inventory.plannedCount)}"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/scanned_divider"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="10"/>
 
         <View
+                android:id="@+id/scanned_divider"
                 android:layout_width="1dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="@dimen/start_end_margin"
                 android:background="@color/black"
-                app:layout_constraintEnd_toStartOf="@id/inventory_item_planned_count_label"
+                android:visibility="@{inventoryScanMode == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toStartOf="@id/inventory_item_scanned_count_label"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+                android:id="@+id/inventory_item_scanned_count_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:text="@{String.valueOf(inventory.scannedCount)}"
+                android:visibility="@{inventoryScanMode == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="10"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
