@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import ru.iqsklad.data.dto.procedure.Inventory
-import ru.iqsklad.data.dto.procedure.InventoryScanMode
-import ru.iqsklad.data.dto.procedure.ProcedureDataHolder
-import ru.iqsklad.data.dto.procedure.RFID_EPC
+import ru.iqsklad.data.dto.procedure.*
 import ru.iqsklad.data.scan.IRfidScanner
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
@@ -46,11 +43,14 @@ class InventoryScanViewModel @Inject constructor(
         return inventoryViewModeObservable
     }
 
-    override fun startScan(): LiveData<RFID_EPC> {
+    override fun getProcedureType(): ProcedureType {
+        return procedureDataHolder.procedureType
+    }
+
+    override fun startScan(): LiveData<ScanResult?> {
         inventoryViewModeObservable.set(InventoryScanMode.SCANNING)
         return Transformations.map(rfidScanner.startScan()) {
-            processRfid(it)
-            it
+            return@map processRfid(it)
         }
     }
 
@@ -59,12 +59,18 @@ class InventoryScanViewModel @Inject constructor(
         rfidScanner.stopScan()
     }
 
-    private fun processRfid(rfid: RFID_EPC?) {
+    private fun processRfid(rfid: RFID_EPC?): ScanResult? {
         rfid?.let {
             if (!scannedRfidSet.contains(rfid)) {
                 scannedRfidSet.add(rfid)
-                procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(it)
+                return if (procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(it)) {
+                    ScanResult(rfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
+                } else {
+                    ScanResult(rfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
+                }
             }
         }
+
+        return null
     }
 }

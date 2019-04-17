@@ -29,13 +29,19 @@
     <string name="invoice_number_input_scan_hint">Номер накладной</string>
     <string name="invoice_number_input_action_message">Сдать ЭИ по накладной №%s</string>
 
-    <!-- Invoice preview -->
-    <string name="invoice_preview_title">Накладная №%s</string>
-    <string name="invoice_preview_start_scan_action_title">Сканировать экипировочное имущество</string>
-    <string name="invoice_preview_stop_scan_action_title">Закончить сканирование</string>
-    <string name="invoice_preview_resume_scan_action_title">Продолжить сканирование</string>
-    <string name="invoice_preview_title_label">Наименование</string>
-    <string name="invoice_preview_plan_label">План</string>
-    <string name="invoice_preview_fact_label">Факт</string>
+    <!-- Inventory scan -->
+    <string name="inventory_scan_title">Накладная №%s</string>
+    <string name="inventory_scan_start_action_title">Сканировать экипировочное имущество</string>
+    <string name="inventory_scan_stop_action_title">Закончить сканирование</string>
+    <string name="inventory_scan_resume_action_title">Продолжить сканирование</string>
+    <string name="inventory_scan_stop_action_with_exit_title">Закончить сдачу экипировочного имущества</string>
+    <string name="inventory_scan_title_label">Наименование</string>
+    <string name="inventory_scan_plan_label">План</string>
+    <string name="inventory_scan_fact_label">Факт</string>
+    <string name="inventory_scan_info_label">Информация</string>
+    <string name="scan_result_success_procedure_type_pass_text">ЭИ %s сдано</string>
+    <string name="scan_result_excluded_procedure_type_pass_text">ЭИ %s сдано, но не числится в накладной №%s</string>
+    <string name="scan_result_success_procedure_type_receive_text">ЭИ %s принято</string>
+    <string name="scan_result_excluded_procedure_type_receive_text">ЭИ %s принято, но не числится в накладной №%s</string>
 
 </resources>

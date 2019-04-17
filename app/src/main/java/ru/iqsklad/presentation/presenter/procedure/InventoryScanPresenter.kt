@@ -4,7 +4,8 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import ru.iqsklad.data.dto.procedure.Inventory
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
-import ru.iqsklad.data.dto.procedure.RFID_EPC
+import ru.iqsklad.data.dto.procedure.ProcedureType
+import ru.iqsklad.data.dto.procedure.ScanResult
 
 interface InventoryScanPresenter {
 
@@ -14,7 +15,9 @@ interface InventoryScanPresenter {
 
     fun getInventoryScanMode(): ObservableField<InventoryScanMode>
 
-    fun startScan(): LiveData<RFID_EPC>
+    fun getProcedureType(): ProcedureType
+
+    fun startScan(): LiveData<ScanResult?>
 
     fun stopScan()
 }

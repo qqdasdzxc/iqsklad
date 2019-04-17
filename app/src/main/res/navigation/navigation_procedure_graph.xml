@@ -84,7 +84,7 @@
             android:id="@+id/inventory_scan_fragment"
             android:name="ru.iqsklad.ui.procedure.fragment.InventoryScanFragment"
             android:label="InvoicePreviewFragment"
-            tools:layout="@layout/fragment_invoice_preview">
+            tools:layout="@layout/fragment_inventory_scan">
 
         <!--<action-->
                 <!--android:id="@+id/action_invoice_number_input_to_invoice_preview"-->

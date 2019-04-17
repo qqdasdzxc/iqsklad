@@ -8,23 +8,26 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
+import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.ui.base.fragment.BaseFragment
-import ru.iqsklad.databinding.FragmentInvoicePreviewBinding
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
 import ru.iqsklad.ui.adapter.InventoryAdapter
 import ru.iqsklad.utils.extensions.injectViewModel
+import ru.iqsklad.databinding.FragmentInventoryScanBinding
+import ru.iqsklad.ui.adapter.ScanResultAdapter
 import javax.inject.Inject
 
-class InventoryScanFragment: BaseFragment<FragmentInvoicePreviewBinding>() {
+class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var presenter: InventoryScanPresenter
     private var inventoryAdapter = InventoryAdapter()
+    private var scanResultAdapter = ScanResultAdapter()
 
-    override fun getLayoutResId(): Int = R.layout.fragment_invoice_preview
+    override fun getLayoutResId(): Int = R.layout.fragment_inventory_scan
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,12 @@ class InventoryScanFragment: BaseFragment<FragmentInvoicePreviewBinding>() {
         initObservable()
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        presenter.stopScan()
+    }
+
     private fun initObservable() {
         presenter.getInvoiceInventoryLiveData().observe(this, Observer {
             inventoryAdapter.clear()
@@ -54,6 +63,8 @@ class InventoryScanFragment: BaseFragment<FragmentInvoicePreviewBinding>() {
                 }
             }
         })
+
+        scanResultAdapter.setProcedureType(presenter.getProcedureType())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,9 +74,10 @@ class InventoryScanFragment: BaseFragment<FragmentInvoicePreviewBinding>() {
     }
 
     private fun initView() {
-        binding.invoicePreviewListView.adapter = inventoryAdapter
+        binding.inventoryListView.adapter = inventoryAdapter
+        binding.scanResultListView.adapter = scanResultAdapter
 
-        binding.invoicePreviewStartScanActionView.setOnClickListener {
+        binding.inventoryScanActionView.setOnClickListener {
             processScanAction()
         }
     }
@@ -80,8 +92,11 @@ class InventoryScanFragment: BaseFragment<FragmentInvoicePreviewBinding>() {
 
     private fun initScanObserve() {
         presenter.startScan().observe(this, Observer {
-            inventoryAdapter.notifyDataSetChanged()
-            //todo add rfid to info inventory recycler
+            it?.let { scanResult ->
+                inventoryAdapter.notifyDataSetChanged()
+                scanResultAdapter.add(scanResult)
+                binding.scanResultListView.scrollToPosition(scanResultAdapter.itemCount - 1)
+            }
         })
     }
 

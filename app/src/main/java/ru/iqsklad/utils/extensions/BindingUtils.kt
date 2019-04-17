@@ -24,8 +24,8 @@ fun EditText.updateTextWatcher(listener: TextWatcher) {
 @BindingAdapter(value = ["scanActionText"])
 fun MaterialButton.updateText(inventoryScanMode: InventoryScanMode) {
     setText(when (inventoryScanMode) {
-        InventoryScanMode.PREVIEW -> R.string.invoice_preview_start_scan_action_title
-        InventoryScanMode.SCANNING -> R.string.invoice_preview_stop_scan_action_title
-        InventoryScanMode.STOPPED -> R.string.invoice_preview_resume_scan_action_title
+        InventoryScanMode.PREVIEW -> R.string.inventory_scan_start_action_title
+        InventoryScanMode.SCANNING -> R.string.inventory_scan_stop_action_title
+        InventoryScanMode.STOPPED -> R.string.inventory_scan_resume_action_title
     })
 }
