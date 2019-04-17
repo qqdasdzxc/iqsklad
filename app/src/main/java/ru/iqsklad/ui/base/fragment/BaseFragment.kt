@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
@@ -35,4 +37,14 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     protected inline fun <reified T : ViewModel> getPresenter(): T {
         return ViewModelProviders.of(this)[T::class.java]
     }
+
+    fun showMessage(@StringRes messageResId: Int) {
+        showMessage(getString(messageResId))
+    }
+
+    fun showMessage(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    abstract fun handleScanPressButton()
 }

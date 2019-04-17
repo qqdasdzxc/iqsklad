@@ -54,4 +54,8 @@ class ChooseProcedureFragment: BaseFragment<FragmentChooseProcedureBinding>() {
         presenter.setProcedureType(procedureType)
         navController.navigate(ChooseProcedureFragmentDirections.actionChooseProcedureToChooseSteward())
     }
+
+    override fun handleScanPressButton() {
+        showMessage(R.string.choose_procedure_message)
+    }
 }

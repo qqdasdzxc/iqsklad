@@ -22,7 +22,15 @@ class ConfirmStewardFragment: BaseFragment<FragmentConfirmStewardBinding>() {
         binding.confirmUserChangeView.setOnClickListener { navController.navigateUp() }
 
         binding.confirmUserAcceptView.setOnClickListener {
-            navController.navigate(ConfirmStewardFragmentDirections.actionConfirmStewardToInvoiceScan())
+            confirmStewardAction()
         }
+    }
+
+    private fun confirmStewardAction() {
+        navController.navigate(ConfirmStewardFragmentDirections.actionConfirmStewardToInvoiceScan())
+    }
+
+    override fun handleScanPressButton() {
+        confirmStewardAction()
     }
 }

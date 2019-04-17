@@ -2,13 +2,14 @@ package ru.iqsklad.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.Inventory
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
-import ru.iqsklad.ui.base.adapter.RecyclerListAdapter
 import ru.iqsklad.databinding.ItemInventoryBinding
+import ru.iqsklad.ui.base.adapter.RecyclerListAdapter
 
 class InventoryAdapter : RecyclerListAdapter<Inventory, InventoryAdapter.InventoryViewHolder>() {
 
@@ -39,7 +40,22 @@ class InventoryAdapter : RecyclerListAdapter<Inventory, InventoryAdapter.Invento
             binding.inventory = inventory
             binding.inventoryScanMode = inventoryScanMode
 
-            //TODO scanned count color
+            updateScannedCountColor(inventory.scannedCount, inventory.plannedCount)
+        }
+
+        private fun updateScannedCountColor(scannedCount: Int, plannedCount: Int) {
+            when {
+                scannedCount < plannedCount -> {
+                    binding.inventoryItemScannedCountLabel.setTextColor(
+                        ContextCompat.getColor(binding.root.context, R.color.colorAccent)
+                    )
+                }
+                else -> {
+                    binding.inventoryItemScannedCountLabel.setTextColor(
+                        ContextCompat.getColor(binding.root.context, R.color.colorPrimary)
+                    )
+                }
+            }
         }
     }
 }

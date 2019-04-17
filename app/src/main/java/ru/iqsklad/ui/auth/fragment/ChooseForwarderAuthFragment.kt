@@ -61,4 +61,8 @@ class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBind
         val action = ChooseForwarderAuthFragmentDirections.actionAuthChooseForwarderToConfirmForwarder(user)
         navController.navigate(action)
     }
+
+    override fun handleScanPressButton() {
+        showMessage(R.string.auth_choose_error_title)
+    }
 }

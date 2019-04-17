@@ -1,11 +1,11 @@
 package ru.iqsklad.ui.auth.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import ru.iqsklad.R
 import ru.iqsklad.domain.App
+import ru.iqsklad.ui.base.activity.BaseActivity
 
-class AuthActivity: AppCompatActivity() {
+class AuthActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

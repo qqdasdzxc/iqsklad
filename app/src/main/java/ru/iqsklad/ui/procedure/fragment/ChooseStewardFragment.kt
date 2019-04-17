@@ -57,12 +57,20 @@ class ChooseStewardFragment: BaseFragment<FragmentChooseStewardBinding>(), Users
         binding.chooseStewardRecyclerView.adapter = adapter
 
         binding.chooseStewardContinueWithoutStewardActionView.setOnClickListener {
-            navController.navigate(ChooseStewardFragmentDirections.actionChooseStewardToInvoiceScan())
+            continueWithoutSteward()
         }
+    }
+
+    private fun continueWithoutSteward() {
+        navController.navigate(ChooseStewardFragmentDirections.actionChooseStewardToInvoiceScan())
     }
 
     override fun onUserClicked(user: User) {
         val action = ChooseStewardFragmentDirections.actionChooseStewardToConfirmSteward(user)
         navController.navigate(action)
+    }
+
+    override fun handleScanPressButton() {
+        continueWithoutSteward()
     }
 }

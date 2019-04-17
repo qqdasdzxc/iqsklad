@@ -15,4 +15,6 @@ interface InventoryScanPresenter {
     fun getInventoryScanMode(): ObservableField<InventoryScanMode>
 
     fun startScan(): LiveData<RFID_EPC>
+
+    fun stopScan()
 }

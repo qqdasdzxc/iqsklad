@@ -46,11 +46,12 @@
 
         <TextView
                 android:id="@+id/inventory_item_planned_count_label"
-                android:layout_width="wrap_content"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginBottom="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
+                android:textAlignment="center"
                 android:text="@{String.valueOf(inventory.plannedCount)}"
                 app:layout_constraintEnd_toStartOf="@id/scanned_divider"
                 app:layout_constraintTop_toTopOf="parent"
@@ -70,16 +71,15 @@
 
         <TextView
                 android:id="@+id/inventory_item_scanned_count_label"
-                android:layout_width="wrap_content"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
-                android:layout_marginBottom="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
+                android:textAlignment="center"
                 android:text="@{String.valueOf(inventory.scannedCount)}"
                 android:visibility="@{inventoryScanMode == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="10"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

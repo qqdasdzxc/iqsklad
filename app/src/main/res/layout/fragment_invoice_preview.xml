@@ -91,13 +91,13 @@
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/invoice_preview_start_scan_action_view"
                 style="@style/PrimaryButton"
-                android:text="@string/invoice_preview_start_scan_action_title"
                 android:layout_marginBottom="@dimen/start_end_margin"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:scanActionText="@{presenter.getInventoryScanMode()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -37,6 +37,7 @@ class InvoiceNumberInputFragment: BaseFragment<FragmentInvoiceNumberInputBinding
     }
 
     private fun initObservable() {
+        presenter.initAcceptInvoiceNumber()
         presenter.getAcceptInvoiceNumber().observe(this, Observer {
             navController.navigate(InvoiceNumberInputFragmentDirections.actionInvoiceNumberInputToInventoryScan())
         })
@@ -50,7 +51,15 @@ class InvoiceNumberInputFragment: BaseFragment<FragmentInvoiceNumberInputBinding
 
     private fun initView() {
         binding.invoiceNumberInputActionView.setOnClickListener {
-            presenter.sendInvoiceNumber()
+            acceptInvoiceNumber()
         }
+    }
+
+    private fun acceptInvoiceNumber() {
+        presenter.sendInvoiceNumber()
+    }
+
+    override fun handleScanPressButton() {
+        acceptInvoiceNumber()
     }
 }

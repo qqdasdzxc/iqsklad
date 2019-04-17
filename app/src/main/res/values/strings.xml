@@ -3,6 +3,7 @@
 
     <!-- Auth -->
     <string name="auth_choose_user_search_hint">Укажите ФИО или ID экспедитора</string>
+    <string name="auth_choose_error_title">Выберите экспедитора</string>
     <string name="auth_confirm_user_info_label">Вы авторизуетесь в системе как:</string>
     <string name="auth_confirm_user_id">ID: %s</string>
     <string name="auth_confirm_user_action_title">Всё верно, авторизоваться</string>
@@ -11,6 +12,7 @@
     <!-- Choose procedure -->
     <string name="choose_procedure_pass_title">Сдать\nэкипировочное\nимущество</string>
     <string name="choose_procedure_receive_title">Принять\nэкипировочное\nимущество</string>
+    <string name="choose_procedure_message">Выберите процедуру</string>
 
     <!-- Choose steward -->
     <string name="choose_steward_search_hint">Укажите ФИО или ID бортпроводника</string>
@@ -30,6 +32,8 @@
     <!-- Invoice preview -->
     <string name="invoice_preview_title">Накладная №%s</string>
     <string name="invoice_preview_start_scan_action_title">Сканировать экипировочное имущество</string>
+    <string name="invoice_preview_stop_scan_action_title">Закончить сканирование</string>
+    <string name="invoice_preview_resume_scan_action_title">Продолжить сканирование</string>
     <string name="invoice_preview_title_label">Наименование</string>
     <string name="invoice_preview_plan_label">План</string>
     <string name="invoice_preview_fact_label">Факт</string>

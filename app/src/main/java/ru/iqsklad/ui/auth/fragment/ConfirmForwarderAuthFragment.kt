@@ -22,10 +22,18 @@ class ConfirmForwarderAuthFragment : BaseFragment<FragmentAuthConfirmForwarderBi
         binding.confirmUserChangeView.setOnClickListener { navController.navigateUp() }
 
         binding.confirmUserAcceptView.setOnClickListener {
-            val action =
-                ConfirmForwarderAuthFragmentDirections.actionAuthConfirmForwarderToChooseProcedure(binding.user!!)
-            navController.navigate(action)
-            activity!!.finish()
+            confirmForwarderAction()
         }
+    }
+
+    private fun confirmForwarderAction() {
+        val action =
+            ConfirmForwarderAuthFragmentDirections.actionAuthConfirmForwarderToChooseProcedure(binding.user!!)
+        navController.navigate(action)
+        activity!!.finish()
+    }
+
+    override fun handleScanPressButton() {
+        confirmForwarderAction()
     }
 }

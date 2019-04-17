@@ -24,4 +24,6 @@ class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
         //TODO integrate sdk for invoice scan
         //TODO navigate to invoice plan
     }
+
+    override fun handleScanPressButton() {}
 }

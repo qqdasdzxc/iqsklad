@@ -10,4 +10,6 @@ interface InvoiceNumberInputPresenter {
     fun sendInvoiceNumber()
 
     fun getAcceptInvoiceNumber(): LiveData<Boolean>
+
+    fun initAcceptInvoiceNumber()
 }

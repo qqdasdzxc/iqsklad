@@ -24,8 +24,11 @@ class InventoryScanViewModel @Inject constructor(
     private val invoiceInventoryListObservable = MutableLiveData<List<Inventory>>()
     private val inventoryViewModeObservable = ObservableField<InventoryScanMode>()
 
+    private val scannedRfidSet = HashSet<RFID_EPC>()
+
     init {
         App.procedureComponent!!.inject(this)
+        procedureDataHolder.procedureInvoice.setInitState()
         invoiceIDObservable.set(procedureDataHolder.procedureInvoice.invoiceID)
         invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice.inventoryList
         inventoryViewModeObservable.set(InventoryScanMode.PREVIEW)
@@ -45,15 +48,23 @@ class InventoryScanViewModel @Inject constructor(
 
     override fun startScan(): LiveData<RFID_EPC> {
         inventoryViewModeObservable.set(InventoryScanMode.SCANNING)
-        return Transformations.map(rfidScanner.getRfidLiveData()) {
+        return Transformations.map(rfidScanner.startScan()) {
             processRfid(it)
             it
         }
     }
 
+    override fun stopScan() {
+        inventoryViewModeObservable.set(InventoryScanMode.STOPPED)
+        rfidScanner.stopScan()
+    }
+
     private fun processRfid(rfid: RFID_EPC?) {
         rfid?.let {
-            procedureDataHolder.procedureInvoice.containsRfid(it)
+            if (!scannedRfidSet.contains(rfid)) {
+                scannedRfidSet.add(rfid)
+                procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(it)
+            }
         }
     }
 }

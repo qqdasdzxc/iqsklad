@@ -2,7 +2,6 @@ package ru.iqsklad.ui.procedure.fragment
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
@@ -67,14 +66,34 @@ class InventoryScanFragment: BaseFragment<FragmentInvoicePreviewBinding>() {
         binding.invoicePreviewListView.adapter = inventoryAdapter
 
         binding.invoicePreviewStartScanActionView.setOnClickListener {
-            initScanObserve()
+            processScanAction()
+        }
+    }
+
+    private fun processScanAction() {
+        when (presenter.getInventoryScanMode().get()) {
+            InventoryScanMode.PREVIEW -> initScanObserve()
+            InventoryScanMode.SCANNING -> stopScanObserve()
+            InventoryScanMode.STOPPED -> resumeScanObserve()
         }
     }
 
     private fun initScanObserve() {
         presenter.startScan().observe(this, Observer {
-            //todo add rfid to info inventory recycler
             inventoryAdapter.notifyDataSetChanged()
+            //todo add rfid to info inventory recycler
         })
+    }
+
+    private fun stopScanObserve() {
+        presenter.stopScan()
+    }
+
+    private fun resumeScanObserve() {
+        initScanObserve()
+    }
+
+    override fun handleScanPressButton() {
+        processScanAction()
     }
 }

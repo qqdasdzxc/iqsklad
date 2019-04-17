@@ -1,11 +1,11 @@
 package ru.iqsklad.ui.procedure.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import ru.iqsklad.R
 import ru.iqsklad.domain.App
+import ru.iqsklad.ui.base.activity.BaseActivity
 
-class ProcedureActivity : AppCompatActivity() {
+class ProcedureActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

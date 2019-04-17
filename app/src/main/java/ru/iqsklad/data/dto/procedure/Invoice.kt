@@ -19,28 +19,34 @@ class Invoice {
         ),
         Inventory(
             inventoryID = 2, title = "Плед бизнес класса (RFID)", plannedCount = 10, rfidList = listOf(
+                "E20000160712016912509B7B",
                 "EA0000160715013320704035",
                 "E2000016071200880640D963",
                 "E200001607120072201047FC",
-                "E20000160715003621603B1A",
                 "E2000016071200801298966B",
-                "E20000160712016912509B7B",
+                "E20000160712016915607A6C",
                 "E20000160712006918105D81",
-                "E20000160712006915607A6C",
                 "E2000016071200630630D68F",
-                "E2000016071200880540E007"
+                "E2000016071200880540E007",
+                "E20000160715003621603B1A"
             )
         )
     )
 
-    fun containsRfid(rfid: String): Boolean {
+    fun increaseScannedCountIfContains(rfid: String): Boolean {
         for (inventory in inventoryList) {
             if (inventory.rfidList.contains(rfid)) {
-                inventory.scannedCount++
+                inventory.scannedCount += 1
                 return true
             }
         }
 
         return false
+    }
+
+    fun setInitState() {
+        for (inventory in inventoryList) {
+            inventory.scannedCount = 0
+        }
     }
 }
