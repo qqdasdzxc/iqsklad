@@ -86,9 +86,21 @@
             android:label="InvoicePreviewFragment"
             tools:layout="@layout/fragment_inventory_scan">
 
-        <!--<action-->
-                <!--android:id="@+id/action_invoice_number_input_to_invoice_preview"-->
-                <!--app:destination="@id/invoice_preview_fragment"/>-->
+        <action
+                android:id="@+id/action_inventory_scan_to_procedure_success"
+                app:destination="@id/procedure_success_fragment"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/procedure_success_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.ProcedureSuccessFragment"
+            android:label="ProcedureSuccessFragment"
+            tools:layout="@layout/fragment_procedure_success">
+
+        <action
+                android:id="@+id/action_procedure_success_to_choose_procedure"
+                app:popUpTo="@id/choose_procedure_fragment"/>
 
     </fragment>
 

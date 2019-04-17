@@ -8,6 +8,8 @@
 
         <import type="ru.iqsklad.data.dto.procedure.InventoryScanMode"/>
 
+        <import type="ru.iqsklad.data.dto.procedure.ProcedureType"/>
+
         <import type="android.view.View"/>
 
         <variable
@@ -104,7 +106,6 @@
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginBottom="@dimen/start_end_margin"
                 android:scrollbars="vertical"
-                android:scrollbarAlwaysDrawVerticalTrack="true"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="@id/label_divider"
                 app:layout_constraintEnd_toEndOf="@id/label_divider"
@@ -120,7 +121,7 @@
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:textAlignment="center"
                 android:layout_marginBottom="@dimen/start_end_margin"
-                android:text="@string/inventory_scan_stop_action_with_exit_title"
+                android:text="@{presenter.getProcedureType() == ProcedureType.PASS ? @string/inventory_scan_end_action_type_pass_title : @string/inventory_scan_end_action_type_receive_title}"
                 android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.STOPPED ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toTopOf="@id/inventory_scan_action_view"
                 app:layout_constraintStart_toStartOf="parent"

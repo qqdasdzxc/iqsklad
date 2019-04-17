@@ -8,7 +8,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
-import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
@@ -79,6 +78,10 @@ class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>() {
 
         binding.inventoryScanActionView.setOnClickListener {
             processScanAction()
+        }
+
+        binding.inventoryScanEndActionView.setOnClickListener {
+            navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureSuccess())
         }
     }
 

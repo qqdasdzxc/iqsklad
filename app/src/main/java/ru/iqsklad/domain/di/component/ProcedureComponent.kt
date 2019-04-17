@@ -6,14 +6,8 @@ import ru.iqsklad.domain.di.module.procedure.ProcedureRepositoryModule
 import ru.iqsklad.domain.di.module.procedure.ProcedureRfidScannerModule
 import ru.iqsklad.domain.di.module.procedure.ProcedureViewModelModule
 import ru.iqsklad.domain.di.scope.ProcedureScope
-import ru.iqsklad.presentation.implementation.procedure.ChooseProcedureViewModel
-import ru.iqsklad.presentation.implementation.procedure.ChooseStewardViewModel
-import ru.iqsklad.presentation.implementation.procedure.InvoiceNumberInputViewModel
-import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
-import ru.iqsklad.ui.procedure.fragment.ChooseProcedureFragment
-import ru.iqsklad.ui.procedure.fragment.ChooseStewardFragment
-import ru.iqsklad.ui.procedure.fragment.InvoiceNumberInputFragment
-import ru.iqsklad.ui.procedure.fragment.InventoryScanFragment
+import ru.iqsklad.presentation.implementation.procedure.*
+import ru.iqsklad.ui.procedure.fragment.*
 
 @ProcedureScope
 @Subcomponent(
@@ -30,6 +24,8 @@ interface ProcedureComponent {
 
     fun inject(fragment: InventoryScanFragment)
 
+    fun inject(fragment: ProcedureSuccessFragment)
+
     fun inject(presenter: ChooseProcedureViewModel)
 
     fun inject(presenter: ChooseStewardViewModel)
@@ -37,4 +33,6 @@ interface ProcedureComponent {
     fun inject(presenter: InvoiceNumberInputViewModel)
 
     fun inject(presenter: InventoryScanViewModel)
+
+    fun inject(presenter: ProcedureSuccessViewModel)
 }

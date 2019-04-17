@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="ru.iqsklad.data.dto.procedure.ProcedureType"/>
+
+        <variable
+                name="presenter"
+                type="ru.iqsklad.presentation.presenter.procedure.ProcedureSuccessPresenter"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/start_end_margin">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@{String.format(presenter.getProcedureType() == ProcedureType.PASS ? @string/procedure_success_pass_type_text : @string/procedure_success_receive_type_text, presenter.getInvoiceNumber())}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/procedure_success_main_menu_action"
+                style="@style/PrimaryButton"
+                android:text="@string/procedure_success_main_menu_action_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

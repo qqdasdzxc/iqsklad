@@ -7,10 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.iqsklad.presentation.factory.ViewModelFactory
 import ru.iqsklad.presentation.factory.ViewModelKey
-import ru.iqsklad.presentation.implementation.procedure.ChooseProcedureViewModel
-import ru.iqsklad.presentation.implementation.procedure.ChooseStewardViewModel
-import ru.iqsklad.presentation.implementation.procedure.InvoiceNumberInputViewModel
-import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
+import ru.iqsklad.presentation.implementation.procedure.*
 
 @Module
 abstract class ProcedureViewModelModule {
@@ -38,4 +35,9 @@ abstract class ProcedureViewModelModule {
     @IntoMap
     @ViewModelKey(InventoryScanViewModel::class)
     abstract fun invoicePreviewViewModel(viewModel: InventoryScanViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProcedureSuccessViewModel::class)
+    abstract fun procedureSuccessViewModel(viewModel: ProcedureSuccessViewModel): ViewModel
 }
