@@ -36,7 +36,7 @@ class Invoice {
     fun increaseScannedCountIfContains(rfid: String): Boolean {
         for (inventory in inventoryList) {
             if (inventory.rfidList.contains(rfid)) {
-                inventory.scannedCount += 1
+                inventory.scannedCount++
                 return true
             }
         }

@@ -40,6 +40,7 @@
     <string name="inventory_scan_plan_label">План</string>
     <string name="inventory_scan_fact_label">Факт</string>
     <string name="inventory_scan_info_label">Информация</string>
+    <string name="inventory_scan_count_label">Всего найдено: %d</string>
     <string name="scan_result_success_procedure_type_pass_text">ЭИ %s сдано</string>
     <string name="scan_result_excluded_procedure_type_pass_text">ЭИ %s сдано, но не числится в накладной №%s</string>
     <string name="scan_result_success_procedure_type_receive_text">ЭИ %s принято</string>

@@ -74,6 +74,8 @@ class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>(), NeedT
     }
 
     private fun initView() {
+        binding.overAllScannedCount = scanResultAdapter.itemCount
+
         binding.inventoryListView.adapter = inventoryAdapter
         binding.scanResultListView.adapter = scanResultAdapter
 
@@ -100,6 +102,7 @@ class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>(), NeedT
                 inventoryAdapter.notifyDataSetChanged()
                 scanResultAdapter.add(scanResult)
                 binding.scanResultListView.scrollToPosition(scanResultAdapter.itemCount - 1)
+                binding.overAllScannedCount = scanResultAdapter.itemCount
             }
         })
     }
