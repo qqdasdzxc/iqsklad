@@ -45,6 +45,12 @@
     <string name="scan_result_success_procedure_type_receive_text">ЭИ %s принято</string>
     <string name="scan_result_excluded_procedure_type_receive_text">ЭИ %s принято, но не числится в накладной №%s</string>
 
+    <!-- Procedure cancel -->
+    <string name="procedure_cancel_action_resume_title">Продолжить сдачу имущества</string>
+    <string name="procedure_cancel_action_confirm_title">Я понимаю, отменить сдачу имущества</string>
+    <string name="procedure_cancel_title">Вы хотите отменить сдачу\nэкипировочного имущества?</string>
+    <string name="procedure_cancel_message">Внимание! Данные не будут сохранены и\nпроцесс придётся начать с самого начала</string>
+
     <!-- Procedure success -->
     <string name="procedure_success_pass_type_text">Экипировочное имущество по\nнакладной №%s сдано</string>
     <string name="procedure_success_receive_type_text">Экипировочное имущество по\nнакладной №%s принято</string>

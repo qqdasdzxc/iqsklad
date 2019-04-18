@@ -90,6 +90,10 @@
                 android:id="@+id/action_inventory_scan_to_procedure_success"
                 app:destination="@id/procedure_success_fragment"/>
 
+        <action
+                android:id="@+id/action_inventory_scan_to_procedure_cancel"
+                app:destination="@id/procedure_cancel_fragment"/>
+
     </fragment>
 
     <fragment
@@ -100,6 +104,18 @@
 
         <action
                 android:id="@+id/action_procedure_success_to_choose_procedure"
+                app:popUpTo="@id/choose_procedure_fragment"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/procedure_cancel_fragment"
+            android:name="ru.iqsklad.ui.procedure.fragment.ProcedureCancelFragment"
+            android:label="ProcedureCancelFragment"
+            tools:layout="@layout/fragment_procedure_cancel">
+
+        <action
+                android:id="@+id/action_procedure_cancel_to_choose_procedure"
                 app:popUpTo="@id/choose_procedure_fragment"/>
 
     </fragment>

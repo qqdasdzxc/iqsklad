@@ -5,6 +5,7 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import ru.iqsklad.ui.base.fragment.BaseFragment
+import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
 
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
@@ -20,5 +21,20 @@ open class BaseActivity : AppCompatActivity() {
         }
 
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onBackPressed() {
+        if ((supportFragmentManager.fragments.first() as NavHostFragment)
+                .childFragmentManager
+                .fragments
+                .last() is NeedToOverrideBackPressFragment
+        ) {
+            ((supportFragmentManager.fragments.first() as NavHostFragment)
+                .childFragmentManager
+                .fragments
+                .last() as NeedToOverrideBackPressFragment).onBackPress()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

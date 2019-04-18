@@ -16,9 +16,10 @@ import ru.iqsklad.ui.adapter.InventoryAdapter
 import ru.iqsklad.utils.extensions.injectViewModel
 import ru.iqsklad.databinding.FragmentInventoryScanBinding
 import ru.iqsklad.ui.adapter.ScanResultAdapter
+import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
 import javax.inject.Inject
 
-class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>() {
+class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>(), NeedToOverrideBackPressFragment {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -113,5 +114,9 @@ class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>() {
 
     override fun handleScanPressButton() {
         processScanAction()
+    }
+
+    override fun onBackPress() {
+        navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureCancel())
     }
 }
