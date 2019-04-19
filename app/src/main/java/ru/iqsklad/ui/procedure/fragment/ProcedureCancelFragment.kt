@@ -3,6 +3,7 @@ package ru.iqsklad.ui.procedure.fragment
 import android.os.Bundle
 import android.view.View
 import ru.iqsklad.R
+import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.databinding.FragmentProcedureCancelBinding
 
@@ -13,7 +14,7 @@ class ProcedureCancelFragment: BaseFragment<FragmentProcedureCancelBinding>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val procedureType = arguments!!.get("procedureType")
+        binding.procedureType = arguments!!.get("procedureType") as ProcedureType
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
