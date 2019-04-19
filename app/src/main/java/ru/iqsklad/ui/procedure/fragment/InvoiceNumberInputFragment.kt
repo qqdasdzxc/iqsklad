@@ -57,7 +57,6 @@ class InvoiceNumberInputFragment: BaseFragment<FragmentInvoiceNumberInputBinding
 
     private fun acceptInvoiceNumber() {
         presenter.sendInvoiceNumber()
-        hideKeyBoard()
     }
 
     override fun handleScanPressButton() {

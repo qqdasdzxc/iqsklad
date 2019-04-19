@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.iqsklad.data.dto.procedure.ProcedureDataHolder
+import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.observable.TextField
 import ru.iqsklad.presentation.presenter.procedure.InvoiceNumberInputPresenter
@@ -21,6 +22,8 @@ class InvoiceNumberInputViewModel @Inject constructor(private var procedureDataH
     override fun getAcceptInvoiceNumber(): LiveData<Boolean> = acceptInvoiceNumber
 
     override fun getInvoiceNumberObservable(): TextField = invoiceNumberObservable
+
+    override fun getProcedureType(): ProcedureType = procedureDataHolder.procedureType
 
     override fun sendInvoiceNumber() {
         if (invoiceNumberObservable.isEmpty()) {

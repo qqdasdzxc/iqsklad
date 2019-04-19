@@ -8,18 +8,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
-import ru.iqsklad.ui.base.fragment.BaseFragment
+import ru.iqsklad.databinding.FragmentInventoryScanBinding
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
 import ru.iqsklad.ui.adapter.InventoryAdapter
-import ru.iqsklad.utils.extensions.injectViewModel
-import ru.iqsklad.databinding.FragmentInventoryScanBinding
 import ru.iqsklad.ui.adapter.ScanResultAdapter
+import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
+import ru.iqsklad.utils.extensions.injectViewModel
 import javax.inject.Inject
 
-class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>(), NeedToOverrideBackPressFragment {
+class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), NeedToOverrideBackPressFragment {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -74,8 +74,6 @@ class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>(), NeedT
     }
 
     private fun initView() {
-        binding.overAllScannedCount = scanResultAdapter.itemCount
-
         binding.inventoryListView.adapter = inventoryAdapter
         binding.scanResultListView.adapter = scanResultAdapter
 
@@ -102,7 +100,6 @@ class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>(), NeedT
                 inventoryAdapter.notifyDataSetChanged()
                 scanResultAdapter.add(scanResult)
                 binding.scanResultListView.scrollToPosition(scanResultAdapter.itemCount - 1)
-                binding.overAllScannedCount = scanResultAdapter.itemCount
             }
         })
     }
@@ -120,6 +117,6 @@ class InventoryScanFragment: BaseFragment<FragmentInventoryScanBinding>(), NeedT
     }
 
     override fun onBackPress() {
-        navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureCancel())
+        navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureCancel(presenter.getProcedureType()))
     }
 }

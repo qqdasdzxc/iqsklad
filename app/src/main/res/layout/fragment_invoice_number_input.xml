@@ -8,6 +8,8 @@
 
         <import type="android.view.View"/>
 
+        <import type="ru.iqsklad.data.dto.procedure.ProcedureType"/>
+
         <variable
                 name="presenter"
                 type="ru.iqsklad.presentation.presenter.procedure.InvoiceNumberInputPresenter"/>
@@ -70,7 +72,7 @@
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginBottom="@dimen/start_end_margin"
-                android:text='@{String.format(@string/invoice_number_input_action_message, presenter.getInvoiceNumberObservable.observeEdit.get() ?? "")}'
+                android:text='@{String.format(presenter.getProcedureType() == ProcedureType.PASS ? @string/invoice_number_input_pass_action_message : @string/invoice_number_input_receive_action_message, presenter.getInvoiceNumberObservable.observeEdit.get() ?? "")}'
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>

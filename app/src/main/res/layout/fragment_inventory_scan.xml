@@ -13,10 +13,6 @@
         <import type="android.view.View"/>
 
         <variable
-                name="overAllScannedCount"
-                type="Integer"/>
-
-        <variable
                 name="presenter"
                 type="ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter"/>
     </data>
@@ -109,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
-                android:text="@{String.format(@string/inventory_scan_count_label, overAllScannedCount ?? 0)}"
+                android:text="@{String.format(@string/inventory_scan_count_label, presenter.getOverAllScanCount())}"
                 app:layout_constraintEnd_toEndOf="@id/label_divider"
                 app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>
 

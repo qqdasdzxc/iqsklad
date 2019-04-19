@@ -2,6 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="ru.iqsklad.data.dto.procedure.ProcedureType"/>
+
+        <variable
+                name="presenter"
+                type="ru.iqsklad.presentation.presenter.procedure.ChooseStewardPresenter"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -33,7 +42,7 @@
                 style="@style/PrimaryButton"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                android:text="@string/procedure_without_steward_action_title"
+                android:text="@{presenter.getProcedureType() == ProcedureType.PASS ? @string/procedure_pass_without_steward_action_title : @string/procedure_receive_without_steward_action_title}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

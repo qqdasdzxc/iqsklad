@@ -92,7 +92,12 @@
 
         <action
                 android:id="@+id/action_inventory_scan_to_procedure_cancel"
-                app:destination="@id/procedure_cancel_fragment"/>
+                app:destination="@id/procedure_cancel_fragment">
+
+            <argument
+                    android:name="procedureType"
+                    app:argType="ru.iqsklad.data.dto.procedure.ProcedureType"/>
+        </action>
 
     </fragment>
 

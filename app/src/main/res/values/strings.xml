@@ -19,7 +19,8 @@
     <string name="procedure_confirm_steward_info_label">Бортпроводником назначен:</string>
     <string name="procedure_confirm_change_steward_action_title">Нет, выбрать другого бортпроводника</string>
     <string name="procedure_confirm_steward_action_title">Всё верно, выбрать бортпроводника</string>
-    <string name="procedure_without_steward_action_title">Сдать имущество без бортпроводника</string>
+    <string name="procedure_pass_without_steward_action_title">Сдать имущество без бортпроводника</string>
+    <string name="procedure_receive_without_steward_action_title">Принять имущество без бортпроводника</string>
 
     <!-- Invoice scan -->
     <string name="invoice_scan_message">Поместите штрихкод накладной в центр рамки</string>
@@ -27,7 +28,8 @@
     <string name="invoice_scan_error_action_title">Ввести номер накладной вручную</string>
     <string name="invoice_number_input_back_to_scan_action_title">Повторно отсканировать накладную</string>
     <string name="invoice_number_input_scan_hint">Номер накладной</string>
-    <string name="invoice_number_input_action_message">Сдать ЭИ по накладной №%s</string>
+    <string name="invoice_number_input_pass_action_message">Сдать ЭИ по накладной №%s</string>
+    <string name="invoice_number_input_receive_action_message">Принять ЭИ по накладной №%s</string>
 
     <!-- Inventory scan -->
     <string name="inventory_scan_title">Накладная №%s</string>
@@ -47,9 +49,12 @@
     <string name="scan_result_excluded_procedure_type_receive_text">ЭИ %s принято, но не числится в накладной №%s</string>
 
     <!-- Procedure cancel -->
-    <string name="procedure_cancel_action_resume_title">Продолжить сдачу имущества</string>
-    <string name="procedure_cancel_action_confirm_title">Я понимаю, отменить сдачу имущества</string>
-    <string name="procedure_cancel_title">Вы хотите отменить сдачу\nэкипировочного имущества?</string>
+    <string name="procedure_pass_cancel_action_resume_title">Продолжить сдачу имущества</string>
+    <string name="procedure_receive_cancel_action_resume_title">Продолжить приём имущества</string>
+    <string name="procedure_pass_cancel_action_confirm_title">Я понимаю, отменить сдачу имущества</string>
+    <string name="procedure_receive_cancel_action_confirm_title">Я понимаю, отменить приём имущества</string>
+    <string name="procedure_pass_cancel_title">Вы хотите отменить сдачу\nэкипировочного имущества?</string>
+    <string name="procedure_receive_cancel_title">Вы хотите отменить приём\nэкипировочного имущества?</string>
     <string name="procedure_cancel_message">Внимание! Данные не будут сохранены и\nпроцесс придётся начать с самого начала</string>
 
     <!-- Procedure success -->

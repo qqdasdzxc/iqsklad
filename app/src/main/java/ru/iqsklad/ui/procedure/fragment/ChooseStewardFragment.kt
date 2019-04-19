@@ -35,6 +35,8 @@ class ChooseStewardFragment: BaseFragment<FragmentChooseStewardBinding>(), Users
         super.onActivityCreated(savedInstanceState)
 
         presenter = injectViewModel<ChooseStewardViewModel>(viewModelFactory)
+        binding.presenter = presenter
+
         initObserve()
     }
 

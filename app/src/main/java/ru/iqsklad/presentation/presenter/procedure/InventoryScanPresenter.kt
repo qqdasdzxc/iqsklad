@@ -17,6 +17,8 @@ interface InventoryScanPresenter {
 
     fun getProcedureType(): ProcedureType
 
+    fun getOverAllScanCount(): ObservableField<Int>
+
     fun startScan(): LiveData<ScanResult?>
 
     fun stopScan()
