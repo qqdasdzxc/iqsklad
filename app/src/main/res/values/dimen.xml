@@ -2,4 +2,6 @@
 <resources>
     <dimen name="start_end_margin">16dp</dimen>
     <dimen name="top_bottom_margin">8dp</dimen>
+
+    <dimen name="action_bar_height">56dp</dimen>
 </resources>

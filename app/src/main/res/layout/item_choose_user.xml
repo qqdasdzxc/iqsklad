@@ -11,6 +11,7 @@
 
         <TextView
                 android:id="@+id/item_choose_user_name"
+                style="@style/TextView.Regular.Black.16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"

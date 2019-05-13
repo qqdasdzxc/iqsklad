@@ -19,6 +19,8 @@ class ConfirmForwarderAuthFragment : BaseFragment<FragmentAuthConfirmForwarderBi
     private fun initView() {
         binding.user = ConfirmForwarderAuthFragmentArgs.fromBundle(arguments!!).user
 
+        binding.confirmUserActionBarView.setBackPressedAction { onBackPressed() }
+
         binding.confirmUserChangeView.setOnClickListener { navController.navigateUp() }
 
         binding.confirmUserAcceptView.setOnClickListener {

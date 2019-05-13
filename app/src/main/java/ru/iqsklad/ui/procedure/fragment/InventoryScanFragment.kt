@@ -116,7 +116,7 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
         processScanAction()
     }
 
-    override fun onBackPress() {
+    override fun onBackPressed() {
         navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureCancel(presenter.getProcedureType()))
     }
 }

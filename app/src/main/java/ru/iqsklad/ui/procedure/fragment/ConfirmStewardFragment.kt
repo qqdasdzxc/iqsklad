@@ -19,6 +19,8 @@ class ConfirmStewardFragment: BaseFragment<FragmentConfirmStewardBinding>() {
     private fun initView() {
         binding.user = ConfirmStewardFragmentArgs.fromBundle(arguments!!).user
 
+        binding.confirmStewardActionBarView.setBackPressedAction { onBackPressed() }
+
         binding.confirmUserChangeView.setOnClickListener { navController.navigateUp() }
 
         binding.confirmUserAcceptView.setOnClickListener {

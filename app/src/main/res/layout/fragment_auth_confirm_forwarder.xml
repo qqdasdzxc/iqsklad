@@ -13,6 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+        <ru.iqsklad.ui.base.view.ActionBarView
+                android:id="@+id/confirm_user_action_bar_view"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/action_bar_height"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:field_action_bar_type="type_logo_with_back"/>
+
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.FontRegular" parent="android:TextAppearance">
+        <item name="fontPath">"fonts/roboto_regular.ttf"</item>
+    </style>
+
+    <style name="TextAppearance.FontMedium" parent="android:TextAppearance">
+        <item name="fontPath">"fonts/roboto_medium.ttf"</item>
+    </style>
+
+</resources>

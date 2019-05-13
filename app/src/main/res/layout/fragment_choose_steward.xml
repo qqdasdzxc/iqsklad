@@ -15,15 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.SearchView
-                android:id="@+id/choose_steward_search_view"
+        <ru.iqsklad.ui.base.view.ActionBarView
+                android:id="@+id/choose_steward_action_bar_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/top_bottom_margin"
-                app:iconifiedByDefault="false"
-                app:queryHint="@string/choose_steward_search_hint"
+                android:layout_height="@dimen/action_bar_height"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:field_action_bar_type="type_search"
+                app:field_action_bar_title="@string/procedure_choose_steward_title"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/choose_steward_recycler_view"
@@ -33,7 +32,7 @@
                 android:layout_marginBottom="@dimen/top_bottom_margin"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/choose_steward_search_view"
+                app:layout_constraintTop_toBottomOf="@id/choose_steward_action_bar_view"
                 app:layout_constraintBottom_toTopOf="@id/choose_steward_continue_without_steward_action_view"
                 tools:listitem="@layout/item_choose_user"/>
 

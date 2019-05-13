@@ -32,7 +32,7 @@ open class BaseActivity : AppCompatActivity() {
             ((supportFragmentManager.fragments.first() as NavHostFragment)
                 .childFragmentManager
                 .fragments
-                .last() as NeedToOverrideBackPressFragment).onBackPress()
+                .last() as NeedToOverrideBackPressFragment).onBackPressed()
         } else {
             super.onBackPressed()
         }

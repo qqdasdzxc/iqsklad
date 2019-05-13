@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
+import ru.iqsklad.ui.base.activity.BaseActivity
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
@@ -60,6 +61,10 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
             val manager = it.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             manager.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT)
         }
+    }
+
+    open fun onBackPressed() {
+        (activity as BaseActivity).onBackPressed()
     }
 
     abstract fun handleScanPressButton()

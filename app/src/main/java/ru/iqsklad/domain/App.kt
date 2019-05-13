@@ -1,11 +1,13 @@
 package ru.iqsklad.domain
 
 import android.app.Application
+import ru.iqsklad.R
 import ru.iqsklad.domain.di.component.AppComponent
 import ru.iqsklad.domain.di.component.AuthComponent
 import ru.iqsklad.domain.di.component.DaggerAppComponent
 import ru.iqsklad.domain.di.component.ProcedureComponent
 import ru.iqsklad.domain.di.module.AppModule
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 class App: Application() {
 
@@ -18,7 +20,17 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initCalligraphy()
         initDagger()
+    }
+
+    private fun initCalligraphy() {
+        CalligraphyConfig.initDefault(
+            CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/roboto_regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        )
     }
 
     private fun initDagger() {

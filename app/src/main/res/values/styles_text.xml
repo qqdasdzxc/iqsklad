@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextView" parent="android:Widget.TextView"/>
+
+    <style name="TextView.Regular">
+        <item name="android:textAppearance">@style/TextAppearance.FontRegular</item>
+    </style>
+
+    <style name="TextView.Medium">
+        <item name="android:textAppearance">@style/TextAppearance.FontMedium</item>
+    </style>
+
+    <style name="TextView.Regular.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextView.Medium.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextView.Regular.Black.14sp">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextView.Regular.Black.16sp">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextView.Medium.Black.20sp">
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>
