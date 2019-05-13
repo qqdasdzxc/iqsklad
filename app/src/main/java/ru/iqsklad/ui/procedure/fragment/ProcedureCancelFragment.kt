@@ -31,6 +31,8 @@ class ProcedureCancelFragment: BaseFragment<FragmentProcedureCancelBinding>() {
         binding.procedureCancelActionConfirmView.setOnClickListener {
             navController.navigate(ProcedureCancelFragmentDirections.actionProcedureCancelToChooseProcedure())
         }
+
+        binding.procedureCancelActionBarView.setBackPressedAction { onBackPressed() }
     }
 
     private fun resumeScanAction() {

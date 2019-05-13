@@ -157,6 +157,7 @@ class ActionBarView : ConstraintLayout {
 
     private fun setTheme() {
         when (theme) {
+            //default theme
             THEME_LIGHT -> {}
             THEME_DARK -> {
                 ImageViewCompat.setImageTintList(backImageView, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
