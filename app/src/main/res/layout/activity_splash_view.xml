@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="@string/splash_update_db_label"
             android:textAlignment="center"
+            android:letterSpacing="0.025"
             android:layout_marginBottom="@dimen/start_end_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

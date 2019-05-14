@@ -20,14 +20,16 @@
                 app:field_action_bar_theme="dark"/>
 
         <TextView
+                style="@style/TextView.Regular.White.16sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/invoice_scan_message"
                 android:textAlignment="center"
-                android:textColor="@color/white"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginBottom="@dimen/start_end_margin"
+                android:letterSpacing="@dimen/default_letter_spacing"
+                app:layout_constraintTop_toBottomOf="@id/invoice_scan_action_bar_view"
                 app:layout_constraintBottom_toTopOf="@id/guideline_top"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -57,27 +59,28 @@
 
         <TextView
                 android:id="@+id/invoice_scan_error_message_title"
+                style="@style/TextView.Regular.White.14sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/invoice_scan_error_message"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:layout_marginTop="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/start_end_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/guideline_bottom"/>
+                app:layout_constraintBottom_toTopOf="@id/invoice_scan_error_action_title"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/invoice_scan_error_action_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                style="@style/EmptyTransparentButton"
                 android:text="@string/invoice_scan_error_action_title"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:layout_marginTop="@dimen/start_end_margin"
+                android:layout_margin="@dimen/start_end_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/invoice_scan_error_message_title"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:strokeColor="@color/white"
+                app:strokeWidth="@dimen/button_stroke_width"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

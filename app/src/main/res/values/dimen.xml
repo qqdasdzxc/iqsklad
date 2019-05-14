@@ -4,4 +4,10 @@
     <dimen name="top_bottom_margin">8dp</dimen>
 
     <dimen name="action_bar_height">56dp</dimen>
+
+    <dimen name="default_letter_spacing">0.04</dimen>
+
+    <dimen name="button_corner_radius">6dp</dimen>
+    <dimen name="button_height">68dp</dimen>
+    <dimen name="button_stroke_width">2dp</dimen>
 </resources>

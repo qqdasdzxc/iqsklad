@@ -28,8 +28,6 @@
                 android:id="@+id/choose_steward_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/top_bottom_margin"
-                android:layout_marginBottom="@dimen/top_bottom_margin"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/choose_steward_action_bar_view"
@@ -38,14 +36,15 @@
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/choose_steward_continue_without_steward_action_view"
-                style="@style/PrimaryButton"
+                style="@style/FilledButton"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                android:text="@{presenter.getProcedureType() == ProcedureType.PASS ? @string/procedure_pass_without_steward_action_title : @string/procedure_receive_without_steward_action_title}"
+                android:text="@string/procedure_choose_steward_not_exist"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="@dimen/start_end_margin"/>
+        <!--android:text="@{presenter.getProcedureType() == ProcedureType.PASS ? @string/procedure_pass_without_steward_action_title : @string/procedure_receive_without_steward_action_title}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

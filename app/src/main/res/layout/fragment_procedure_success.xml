@@ -25,6 +25,7 @@
                 app:field_action_bar_type="type_logo_with_back"/>
 
         <TextView
+                style="@style/TextView.Medium.Black.20sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -36,7 +37,7 @@
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/procedure_success_main_menu_action"
-                style="@style/PrimaryButton"
+                style="@style/FilledButton"
                 android:text="@string/procedure_success_main_menu_action_title"
                 android:layout_margin="@dimen/start_end_margin"
                 app:layout_constraintStart_toStartOf="parent"

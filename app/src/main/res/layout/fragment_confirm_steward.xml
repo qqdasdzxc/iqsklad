@@ -37,19 +37,21 @@
                 app:layout_constraintBottom_toTopOf="@id/confirm_user_change_view"
                 app:user="@{user}"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/confirm_user_change_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/start_end_margin"
+                style="@style/EmptyButton"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/procedure_confirm_change_steward_action_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/confirm_user_accept_view"/>
+                app:layout_constraintBottom_toTopOf="@id/confirm_user_accept_view"
+                app:strokeWidth="@dimen/button_stroke_width"
+                app:strokeColor="@color/colorPrimary"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/confirm_user_accept_view"
-                style="@style/PrimaryButton"
+                style="@style/FilledButton"
                 android:layout_margin="@dimen/start_end_margin"
                 android:text="@string/procedure_confirm_steward_action_title"
                 app:layout_constraintStart_toStartOf="parent"

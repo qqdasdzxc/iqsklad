@@ -27,27 +27,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:field_action_bar_type="type_logo_with_back"/>
 
+        <TextView
+                android:id="@+id/invoice_number_input_message_view"
+                style="@style/TextView.Regular.Black.16sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/invoice_number_message"
+                android:textAlignment="center"
+                android:letterSpacing="@dimen/default_letter_spacing"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_action_bar_view"/>
+
         <ImageView
                 android:id="@+id/invoice_number_input_example_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="@dimen/start_end_margin"
+                android:layout_marginTop="24dp"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_action_bar_view"
+                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_message_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="ContentDescription"/>
-
-        <TextView
-                android:id="@+id/invoice_number_input_scan_action_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginTop="@dimen/start_end_margin"
-                android:text="@string/invoice_number_input_back_to_scan_action_title"
-                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_example_image_view"
-                app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/invoice_number_input_scan_wrapper_view"
@@ -57,7 +62,7 @@
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginTop="@dimen/start_end_margin"
-                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_scan_action_view"
+                app:layout_constraintTop_toBottomOf="@id/invoice_number_input_example_image_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:isError="@{safeUnbox(presenter.getInvoiceNumberObservable().observeWrapperEdit)}">
@@ -74,9 +79,34 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+                android:id="@+id/invoice_number_input_scan_message_view"
+                style="@style/TextView.Regular.Black.14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginBottom="24dp"
+                android:text="@string/invoice_number_input_back_to_scan_message_title"
+                app:layout_constraintBottom_toTopOf="@id/invoice_number_input_scan_action_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/invoice_number_input_scan_action_view"
+                style="@style/EmptyButton"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:text="@string/invoice_number_input_back_to_scan_action_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/invoice_number_input_action_view"
+                app:strokeColor="@color/colorPrimary"
+                app:strokeWidth="@dimen/button_stroke_width"/>
+
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/invoice_number_input_action_view"
-                style="@style/PrimaryButton"
+                style="@style/FilledButton"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginBottom="@dimen/start_end_margin"

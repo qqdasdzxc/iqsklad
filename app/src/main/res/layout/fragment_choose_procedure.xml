@@ -24,7 +24,6 @@
                 layout="@layout/block_user_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/start_end_margin"
                 app:layout_constraintTop_toBottomOf="@id/choose_procedure_action_bar_view"
                 app:user="@{user}"/>
 

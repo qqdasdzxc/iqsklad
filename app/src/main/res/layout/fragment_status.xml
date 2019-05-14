@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+                android:id="@+id/status_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/start_end_margin"
+                app:srcCompat="@mipmap/status_not_updated"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="ContentDescription"/>
+
+        <TextView
+                android:id="@+id/status_text_view"
+                style="@style/TextView.Medium.Black.20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="@dimen/default_letter_spacing"
+                android:text="База данных не актуальна"
+                android:layout_marginTop="@dimen/top_bottom_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_image_view"/>
+
+        <TextView
+                android:id="@+id/status_last_update_text_view"
+                style="@style/TextView.Regular.Black.14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Последнее обновление: 24.05.1989 в 12:55"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/top_bottom_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_text_view"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/resume_work_action_view"
+                style="@style/EmptyButton"
+                android:text="@string/status_resume_work_action_title"
+                android:layout_marginTop="@dimen/start_end_margin"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/status_last_update_text_view"
+                app:strokeColor="@color/colorPrimary"
+                app:strokeWidth="@dimen/button_stroke_width"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/update_action_view"
+                style="@style/FilledButton"
+                android:text="@string/status_update_db_action_title"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/top_bottom_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/resume_work_action_view"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

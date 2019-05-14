@@ -43,8 +43,6 @@ class ProcedureSuccessFragment: BaseFragment<FragmentProcedureSuccessBinding>() 
         binding.procedureSuccessMainMenuAction.setOnClickListener {
             handleMainMenuAction()
         }
-
-        binding.procedureSuccessActionBarView.setBackPressedAction { onBackPressed() }
     }
 
     private fun handleMainMenuAction() {

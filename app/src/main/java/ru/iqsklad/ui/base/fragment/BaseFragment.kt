@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -17,11 +18,15 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import ru.iqsklad.ui.base.activity.BaseActivity
+import ru.iqsklad.ui.base.view.ActionBarView
+import ru.iqsklad.ui.procedure.fragment.bottom.StatusFragment
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     lateinit var binding: B
     lateinit var navController: NavController
+
+    private var statusFragment = StatusFragment.getInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, getLayoutResId(), container, false)
@@ -32,6 +37,19 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         navController = Navigation.findNavController(binding.root)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setActionBarClickActionsIfExists()
+    }
+
+    private fun setActionBarClickActionsIfExists() {
+        (view as ViewGroup).children.firstOrNull { it is ActionBarView }?.let {
+            (it as ActionBarView).setBackPressedAction { onBackPressed() }
+            it.setStatusPressedAction { showStatusDialog() }
+        }
     }
 
     @LayoutRes
@@ -65,6 +83,10 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     open fun onBackPressed() {
         (activity as BaseActivity).onBackPressed()
+    }
+
+    private fun showStatusDialog() {
+        statusFragment.show(activity!!.supportFragmentManager)
     }
 
     abstract fun handleScanPressButton()

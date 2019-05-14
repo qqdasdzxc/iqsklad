@@ -24,6 +24,7 @@
             android:layout_height="wrap_content">
 
         <TextView
+                style="@style/TextView.Regular.Black.14sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
@@ -47,6 +48,7 @@
 
         <TextView
                 android:id="@+id/inventory_item_planned_count_label"
+                style="@style/TextView.Medium.Black.14sp"
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
@@ -72,6 +74,7 @@
 
         <TextView
                 android:id="@+id/inventory_item_scanned_count_label"
+                style="@style/TextView.Medium.14sp"
                 android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"

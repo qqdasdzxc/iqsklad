@@ -21,8 +21,6 @@ class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
             navController.navigate(InvoiceScanFragmentDirections.actionInvoiceScanToInvoiceNumberInput())
         }
 
-        binding.invoiceScanActionBarView.setBackPressedAction { onBackPressed() }
-
         //TODO integrate sdk for invoice scan
         //TODO navigate to invoice plan
     }

@@ -31,6 +31,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_title"
+                style="@style/TextView.Regular.Black.24sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -44,31 +45,37 @@
 
         <TextView
                 android:id="@+id/inventory_scan_title_label"
+                style="@style/TextView.Medium.Black.16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:text="@string/inventory_scan_title_label"
+                android:letterSpacing="@dimen/default_letter_spacing"
                 app:layout_constraintTop_toBottomOf="@id/inventory_scan_title"
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
                 android:id="@+id/invoice_preview_plan_label"
+                style="@style/TextView.Medium.Black.16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/inventory_scan_plan_label"
+                android:letterSpacing="@dimen/default_letter_spacing"
                 app:layout_constraintTop_toBottomOf="@id/inventory_scan_title"
                 app:layout_constraintEnd_toStartOf="@id/inventory_scan_fact_label"/>
 
         <TextView
                 android:id="@+id/inventory_scan_fact_label"
+                style="@style/TextView.Medium.Black.16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/inventory_scan_fact_label"
+                android:letterSpacing="@dimen/default_letter_spacing"
                 android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
                 app:layout_constraintTop_toBottomOf="@id/inventory_scan_title"
                 app:layout_constraintEnd_toEndOf="parent"/>
@@ -99,6 +106,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_info_label_view"
+                style="@style/TextView.Medium.Black.16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
@@ -109,9 +117,11 @@
 
         <TextView
                 android:id="@+id/inventory_scan_count_label_view"
+                style="@style/TextView.Medium.Black.16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
+                android:letterSpacing="@dimen/default_letter_spacing"
                 android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
                 android:text="@{String.format(@string/inventory_scan_count_label, presenter.getOverAllScanCount())}"
                 app:layout_constraintEnd_toEndOf="@id/label_divider"
@@ -131,24 +141,23 @@
                 app:layout_constraintBottom_toTopOf="@id/inventory_scan_end_action_view"
                 tools:listitem="@layout/item_scan_result"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/inventory_scan_end_action_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                style="@style/EmptyButton"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginStart="@dimen/start_end_margin"
-                android:textAlignment="center"
-                android:layout_marginBottom="@dimen/start_end_margin"
                 android:text="@{presenter.getProcedureType() == ProcedureType.PASS ? @string/inventory_scan_end_action_type_pass_title : @string/inventory_scan_end_action_type_receive_title}"
                 android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.STOPPED ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toTopOf="@id/inventory_scan_action_view"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:strokeColor="@color/colorPrimary"
+                app:strokeWidth="@dimen/button_stroke_width"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/inventory_scan_action_view"
-                style="@style/PrimaryButton"
+                style="@style/FilledButton"
                 android:layout_marginBottom="@dimen/start_end_margin"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"

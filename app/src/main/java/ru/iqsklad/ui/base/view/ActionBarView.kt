@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
@@ -28,6 +29,7 @@ class ActionBarView : ConstraintLayout {
     private lateinit var divider: View
 
     private var actionBackPressed: (() -> Unit)? = null
+    private var actionStatusPressed: (() -> Unit)? = null
 
     private var type: Int = DEFAULT_VALUE_TYPE
     private var theme: Int = THEME_LIGHT
@@ -88,7 +90,6 @@ class ActionBarView : ConstraintLayout {
 
     private fun initClickListeners() {
         searchImageView.setOnClickListener {
-            //todo close dropdown from more
             statusImageView.hide()
             moreImageView.hide()
             titleTextView.hide()
@@ -115,12 +116,25 @@ class ActionBarView : ConstraintLayout {
         }
 
         statusImageView.setOnClickListener {
-            //todo show bottom fragment to update db
+            showStatusBottomFragment()
         }
 
         moreImageView.setOnClickListener {
-            //todo show dropdown menu
+            showPopupMenu(it)
         }
+    }
+
+    private fun showPopupMenu(view: View) = PopupMenu(view.context, view).run {
+        menuInflater.inflate(R.menu.popup_menu, menu)
+        setOnMenuItemClickListener { item ->
+            //todo open reference screen
+            true
+        }
+        show()
+    }
+
+    private fun showStatusBottomFragment() {
+        actionStatusPressed?.invoke()
     }
 
     private fun updateActionBarType() {
@@ -169,5 +183,9 @@ class ActionBarView : ConstraintLayout {
 
     fun setBackPressedAction(action: () -> Unit) {
         actionBackPressed = action
+    }
+
+    fun setStatusPressedAction(action: () -> Unit) {
+        actionStatusPressed = action
     }
 }

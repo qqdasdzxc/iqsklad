@@ -2,6 +2,7 @@ package ru.iqsklad.utils.extensions
 
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
@@ -11,6 +12,8 @@ import ru.iqsklad.data.dto.procedure.InventoryScanMode
 @BindingAdapter(value = ["isError"])
 fun TextInputLayout.updateError(isError: Boolean) {
     setHintTextAppearance(if (isError) R.style.ErrorHintAppearance else R.style.DefaultHintAppearance)
+    boxStrokeColor = ContextCompat.getColor(context, if (isError) android.R.color.holo_red_light else R.color.colorPrimary)
+
     if (isError) {
         requestFocus()
     }

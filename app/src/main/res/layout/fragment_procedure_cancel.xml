@@ -21,9 +21,11 @@
 
         <TextView
                 android:id="@+id/procedure_cancel_title_view"
+                style="@style/TextView.Medium.Black.20sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:letterSpacing="@dimen/default_letter_spacing"
                 android:text="@{procedureType == ProcedureType.PASS ? @string/procedure_pass_cancel_title : @string/procedure_receive_cancel_title}"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
@@ -34,10 +36,12 @@
 
         <TextView
                 android:id="@+id/procedure_cancel_message_view"
+                style="@style/TextView.Medium.Black.16sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:text="@string/procedure_cancel_message"
+                android:letterSpacing="@dimen/default_letter_spacing"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginBottom="@dimen/start_end_margin"
@@ -52,22 +56,21 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.5"/>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
                 android:id="@+id/procedure_cancel_action_confirm_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
+                style="@style/EmptyButton"
                 android:text="@{procedureType == ProcedureType.PASS ? @string/procedure_pass_cancel_action_confirm_title : @string/procedure_receive_cancel_action_confirm_title}"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                android:layout_marginBottom="@dimen/start_end_margin"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/procedure_cancel_action_resume_view"/>
+                app:layout_constraintBottom_toTopOf="@id/procedure_cancel_action_resume_view"
+                app:strokeColor="@color/colorPrimary"
+                app:strokeWidth="@dimen/button_stroke_width"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/procedure_cancel_action_resume_view"
-                style="@style/PrimaryButton"
+                style="@style/FilledButton"
                 android:text="@{procedureType == ProcedureType.PASS ? @string/procedure_pass_cancel_action_resume_title : @string/procedure_receive_cancel_action_resume_title}"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"

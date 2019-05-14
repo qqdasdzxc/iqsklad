@@ -84,8 +84,6 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
         binding.inventoryScanEndActionView.setOnClickListener {
             navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureSuccess())
         }
-
-        binding.inventoryScanActionBarView.setBackPressedAction { onBackPressed() }
     }
 
     private fun processScanAction() {
