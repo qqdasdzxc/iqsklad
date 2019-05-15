@@ -2,6 +2,8 @@ package ru.iqsklad.ui.base.view
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +13,18 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputEditText
 import ru.iqsklad.R
 import ru.iqsklad.utils.extensions.hide
+import ru.iqsklad.utils.extensions.hideAsGone
 import ru.iqsklad.utils.extensions.show
+import ru.iqsklad.utils.extensions.updateTextWatcher
 
 class ActionBarView : ConstraintLayout {
+
+    private var actionClickListener: ActionBarClickListener? = null
 
     private lateinit var searchImageView: ImageView
     private lateinit var backImageView: ImageView
@@ -28,12 +36,11 @@ class ActionBarView : ConstraintLayout {
     private lateinit var searchCloseImageView: ImageView
     private lateinit var divider: View
 
-    private var actionBackPressed: (() -> Unit)? = null
-    private var actionStatusPressed: (() -> Unit)? = null
-
     private var type: Int = DEFAULT_VALUE_TYPE
     private var theme: Int = THEME_LIGHT
     private var title: String? = null
+
+    private var searchObservableField = MutableLiveData<String>()
 
     private companion object {
         const val DEFAULT_VALUE_TYPE = -1
@@ -46,6 +53,8 @@ class ActionBarView : ConstraintLayout {
         const val THEME_LIGHT = 0
         const val THEME_DARK = 1
     }
+
+    class ActionBarException(message: String?) : Exception(message)
 
     constructor(context: Context) : this(context, null)
 
@@ -64,7 +73,7 @@ class ActionBarView : ConstraintLayout {
         theme = typedArray.getInt(R.styleable.ActionBarView_field_action_bar_theme, THEME_LIGHT)
 
         if (type == DEFAULT_VALUE_TYPE) {
-            throw Exception("ActionBarView type is not specified")
+            throw ActionBarException("ActionBarView type is not specified")
         }
 
         typedArray.recycle()
@@ -73,6 +82,14 @@ class ActionBarView : ConstraintLayout {
     override fun onFinishInflate() {
         super.onFinishInflate()
 
+        bindViews()
+        initClickListeners()
+        initTextWatcher()
+        updateActionBarType()
+        setTheme()
+    }
+
+    private fun bindViews() {
         searchImageView = findViewById(R.id.search_image_view)
         backImageView = findViewById(R.id.back_image_view)
         titleTextView = findViewById(R.id.title_view)
@@ -82,10 +99,6 @@ class ActionBarView : ConstraintLayout {
         moreImageView = findViewById(R.id.more_image_view)
         searchCloseImageView = findViewById(R.id.search_close_image_view)
         divider = findViewById(R.id.divider)
-
-        initClickListeners()
-        updateActionBarType()
-        setTheme()
     }
 
     private fun initClickListeners() {
@@ -96,11 +109,9 @@ class ActionBarView : ConstraintLayout {
 
             searchCloseImageView.show()
             searchEditView.show()
-            //todo click on edit view to open keyboard
         }
 
         searchCloseImageView.setOnClickListener {
-            //todo post empty string value
             searchEditView.text?.clear()
             searchEditView.clearFocus()
             searchEditView.hide()
@@ -112,7 +123,7 @@ class ActionBarView : ConstraintLayout {
         }
 
         backImageView.setOnClickListener {
-            actionBackPressed?.invoke()
+            actionClickListener?.onBackClicked()
         }
 
         statusImageView.setOnClickListener {
@@ -124,17 +135,31 @@ class ActionBarView : ConstraintLayout {
         }
     }
 
+    private fun initTextWatcher() {
+        searchEditView.updateTextWatcher(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchObservableField.postValue(s.toString())
+            }
+        })
+    }
+
     private fun showPopupMenu(view: View) = PopupMenu(view.context, view).run {
         menuInflater.inflate(R.menu.popup_menu, menu)
         setOnMenuItemClickListener { item ->
-            //todo open reference screen
+            when (item.itemId) {
+                R.id.help -> actionClickListener?.onHelpClicked()
+            }
             true
         }
         show()
     }
 
     private fun showStatusBottomFragment() {
-        actionStatusPressed?.invoke()
+        actionClickListener?.onStatusClicked()
     }
 
     private fun updateActionBarType() {
@@ -160,6 +185,12 @@ class ActionBarView : ConstraintLayout {
 
                 divider.hide()
             }
+            TYPE_TEXT_WITH_BACK -> {
+                hideSearchViews()
+                logoImageView.hide()
+
+                titleTextView.text = title!!
+            }
         }
     }
 
@@ -172,20 +203,40 @@ class ActionBarView : ConstraintLayout {
     private fun setTheme() {
         when (theme) {
             //default theme
-            THEME_LIGHT -> {}
+            THEME_LIGHT -> {
+            }
             THEME_DARK -> {
-                ImageViewCompat.setImageTintList(backImageView, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
-                ImageViewCompat.setImageTintList(moreImageView, ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white)))
+                ImageViewCompat.setImageTintList(
+                    backImageView,
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+                )
+                ImageViewCompat.setImageTintList(
+                    moreImageView,
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+                )
                 logoImageView.setImageResource(R.mipmap.small_logo_dark_theme)
             }
         }
     }
 
-    fun setBackPressedAction(action: () -> Unit) {
-        actionBackPressed = action
+    fun observeSearchText(): LiveData<String> {
+        return searchObservableField
     }
 
-    fun setStatusPressedAction(action: () -> Unit) {
-        actionStatusPressed = action
+    fun setActionClickListener(listener: ActionBarClickListener) {
+        actionClickListener = listener
+    }
+
+    fun hideMoreButton() {
+        moreImageView.hideAsGone()
+    }
+
+    interface ActionBarClickListener {
+
+        fun onBackClicked()
+
+        fun onStatusClicked()
+
+        fun onHelpClicked()
     }
 }

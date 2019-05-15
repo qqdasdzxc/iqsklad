@@ -14,9 +14,9 @@ class ForwardersRepository : IForwardersRepository {
         User("Александров Сан Саныч", "444444")
     )
 
-    override fun getForwarders(): LiveData<List<User>> {
+    override fun getForwarders(searchText: String): LiveData<List<User>> {
         val result = MutableLiveData<List<User>>()
-        result.postValue(stubUsersList)
+        result.postValue(stubUsersList.filter { it.name.toLowerCase().contains(searchText) })
         return result
     }
 }

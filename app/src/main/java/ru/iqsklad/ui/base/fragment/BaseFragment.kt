@@ -17,11 +17,12 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
+import ru.iqsklad.R
 import ru.iqsklad.ui.base.activity.BaseActivity
 import ru.iqsklad.ui.base.view.ActionBarView
 import ru.iqsklad.ui.procedure.fragment.bottom.StatusFragment
 
-abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.ActionBarClickListener {
 
     lateinit var binding: B
     lateinit var navController: NavController
@@ -47,10 +48,15 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
 
     private fun setActionBarClickActionsIfExists() {
         (view as ViewGroup).children.firstOrNull { it is ActionBarView }?.let {
-            (it as ActionBarView).setBackPressedAction { onBackPressed() }
-            it.setStatusPressedAction { showStatusDialog() }
+            (it as ActionBarView).setActionClickListener(this)
         }
     }
+
+    override fun onBackClicked() = onBackPressed()
+
+    override fun onStatusClicked() = showStatusDialog()
+
+    override fun onHelpClicked() = navController.navigate(R.id.help_fragment)
 
     @LayoutRes
     abstract fun getLayoutResId(): Int
@@ -82,7 +88,12 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment() {
     }
 
     open fun onBackPressed() {
-        (activity as BaseActivity).onBackPressed()
+        if (this is NeedToOverrideBackPressFragment) {
+            (this as NeedToOverrideBackPressFragment).onBackPressed()
+            return
+        }
+
+        activity?.onBackPressed()
     }
 
     private fun showStatusDialog() {

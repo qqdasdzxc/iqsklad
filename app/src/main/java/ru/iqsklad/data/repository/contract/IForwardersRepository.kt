@@ -5,5 +5,5 @@ import ru.iqsklad.data.dto.user.User
 
 interface IForwardersRepository {
 
-    fun getForwarders(): LiveData<List<User>>
+    fun getForwarders(searchText: String): LiveData<List<User>>
 }

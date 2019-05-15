@@ -55,6 +55,10 @@ class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBind
 
     private fun initView() {
         binding.chooseForwarderRecyclerView.adapter = adapter
+
+        binding.chooseForwarderActionBarView.observeSearchText().observe(this, Observer {
+            presenter.onSearchTextChanged(it)
+        })
     }
 
     override fun onUserClicked(user: User) {

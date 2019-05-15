@@ -61,6 +61,10 @@ class ChooseStewardFragment: BaseFragment<FragmentChooseStewardBinding>(), Users
         binding.chooseStewardContinueWithoutStewardActionView.setOnClickListener {
             continueWithoutSteward()
         }
+
+        binding.chooseStewardActionBarView.observeSearchText().observe(this, Observer {
+            presenter.onSearchTextChanged(it)
+        })
     }
 
     private fun continueWithoutSteward() {

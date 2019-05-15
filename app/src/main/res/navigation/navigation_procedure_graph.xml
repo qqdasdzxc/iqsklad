@@ -125,4 +125,12 @@
 
     </fragment>
 
+    <fragment
+            android:id="@+id/help_fragment"
+            android:name="ru.iqsklad.ui.help.fragment.HelpFragment"
+            android:label="HelpFragment"
+            tools:layout="@layout/fragment_help">
+
+    </fragment>
+
 </navigation>

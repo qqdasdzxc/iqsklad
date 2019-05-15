@@ -2,7 +2,7 @@
     <string name="app_name">IQ-Sklad</string>
     
     <!-- General -->
-    <string name="menu_reference_title">Справка</string>
+    <string name="menu_help_title">Справка</string>
 
     <!-- Splash -->
     <string name="splash_update_db_label">Обновление базы данных для обеспечения\nработы приложения без доступа к интернету</string>

@@ -53,8 +53,6 @@ class InvoiceNumberInputFragment: BaseFragment<FragmentInvoiceNumberInputBinding
         binding.invoiceNumberInputActionView.setOnClickListener {
             acceptInvoiceNumber()
         }
-
-        binding.invoiceNumberInputScanActionView.setOnClickListener { onBackPressed() }
     }
 
     private fun acceptInvoiceNumber() {
