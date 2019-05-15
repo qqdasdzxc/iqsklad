@@ -52,7 +52,7 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
         }
     }
 
-    override fun onBackClicked() = onBackPressed()
+    override fun onBackClicked() { activity?.onBackPressed() }
 
     override fun onStatusClicked() = showStatusDialog()
 
@@ -85,15 +85,6 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
             val manager = it.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             manager.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT)
         }
-    }
-
-    open fun onBackPressed() {
-        if (this is NeedToOverrideBackPressFragment) {
-            (this as NeedToOverrideBackPressFragment).onBackPressed()
-            return
-        }
-
-        activity?.onBackPressed()
     }
 
     private fun showStatusDialog() {

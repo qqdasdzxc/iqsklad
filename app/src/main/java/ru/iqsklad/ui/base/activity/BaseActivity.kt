@@ -22,4 +22,19 @@ open class BaseActivity : AppCompatActivity() {
 
         return super.onKeyDown(keyCode, event)
     }
+
+    override fun onBackPressed() {
+        if ((supportFragmentManager.fragments.first() as NavHostFragment)
+                .childFragmentManager
+                .fragments
+                .last() is NeedToOverrideBackPressFragment
+        ) {
+            ((supportFragmentManager.fragments.first() as NavHostFragment)
+                .childFragmentManager
+                .fragments
+                .last() as NeedToOverrideBackPressFragment).onBackPressed()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
