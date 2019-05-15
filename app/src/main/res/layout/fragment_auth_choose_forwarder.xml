@@ -13,7 +13,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:field_action_bar_type="type_search"
-                app:field_action_bar_title="@string/auth_choose_title"/>
+                app:field_action_bar_title="@string/auth_choose_title"
+                app:field_action_bar_hint="@string/auth_choose_user_search_hint"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/choose_forwarder_recycler_view"

@@ -39,6 +39,9 @@ class ActionBarView : ConstraintLayout {
     private var type: Int = DEFAULT_VALUE_TYPE
     private var theme: Int = THEME_LIGHT
     private var title: String? = null
+    private var hint: String? = null
+
+    private var searchModeOn = false
 
     private var searchObservableField = MutableLiveData<String>()
 
@@ -71,6 +74,7 @@ class ActionBarView : ConstraintLayout {
         type = typedArray.getInt(R.styleable.ActionBarView_field_action_bar_type, DEFAULT_VALUE_TYPE)
         title = typedArray.getString(R.styleable.ActionBarView_field_action_bar_title)
         theme = typedArray.getInt(R.styleable.ActionBarView_field_action_bar_theme, THEME_LIGHT)
+        hint = typedArray.getString(R.styleable.ActionBarView_field_action_bar_hint)
 
         if (type == DEFAULT_VALUE_TYPE) {
             throw ActionBarException("ActionBarView type is not specified")
@@ -84,7 +88,7 @@ class ActionBarView : ConstraintLayout {
 
         bindViews()
         initClickListeners()
-        initTextWatcher()
+        initSearchTextView()
         updateActionBarType()
         setTheme()
     }
@@ -107,19 +111,15 @@ class ActionBarView : ConstraintLayout {
             moreImageView.hide()
             titleTextView.hide()
 
-            searchCloseImageView.show()
             searchEditView.show()
+            searchEditView.requestFocus()
+            actionClickListener?.onSearchClicked()
+
+            searchModeOn = true
         }
 
         searchCloseImageView.setOnClickListener {
             searchEditView.text?.clear()
-            searchEditView.clearFocus()
-            searchEditView.hide()
-            searchCloseImageView.hide()
-
-            titleTextView.show()
-            statusImageView.show()
-            moreImageView.show()
         }
 
         backImageView.setOnClickListener {
@@ -135,13 +135,19 @@ class ActionBarView : ConstraintLayout {
         }
     }
 
-    private fun initTextWatcher() {
+    private fun initSearchTextView() {
         searchEditView.updateTextWatcher(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (count == 0) {
+                    searchCloseImageView.hideAsGone()
+                } else {
+                    searchCloseImageView.show()
+                }
+
                 searchObservableField.postValue(s.toString())
             }
         })
@@ -167,10 +173,11 @@ class ActionBarView : ConstraintLayout {
             TYPE_SEARCH -> {
                 backImageView.hide()
                 logoImageView.hide()
-                searchCloseImageView.hide()
+                searchCloseImageView.hideAsGone()
                 searchEditView.hide()
 
-                titleTextView.text = title!!
+                searchEditView.hint = hint
+                titleTextView.text = title
             }
             TYPE_LOGO_WITH_BACK -> {
                 hideSearchViews()
@@ -231,6 +238,21 @@ class ActionBarView : ConstraintLayout {
         moreImageView.hideAsGone()
     }
 
+    fun isInSearchMode() = searchModeOn
+
+    fun exitFromSearchMode() {
+        searchEditView.text?.clear()
+        searchEditView.clearFocus()
+        searchEditView.hide()
+        searchCloseImageView.hideAsGone()
+
+        titleTextView.show()
+        statusImageView.show()
+        moreImageView.show()
+
+        searchModeOn = false
+    }
+
     interface ActionBarClickListener {
 
         fun onBackClicked()
@@ -238,5 +260,7 @@ class ActionBarView : ConstraintLayout {
         fun onStatusClicked()
 
         fun onHelpClicked()
+
+        fun onSearchClicked()
     }
 }

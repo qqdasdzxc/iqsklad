@@ -16,8 +16,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/start_end_margin">
 
         <ru.iqsklad.ui.base.view.ActionBarView
                 android:id="@+id/invoice_number_input_action_bar_view"
@@ -109,11 +111,12 @@
                 style="@style/FilledButton"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
-                android:layout_marginBottom="@dimen/start_end_margin"
-                android:text='@{String.format(presenter.getProcedureType() == ProcedureType.PASS ? @string/invoice_number_input_pass_action_message : @string/invoice_number_input_receive_action_message, presenter.getInvoiceNumberObservable.observeEdit.get() ?? "")}'
+                android:text="@string/invoice_number_input_action_message"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!--android:text='@{String.format(presenter.getProcedureType() == ProcedureType.PASS ? @string/invoice_number_input_pass_action_message : @string/invoice_number_input_receive_action_message, presenter.getInvoiceNumberObservable.observeEdit.get() ?? "")}'-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

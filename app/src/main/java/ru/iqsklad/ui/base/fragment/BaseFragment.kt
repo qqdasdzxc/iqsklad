@@ -12,12 +12,14 @@ import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import ru.iqsklad.R
+import ru.iqsklad.domain.manager.keyboard.KeyboardStatus
 import ru.iqsklad.ui.base.activity.BaseActivity
 import ru.iqsklad.ui.base.view.ActionBarView
 import ru.iqsklad.ui.procedure.fragment.bottom.StatusFragment
@@ -40,6 +42,39 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
         navController = Navigation.findNavController(binding.root)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        if (this is KeyboardStateChangeListenerFragment) {
+            initKeyboardObserve()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        if (this is KeyboardStateChangeListenerFragment) {
+            releaseKeyboardObserve()
+        }
+    }
+
+    private fun initKeyboardObserve() {
+        (activity as BaseActivity).getKeyboardStateListener().observe(this, Observer { status ->
+            (this as KeyboardStateChangeListenerFragment).let {
+                when (status!!) {
+                    KeyboardStatus.OPEN -> it.onKeyboardOpen()
+                    KeyboardStatus.CLOSED -> it.onKeyboardHide()
+                }
+            }
+        })
+    }
+
+    private fun releaseKeyboardObserve() {
+        if (this is KeyboardStateChangeListenerFragment) {
+            (activity as BaseActivity).releaseKeyboardManager()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,16 +82,32 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
     }
 
     private fun setActionBarClickActionsIfExists() {
-        (view as ViewGroup).children.firstOrNull { it is ActionBarView }?.let {
-            (it as ActionBarView).setActionClickListener(this)
-        }
+        findActionBarOrNull()?.setActionClickListener(this)
     }
 
-    override fun onBackClicked() { activity?.onBackPressed() }
+    override fun onBackClicked() = (activity as BaseActivity).onBackPressed()
+
+    fun handleBackPress(): Boolean {
+        findActionBarOrNull()?.let {
+            if (it.isInSearchMode()) {
+                it.exitFromSearchMode()
+                return false
+            }
+        }
+
+        if (this is NeedToOverrideBackPressFragment) {
+            (this as NeedToOverrideBackPressFragment).onBackPressed()
+            return false
+        }
+
+        return true
+    }
 
     override fun onStatusClicked() = showStatusDialog()
 
     override fun onHelpClicked() = navController.navigate(R.id.help_fragment)
+
+    override fun onSearchClicked() = showKeyBoard()
 
     @LayoutRes
     abstract fun getLayoutResId(): Int
@@ -64,6 +115,8 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
     protected inline fun <reified T : ViewModel> getPresenter(): T {
         return ViewModelProviders.of(this)[T::class.java]
     }
+
+    private fun findActionBarOrNull(): ActionBarView? = (view as ViewGroup).children.firstOrNull { it is ActionBarView } as ActionBarView
 
     fun showMessage(@StringRes messageResId: Int) {
         showMessage(getString(messageResId))

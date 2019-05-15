@@ -9,6 +9,7 @@
             <enum name="type_text_with_back" value="4"/>
         </attr>
         <attr name="field_action_bar_title" format="string"/>
+        <attr name="field_action_bar_hint" format="string"/>
         <attr name="field_action_bar_theme" format="enum">
             <enum name="light" value="0"/>
             <enum name="dark" value="1"/>

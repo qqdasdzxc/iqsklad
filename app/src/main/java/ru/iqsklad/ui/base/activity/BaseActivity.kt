@@ -3,12 +3,16 @@ package ru.iqsklad.ui.base.activity
 import android.annotation.SuppressLint
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.NavHostFragment
+import ru.iqsklad.domain.manager.keyboard.KeyboardManager
+import ru.iqsklad.domain.manager.keyboard.KeyboardStatus
 import ru.iqsklad.ui.base.fragment.BaseFragment
-import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
 
 @SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity() {
+
+    private var keyboardManager: KeyboardManager? = null
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == 139 || keyCode == 280) {
@@ -24,17 +28,21 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if ((supportFragmentManager.fragments.first() as NavHostFragment)
+        if (((supportFragmentManager.fragments.first() as NavHostFragment)
                 .childFragmentManager
                 .fragments
-                .last() is NeedToOverrideBackPressFragment
+                .last() as BaseFragment<*>).handleBackPress()
         ) {
-            ((supportFragmentManager.fragments.first() as NavHostFragment)
-                .childFragmentManager
-                .fragments
-                .last() as NeedToOverrideBackPressFragment).onBackPressed()
-        } else {
             super.onBackPressed()
         }
+    }
+
+    fun getKeyboardStateListener(): LiveData<KeyboardStatus> {
+        keyboardManager = KeyboardManager(this)
+        return keyboardManager!!.getStateLiveData()
+    }
+
+    fun releaseKeyboardManager() {
+        keyboardManager?.release()
     }
 }

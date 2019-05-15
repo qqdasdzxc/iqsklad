@@ -51,6 +51,7 @@
             android:textAppearance="@style/TextView.Medium.Black.20sp"
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginEnd="@dimen/start_end_margin"
+            android:background="@null"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/search_image_view"
