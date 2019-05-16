@@ -1,4 +1,4 @@
-package ru.iqsklad.ui.procedure.fragment.bottom
+package ru.iqsklad.ui.base.bottom
 
 import android.os.Bundle
 import android.view.View

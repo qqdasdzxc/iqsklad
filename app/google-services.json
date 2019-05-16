@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "601932241289",
+    "firebase_url": "https://iqsk-3d7a3.firebaseio.com",
+    "project_id": "iqsk-3d7a3",
+    "storage_bucket": "iqsk-3d7a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601932241289:android:24c6ac7018e99e4f",
+        "android_client_info": {
+          "package_name": "ru.iqsklad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601932241289-vadjsp5uigh5dvos4gf4vs2fgav9lfg0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm7z8tor44QldY7qiFoX0456LEanUW3Kk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601932241289-vadjsp5uigh5dvos4gf4vs2fgav9lfg0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

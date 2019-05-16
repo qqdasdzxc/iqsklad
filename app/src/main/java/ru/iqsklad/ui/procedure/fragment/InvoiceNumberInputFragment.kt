@@ -59,6 +59,10 @@ class InvoiceNumberInputFragment: KeyboardStateChangeHandlerFragment<FragmentInv
             acceptInvoiceNumber()
         }
 
+        binding.invoiceNumberInputScanActionView.setOnClickListener {
+            onBackClicked()
+        }
+
         binding.invoiceNumberInputScanEditView.addTextChangedListener {
             if (it.isNullOrEmpty()) {
                 TransitionManager.beginDelayedTransition(binding.rootView)

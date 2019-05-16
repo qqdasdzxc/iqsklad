@@ -87,6 +87,16 @@ dependencies {
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
     releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
+    //camerax
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+
+    //barcode image analyzer
+    implementation 'com.google.firebase:firebase-ml-vision:20.0.0'
+
+    //permissions
+    implementation 'com.karumi:dexter:5.0.0'
+
     //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0-alpha03'
@@ -96,3 +106,5 @@ dependencies {
     implementation rootProject.files('libs/jxl.jar')
     implementation rootProject.files('libs/xUtils-2.5.5.jar')
 }
+
+apply plugin: 'com.google.gms.google-services'

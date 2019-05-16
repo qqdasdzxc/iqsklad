@@ -20,7 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import ru.iqsklad.R
 import ru.iqsklad.ui.base.activity.BaseActivity
 import ru.iqsklad.ui.base.view.ActionBarView
-import ru.iqsklad.ui.procedure.fragment.bottom.StatusFragment
+import ru.iqsklad.ui.base.bottom.StatusFragment
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.ActionBarClickListener {
 

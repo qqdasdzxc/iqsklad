@@ -1,6 +1,7 @@
 package ru.iqsklad.domain
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import ru.iqsklad.R
 import ru.iqsklad.domain.di.component.AppComponent
 import ru.iqsklad.domain.di.component.AuthComponent
@@ -20,8 +21,13 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initFirebase()
         initCalligraphy()
         initDagger()
+    }
+
+    private fun initFirebase() {
+        FirebaseApp.initializeApp(this)
     }
 
     private fun initCalligraphy() {

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/black_80"
-            android:backgroundTintMode="multiply"
-            android:background="@mipmap/invoice_scan_background">
+            android:background="@color/black">
+
+        <TextureView
+                android:id="@+id/invoice_scan_texture_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp"/>
 
         <ru.iqsklad.ui.base.view.ActionBarView
                 android:id="@+id/invoice_scan_action_bar_view"
@@ -40,15 +44,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.25"/>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/start_end_margin"
-                android:layout_marginEnd="@dimen/start_end_margin"
-                android:background="@drawable/camera_invoice_scan_background"
-                app:layout_constraintTop_toBottomOf="@id/guideline_top"
-                app:layout_constraintBottom_toTopOf="@id/guideline_bottom"/>
 
         <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline_bottom"
