@@ -13,6 +13,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputEditText
@@ -136,21 +137,16 @@ class ActionBarView : ConstraintLayout {
     }
 
     private fun initSearchTextView() {
-        searchEditView.updateTextWatcher(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (count == 0) {
-                    searchCloseImageView.hideAsGone()
-                } else {
-                    searchCloseImageView.show()
-                }
-
-                searchObservableField.postValue(s.toString())
+        searchEditView.addTextChangedListener {
+            if (it?.count() == 0) {
+                searchCloseImageView.hideAsGone()
+            } else {
+                searchCloseImageView.show()
             }
-        })
+
+            searchObservableField.postValue(it?.toString())
+        }
     }
 
     private fun showPopupMenu(view: View) = PopupMenu(view.context, view).run {

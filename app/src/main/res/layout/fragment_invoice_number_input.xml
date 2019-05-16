@@ -111,6 +111,7 @@
                 style="@style/FilledButton"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
+                android:visibility="gone"
                 android:text="@string/invoice_number_input_action_message"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
