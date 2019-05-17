@@ -3,6 +3,10 @@
 
     <style name="TextView" parent="android:Widget.TextView"/>
 
+    <style name="TitleTextView" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="TextView.Regular">
         <item name="android:textAppearance">@style/TextAppearance.FontRegular</item>
     </style>
@@ -43,8 +47,8 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="TextView.Medium.14sp">
-        <item name="android:textSize">14sp</item>
+    <style name="TextView.Medium.16sp">
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextView.Medium.Black.14sp">

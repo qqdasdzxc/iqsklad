@@ -9,8 +9,8 @@
     <string name="splash_update_db_label">Обновление базы данных для обеспечения\nработы приложения без доступа к интернету</string>
 
     <!-- Auth -->
-    <string name="auth_choose_user_search_hint">Укажите ФИО экспедитора</string>
-    <string name="auth_choose_title">Экспедитор</string>
+    <string name="auth_choose_user_search_hint">Введите ФИО или ID экспедитора</string>
+    <string name="auth_choose_title">Выберите экспедитора</string>
     <string name="auth_choose_error_title">Выберите экспедитора</string>
     <string name="auth_confirm_user_info_label">Вы авторизуетесь в системе как:</string>
     <string name="auth_confirm_user_id">ID: %s</string>
@@ -23,8 +23,8 @@
     <string name="choose_procedure_message">Выберите процедуру</string>
 
     <!-- Choose steward -->
-    <string name="choose_steward_search_hint">Укажите ФИО бортпроводника</string>
-    <string name="procedure_choose_steward_title">Бортпроводник</string>
+    <string name="choose_steward_search_hint">Введите ФИО или ID бортпроводника</string>
+    <string name="procedure_choose_steward_title">Выберите бортпроводника</string>
     <string name="procedure_choose_steward_not_exist">Бортпроводник отсутствует</string>
     <string name="procedure_confirm_steward_info_label">Бортпроводником назначен:</string>
     <string name="procedure_confirm_change_steward_action_title">Выбрать другого бортпроводника</string>
@@ -38,7 +38,7 @@
     <string name="invoice_scan_error_message">Не получается отсканировать накладную?</string>
     <string name="invoice_scan_error_action_title">Ввести номер накладной вручную</string>
     <string name="invoice_number_message">Введите номер накладной, который указан в её правом верхнем углу.</string>
-    <string name="invoice_number_input_back_to_scan_message_title">Либо повторно отсканировать накладную</string>
+    <string name="invoice_number_input_back_to_scan_message_title">Либо повторно отсканируйте накладную</string>
     <string name="invoice_number_input_back_to_scan_action_title">Отсканировать накладную</string>
     <string name="invoice_number_input_scan_hint">Номер накладной</string>
     <string name="invoice_number_input_action_message">Найти накладную</string>

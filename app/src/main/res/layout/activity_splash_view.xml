@@ -19,6 +19,7 @@
             tools:ignore="ContentDescription"/>
 
     <ProgressBar
+            android:theme="@style/AppTheme.WhiteAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"

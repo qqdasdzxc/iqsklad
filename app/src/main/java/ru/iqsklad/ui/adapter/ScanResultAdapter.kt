@@ -2,6 +2,8 @@ package ru.iqsklad.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.iqsklad.R
@@ -37,6 +39,7 @@ class ScanResultAdapter : RecyclerListAdapter<ScanResult, ScanResultAdapter.Scan
         RecyclerView.ViewHolder(binding.root) {
 
         fun populate(scanResult: ScanResult) {
+            binding.scanResultStatusImageView.setImageResource(getScanResultImage(scanResult))
             binding.scanResultTextView.text = buildScanResultInfoString(scanResult)
         }
 
@@ -71,5 +74,12 @@ class ScanResultAdapter : RecyclerListAdapter<ScanResult, ScanResultAdapter.Scan
             }
         }
 
+        @DrawableRes
+        private fun getScanResultImage(scanResult: ScanResult): Int {
+            return when (scanResult.scanResultType) {
+                ScanResultType.SUCCESS -> R.drawable.ic_status_success
+                ScanResultType.EXCLUDED -> R.drawable.ic_status_undefined
+            }
+        }
     }
 }

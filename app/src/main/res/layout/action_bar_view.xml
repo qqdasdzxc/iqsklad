@@ -32,7 +32,7 @@
 
     <TextView
             android:id="@+id/title_view"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            style="@style/TitleTextView"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/start_end_margin"
@@ -44,11 +44,11 @@
 
     <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edit_view"
+            style="@style/TitleTextView"
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:maxLines="1"
             android:maxLength="30"
-            android:textAppearance="@style/TextView.Medium.Black.20sp"
             android:layout_marginStart="@dimen/start_end_margin"
             android:layout_marginEnd="@dimen/start_end_margin"
             android:background="@null"
@@ -73,7 +73,7 @@
             android:id="@+id/status_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_status"
+            app:srcCompat="@drawable/ic_status_success"
             android:layout_marginEnd="@dimen/start_end_margin"
             app:layout_constraintEnd_toStartOf="@id/more_image_view"
             app:layout_constraintTop_toTopOf="parent"

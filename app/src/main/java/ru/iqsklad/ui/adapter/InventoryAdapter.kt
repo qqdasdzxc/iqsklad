@@ -47,12 +47,12 @@ class InventoryAdapter : RecyclerListAdapter<Inventory, InventoryAdapter.Invento
             when {
                 scannedCount < plannedCount -> {
                     binding.inventoryItemScannedCountLabel.setTextColor(
-                        ContextCompat.getColor(binding.root.context, R.color.colorAccent)
+                        ContextCompat.getColor(binding.root.context, R.color.inventory_scan_fact_status_fail_color)
                     )
                 }
                 else -> {
                     binding.inventoryItemScannedCountLabel.setTextColor(
-                        ContextCompat.getColor(binding.root.context, R.color.colorPrimary)
+                        ContextCompat.getColor(binding.root.context, R.color.inventory_scan_fact_status_success_color)
                     )
                 }
             }

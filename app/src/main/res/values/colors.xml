@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#BED600</color>
+    <color name="colorPrimary">@color/black</color>
     <color name="colorPrimaryDark">@color/black</color>
-    <color name="colorAccent">#BED600</color>
+    <color name="colorAccent">@color/black</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#212121</color>
+
+    <color name="s7_green">#BED600</color>
     
     <color name="black_80">#CC212121</color>
+
+    <color name="grey_60">#99444444</color>
+
+    <color name="inventory_scan_fact_status_success_color">#219653</color>
+    <color name="inventory_scan_fact_status_fail_color">#F44336</color>
 </resources>

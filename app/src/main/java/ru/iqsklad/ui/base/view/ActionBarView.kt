@@ -137,7 +137,6 @@ class ActionBarView : ConstraintLayout {
     }
 
     private fun initSearchTextView() {
-
         searchEditView.addTextChangedListener {
             if (it?.count() == 0) {
                 searchCloseImageView.hideAsGone()

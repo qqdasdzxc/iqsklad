@@ -1,4 +1,4 @@
-package ru.iqsklad.domain.manager.keyboard
+package ru.iqsklad.domain.source.keyboard
 
 import android.app.Activity
 import android.graphics.Rect
@@ -7,7 +7,7 @@ import android.view.ViewTreeObserver
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-class KeyboardManager(activity: Activity) {
+class KeyboardStatusDataSource(activity: Activity) {
 
     private val activityRootView: View = activity.findViewById<View>(android.R.id.content)
     private var screenHeight = activityRootView.height

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
+        xmlns:tools="http://schemas.android.com/tools"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -9,13 +10,25 @@
             android:paddingTop="@dimen/top_bottom_margin"
             android:paddingBottom="@dimen/top_bottom_margin">
 
+        <ImageView
+                android:id="@+id/scan_result_status_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_status_success"/>
+
         <TextView
                 android:id="@+id/scan_result_text_view"
                 style="@style/TextView.Regular.Black.14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_marginStart="@dimen/start_end_margin"
+                app:layout_constraintStart_toEndOf="@id/scan_result_status_image_view"
+                app:layout_constraintTop_toTopOf="@id/scan_result_status_image_view"
+                app:layout_constraintBottom_toBottomOf="@id/scan_result_status_image_view"
+                tools:text="@string/scan_result_success_procedure_type_pass_text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,12 +3,12 @@ package ru.iqsklad.ui.base.fragment
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import ru.iqsklad.domain.manager.keyboard.KeyboardManager
-import ru.iqsklad.domain.manager.keyboard.KeyboardStatus
+import ru.iqsklad.domain.source.keyboard.KeyboardStatusDataSource
+import ru.iqsklad.domain.source.keyboard.KeyboardStatus
 
 abstract class KeyboardStateChangeHandlerFragment<B : ViewDataBinding> : BaseFragment<B>() {
 
-    private var keyboardManager: KeyboardManager? = null
+    private var keyboardStatusDataSource: KeyboardStatusDataSource? = null
 
     override fun onResume() {
         super.onResume()
@@ -36,12 +36,12 @@ abstract class KeyboardStateChangeHandlerFragment<B : ViewDataBinding> : BaseFra
     }
 
     private fun getKeyboardStateListener(): LiveData<KeyboardStatus> {
-        keyboardManager = KeyboardManager(activity!!)
-        return keyboardManager!!.getStateLiveData()
+        keyboardStatusDataSource = KeyboardStatusDataSource(activity!!)
+        return keyboardStatusDataSource!!.getStateLiveData()
     }
 
     private fun releaseKeyboardManager() {
-        keyboardManager?.release()
+        keyboardStatusDataSource?.release()
     }
 
     abstract fun onKeyboardOpen()

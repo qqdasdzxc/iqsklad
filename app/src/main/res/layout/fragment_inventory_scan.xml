@@ -45,7 +45,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_title_label"
-                style="@style/TextView.Medium.Black.16sp"
+                style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
@@ -57,7 +57,7 @@
 
         <TextView
                 android:id="@+id/invoice_preview_plan_label"
-                style="@style/TextView.Medium.Black.16sp"
+                style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
@@ -69,7 +69,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_fact_label"
-                style="@style/TextView.Medium.Black.16sp"
+                style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
@@ -106,7 +106,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_info_label_view"
-                style="@style/TextView.Medium.Black.16sp"
+                style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
@@ -115,24 +115,21 @@
                 app:layout_constraintStart_toStartOf="@id/label_divider"
                 app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>
 
-        <TextView
-                android:id="@+id/inventory_scan_count_label_view"
-                style="@style/TextView.Medium.Black.16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/start_end_margin"
-                android:letterSpacing="@dimen/default_letter_spacing"
-                android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
-                android:text="@{String.format(@string/inventory_scan_count_label, presenter.getOverAllScanCount())}"
-                app:layout_constraintEnd_toEndOf="@id/label_divider"
-                app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>
+        <!--<TextView-->
+                <!--android:id="@+id/inventory_scan_count_label_view"-->
+                <!--style="@style/TitleTextView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/start_end_margin"-->
+                <!--android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"-->
+                <!--android:text="@{String.format(@string/inventory_scan_count_label, presenter.getOverAllScanCount())}"-->
+                <!--app:layout_constraintEnd_toEndOf="@id/label_divider"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/scan_result_list_view"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/start_end_margin"
-                android:layout_marginBottom="@dimen/start_end_margin"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="@id/label_divider"
@@ -148,7 +145,7 @@
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:text="@{presenter.getProcedureType() == ProcedureType.PASS ? @string/inventory_scan_end_action_type_pass_title : @string/inventory_scan_end_action_type_receive_title}"
-                android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.STOPPED ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.STOPPED ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toTopOf="@id/inventory_scan_action_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
