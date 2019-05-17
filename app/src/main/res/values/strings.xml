@@ -34,6 +34,7 @@
 
     <!-- Invoice scan -->
     <string name="invoice_scan_message">Поместите штрихкод накладной в центр рамки. Сканирование автоматическое.</string>
+    <string name="invoice_scan_permission_message_dialog">Доступ к камере необдходим для сканирования!</string>
     <string name="invoice_scan_error_message">Не получается отсканировать накладную?</string>
     <string name="invoice_scan_error_action_title">Ввести номер накладной вручную</string>
     <string name="invoice_number_message">Введите номер накладной, который указан в её правом верхнем углу.</string>

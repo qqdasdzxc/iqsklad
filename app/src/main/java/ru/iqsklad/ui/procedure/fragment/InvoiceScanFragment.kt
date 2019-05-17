@@ -1,6 +1,5 @@
 package ru.iqsklad.ui.procedure.fragment
 
-import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
@@ -15,13 +14,15 @@ import android.widget.Toast
 import androidx.camera.core.*
 import androidx.lifecycle.Observer
 import ru.iqsklad.R
-import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.databinding.FragmentInvoiceScanBinding
 import ru.iqsklad.domain.source.BarcodeImageAnalyzer
 import ru.iqsklad.ui.base.activity.BaseActivity
+import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.utils.PermissionUtils
 
-class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
+class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
+
+    var analyzerUseCase: ImageAnalysis? = null
 
     override fun getLayoutResId(): Int = R.layout.fragment_invoice_scan
 
@@ -29,33 +30,37 @@ class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
-        checkCameraPermission()
+        checkPermissions()
     }
 
     override fun onPause() {
         super.onPause()
 
+        analyzerUseCase?.removeAnalyzer()
         CameraX.unbindAll()
     }
 
-    private fun checkCameraPermission() {
-        PermissionUtils().checkCameraPermission(activity!! as BaseActivity, object : PermissionUtils.ActionListener {
-            override fun onAcceptAction() {
-                //Note: Instead of calling `initCamera()` on the main thread, we use `viewFinder.post { ... }`
-                //to make sure that `viewFinder` has already been inflated into the view when `initCamera()` is called.
-                binding.invoiceScanTextureView.post { initCamera() }
-            }
+    private fun checkPermissions() {
+        PermissionUtils().checkCameraPermission(
+            activity!! as BaseActivity,
+            object : PermissionUtils.ActionListener {
+                override fun onAcceptAction() {
+                    binding.invoiceScanTextureView.post { initCamera() }
+                }
 
-            override fun onDeniedAction() {
-                navigateToInvoiceNumberInput()
-            }
-        })
+                override fun onDeniedAction() {
+                    navigateToInvoiceNumberInput()
+                }
+
+                override fun onMessageDeniedResId(): Int {
+                    return R.string.invoice_scan_permission_message_dialog
+                }
+            })
     }
 
     private fun initView() {
@@ -76,9 +81,7 @@ class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
         }.build()
 
         val preview = Preview(previewConfig)
-
         preview.setOnPreviewOutputUpdateListener {
-
             val parent = binding.invoiceScanTextureView.parent as ViewGroup
             parent.removeView(binding.invoiceScanTextureView)
             parent.addView(binding.invoiceScanTextureView, 0)
@@ -98,7 +101,7 @@ class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
             Toast.makeText(activity!!, it, Toast.LENGTH_SHORT).show()
         })
 
-        val analyzerUseCase = ImageAnalysis(analyzerConfig).apply {
+        analyzerUseCase = ImageAnalysis(analyzerConfig).apply {
             analyzer = barcodeImageAnalyzer
         }
 
@@ -113,7 +116,7 @@ class InvoiceScanFragment: BaseFragment<FragmentInvoiceScanBinding>() {
         val centerY = binding.invoiceScanTextureView.height / 2f
 
         // Correct preview output to account for display rotation
-        val rotationDegrees = when(binding.invoiceScanTextureView.display.rotation) {
+        val rotationDegrees = when (binding.invoiceScanTextureView.display.rotation) {
             Surface.ROTATION_0 -> 0
             Surface.ROTATION_90 -> 90
             Surface.ROTATION_180 -> 180

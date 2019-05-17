@@ -18,7 +18,7 @@ class PermissionUtils {
         val requiredPermissions = arrayListOf(
             Manifest.permission.CAMERA
         )
-        checkWithCustomDeniedAction(activity, actionListener, requiredPermissions)
+        check(activity, actionListener, requiredPermissions)
     }
 
     private fun check(activity: BaseActivity, actionListener: ActionListener?, requiredPermissions: ArrayList<String>) {
@@ -52,8 +52,10 @@ class PermissionUtils {
                 }
 
                 isPresentDenied?.let {
-                    actionListener?.onAcceptAction()
+                    return
                 }
+
+                actionListener?.onAcceptAction()
             }
 
             override fun onPermissionRationaleShouldBeShown(
