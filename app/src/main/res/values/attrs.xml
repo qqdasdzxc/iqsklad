@@ -14,5 +14,6 @@
             <enum name="light" value="0"/>
             <enum name="dark" value="1"/>
         </attr>
+        <attr name="field_action_bar_exit_visible" format="boolean"/>
     </declare-styleable>
 </resources>

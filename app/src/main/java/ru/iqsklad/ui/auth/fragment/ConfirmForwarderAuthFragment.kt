@@ -5,6 +5,7 @@ import android.view.View
 import ru.iqsklad.R
 import ru.iqsklad.databinding.FragmentAuthConfirmForwarderBinding
 import ru.iqsklad.ui.base.fragment.BaseFragment
+import ru.iqsklad.utils.pref.UserPreferences
 
 class ConfirmForwarderAuthFragment : BaseFragment<FragmentAuthConfirmForwarderBinding>() {
 
@@ -22,8 +23,13 @@ class ConfirmForwarderAuthFragment : BaseFragment<FragmentAuthConfirmForwarderBi
         binding.confirmUserChangeView.setOnClickListener { navController.navigateUp() }
 
         binding.confirmUserAcceptView.setOnClickListener {
+            saveUserSession()
             confirmForwarderAction()
         }
+    }
+
+    private fun saveUserSession() {
+        UserPreferences.saveUserId(activity!!, binding.user!!.ID)
     }
 
     private fun confirmForwarderAction() {

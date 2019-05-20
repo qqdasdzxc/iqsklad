@@ -2,8 +2,6 @@ package ru.iqsklad.ui.base.view
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +19,9 @@ import ru.iqsklad.R
 import ru.iqsklad.utils.extensions.hide
 import ru.iqsklad.utils.extensions.hideAsGone
 import ru.iqsklad.utils.extensions.show
-import ru.iqsklad.utils.extensions.updateTextWatcher
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuPopupHelper
+
 
 class ActionBarView : ConstraintLayout {
 
@@ -41,6 +41,7 @@ class ActionBarView : ConstraintLayout {
     private var theme: Int = THEME_LIGHT
     private var title: String? = null
     private var hint: String? = null
+    private var showExit: Boolean = true
 
     private var searchModeOn = false
 
@@ -76,6 +77,7 @@ class ActionBarView : ConstraintLayout {
         title = typedArray.getString(R.styleable.ActionBarView_field_action_bar_title)
         theme = typedArray.getInt(R.styleable.ActionBarView_field_action_bar_theme, THEME_LIGHT)
         hint = typedArray.getString(R.styleable.ActionBarView_field_action_bar_hint)
+        showExit = typedArray.getBoolean(R.styleable.ActionBarView_field_action_bar_exit_visible, true)
 
         if (type == DEFAULT_VALUE_TYPE) {
             throw ActionBarException("ActionBarView type is not specified")
@@ -153,10 +155,17 @@ class ActionBarView : ConstraintLayout {
         setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.help -> actionClickListener?.onHelpClicked()
+                R.id.call -> actionClickListener?.onCallClicked()
+                R.id.exit -> actionClickListener?.onExitClicked()
             }
             true
         }
-        show()
+
+        menu.getItem(2).isVisible = showExit
+
+        val menuHelper = MenuPopupHelper(context, this.menu as MenuBuilder, view)
+        menuHelper.setForceShowIcon(true)
+        menuHelper.show()
     }
 
     private fun showStatusBottomFragment() {
@@ -255,6 +264,10 @@ class ActionBarView : ConstraintLayout {
         fun onStatusClicked()
 
         fun onHelpClicked()
+
+        fun onCallClicked()
+
+        fun onExitClicked()
 
         fun onSearchClicked()
     }

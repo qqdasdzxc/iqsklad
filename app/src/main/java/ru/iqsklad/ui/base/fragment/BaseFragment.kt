@@ -21,6 +21,7 @@ import ru.iqsklad.R
 import ru.iqsklad.ui.base.activity.BaseActivity
 import ru.iqsklad.ui.base.view.ActionBarView
 import ru.iqsklad.ui.base.bottom.StatusFragment
+import ru.iqsklad.utils.pref.UserPreferences
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.ActionBarClickListener {
 
@@ -71,6 +72,14 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
     override fun onStatusClicked() = showStatusDialog()
 
     override fun onHelpClicked() = navController.navigate(R.id.help_fragment)
+
+    override fun onCallClicked() {}
+
+    override fun onExitClicked() {
+        UserPreferences.removeUserID(activity!!)
+        navController.navigate(R.id.auth_activity)
+        activity?.finish()
+    }
 
     override fun onSearchClicked() = showKeyBoard()
 

@@ -3,6 +3,8 @@
     
     <!-- General -->
     <string name="menu_help_title">Справка</string>
+    <string name="menu_call_title">+7 495 123-45-67</string>
+    <string name="menu_exit_title">Выйти</string>
     <string name="tune">Настроить</string>
 
     <!-- Splash -->

@@ -133,4 +133,10 @@
 
     </fragment>
 
+    <activity
+            android:id="@+id/auth_activity"
+            android:name="ru.iqsklad.ui.auth.activity.AuthActivity"
+            android:label="AuthActivity"
+            tools:layout="@layout/activity_auth_view"/>
+
 </navigation>
