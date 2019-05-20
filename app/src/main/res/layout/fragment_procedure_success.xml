@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,6 +24,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:field_action_bar_type="type_logo_with_back"/>
 
+        <ImageView
+                android:id="@+id/procedure_success_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/start_end_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/procedure_success_action_bar_view"
+                app:srcCompat="@mipmap/success_big"
+                tools:ignore="ContentDescription"/>
+
         <TextView
                 style="@style/TextView.Medium.Black.20sp"
                 android:layout_width="0dp"
@@ -33,7 +44,7 @@
                 android:text="@{String.format(presenter.getProcedureType() == ProcedureType.PASS ? @string/procedure_success_pass_type_text : @string/procedure_success_receive_type_text, presenter.getInvoiceNumber())}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/procedure_success_action_bar_view"/>
+                app:layout_constraintTop_toBottomOf="@id/procedure_success_image"/>
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/procedure_success_main_menu_action"

@@ -37,6 +37,10 @@
         <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
+    <style name="EmptyTransparentErrorButton" parent="EmptyTransparentButton">
+        <item name="android:textColor">@color/inventory_scan_fact_status_fail_color</item>
+    </style>
+
     <style name="ErrorHintAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
