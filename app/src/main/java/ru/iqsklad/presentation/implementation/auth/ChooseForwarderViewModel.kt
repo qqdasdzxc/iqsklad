@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import ru.iqsklad.data.dto.user.User
+import ru.iqsklad.data.dto.user.UserMapper
+import ru.iqsklad.data.dto.user.UserUI
 import ru.iqsklad.data.repository.contract.IForwardersRepository
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.auth.ChooseForwarderPresenter
@@ -17,7 +18,9 @@ class ChooseForwarderViewModel @Inject constructor(private var forwardersReposit
     private val searchStringLiveData = MutableLiveData<String>()
 
     private val forwardersLiveData = Transformations.switchMap(searchStringLiveData) {
-        forwardersRepository.getForwarders(searchStringLiveData.value!!)
+        Transformations.map(forwardersRepository.getForwarders(searchStringLiveData.value!!)) {
+            return@map UserMapper.mapUsers(it)
+        }
     }
 
     init {
@@ -25,7 +28,7 @@ class ChooseForwarderViewModel @Inject constructor(private var forwardersReposit
         searchStringLiveData.postValue("")
     }
 
-    override fun getForwarders(): LiveData<List<User>> = forwardersLiveData
+    override fun getForwarders(): LiveData<List<UserUI>> = forwardersLiveData
 
     override fun onSearchTextChanged(searchText: String) {
         searchStringLiveData.postValue(searchText)

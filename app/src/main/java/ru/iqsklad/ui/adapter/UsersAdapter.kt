@@ -6,10 +6,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.user.User
+import ru.iqsklad.data.dto.user.UserUI
 import ru.iqsklad.databinding.ItemChooseUserBinding
 import ru.iqsklad.ui.base.adapter.RecyclerListAdapter
+import ru.iqsklad.utils.extensions.hide
+import ru.iqsklad.utils.extensions.show
 
-class UsersAdapter(private var listener: UserClickListener) : RecyclerListAdapter<User, UsersAdapter.UserViewHolder>() {
+class UsersAdapter(private var listener: UserClickListener) :
+    RecyclerListAdapter<UserUI, UsersAdapter.UserViewHolder>() {
 
     override fun onBindCustomViewHolder(holder: UserViewHolder, position: Int) {
         holder.populate(getItem(position))
@@ -27,9 +31,20 @@ class UsersAdapter(private var listener: UserClickListener) : RecyclerListAdapte
 
     inner class UserViewHolder(private var binding: ItemChooseUserBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun populate(user: User) {
-            binding.itemChooseUserName.text = user.name
-            binding.root.setOnClickListener { listener.onUserClicked(user) }
+        fun populate(userUI: UserUI) {
+            binding.itemChooseUserFirstLetter.text = userUI.model.name[0].toString()
+            binding.itemChooseUserName.text = userUI.model.name
+            binding.root.setOnClickListener { listener.onUserClicked(userUI.model) }
+
+            setVisibilityFirstLetter(userUI.showFirstLetter)
+        }
+
+        private fun setVisibilityFirstLetter(visible: Boolean) {
+            if (visible) {
+                binding.itemChooseUserFirstLetter.show()
+            } else {
+                binding.itemChooseUserFirstLetter.hide()
+            }
         }
     }
 

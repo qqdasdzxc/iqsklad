@@ -6,16 +6,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.user.User
-import ru.iqsklad.ui.base.fragment.BaseFragment
+import ru.iqsklad.data.dto.user.UserUI
 import ru.iqsklad.databinding.FragmentChooseStewardBinding
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.implementation.procedure.ChooseStewardViewModel
 import ru.iqsklad.presentation.presenter.procedure.ChooseStewardPresenter
 import ru.iqsklad.ui.adapter.UsersAdapter
+import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.utils.extensions.injectViewModel
 import javax.inject.Inject
 
-class ChooseStewardFragment: BaseFragment<FragmentChooseStewardBinding>(), UsersAdapter.UserClickListener {
+class ChooseStewardFragment : BaseFragment<FragmentChooseStewardBinding>(), UsersAdapter.UserClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -44,7 +45,7 @@ class ChooseStewardFragment: BaseFragment<FragmentChooseStewardBinding>(), Users
         presenter.getStewards().observe(this, Observer { setUsers(it) })
     }
 
-    private fun setUsers(userList: List<User>) {
+    private fun setUsers(userList: List<UserUI>) {
         adapter.clear()
         adapter.addAll(userList)
     }

@@ -7,16 +7,30 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/start_end_margin">
+            android:paddingStart="@dimen/start_end_margin"
+            android:paddingEnd="@dimen/start_end_margin"
+            android:paddingTop="@dimen/top_bottom_margin"
+            android:paddingBottom="@dimen/top_bottom_margin">
+
+        <TextView
+                android:id="@+id/item_choose_user_first_letter"
+                style="@style/TextView.Regular.Black.24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="И"/>
 
         <TextView
                 android:id="@+id/item_choose_user_name"
                 style="@style/TextView.Regular.Black.16sp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="@dimen/default_letter_spacing"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/start_end_margin"
+                app:layout_constraintStart_toEndOf="@id/item_choose_user_first_letter"
+                app:layout_constraintTop_toTopOf="@id/item_choose_user_first_letter"
+                app:layout_constraintBottom_toBottomOf="@id/item_choose_user_first_letter"
                 tools:text="Иванов Иван Иванович"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

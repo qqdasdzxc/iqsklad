@@ -6,7 +6,8 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.iqsklad.data.dto.procedure.ProcedureDataHolder
 import ru.iqsklad.data.dto.procedure.ProcedureType
-import ru.iqsklad.data.dto.user.User
+import ru.iqsklad.data.dto.user.UserMapper
+import ru.iqsklad.data.dto.user.UserUI
 import ru.iqsklad.data.repository.contract.IStewardsRepository
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.ChooseStewardPresenter
@@ -21,7 +22,9 @@ class ChooseStewardViewModel @Inject constructor(
     private val searchTextLiveData = MutableLiveData<String>()
 
     private val stewardsLiveData = Transformations.switchMap(searchTextLiveData) {
-        stewardsRepository.getStewards(searchTextLiveData.value!!)
+        Transformations.map(stewardsRepository.getStewards(searchTextLiveData.value!!)) {
+            UserMapper.mapUsers(it)
+        }
     }
 
     init {
@@ -31,7 +34,7 @@ class ChooseStewardViewModel @Inject constructor(
 
     override fun getProcedureType(): ProcedureType = procedureDataHolder.procedureType
 
-    override fun getStewards(): LiveData<List<User>> = stewardsLiveData
+    override fun getStewards(): LiveData<List<UserUI>> = stewardsLiveData
 
     override fun onSearchTextChanged(searchText: String) {
         searchTextLiveData.postValue(searchText)

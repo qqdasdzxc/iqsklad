@@ -16,7 +16,9 @@ class StewardsRepository : IStewardsRepository {
 
     override fun getStewards(searchText: String): LiveData<List<User>> {
         val result = MutableLiveData<List<User>>()
-        result.postValue(stubUsersList.filter { it.name.toLowerCase().contains(searchText.trim()) })
+        result.postValue(stubUsersList.filter {
+            it.name.toLowerCase().contains(searchText.trim())
+        }.sortedBy { it.name })
         return result
     }
 }

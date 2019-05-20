@@ -6,12 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.user.User
-import ru.iqsklad.ui.base.fragment.BaseFragment
+import ru.iqsklad.data.dto.user.UserUI
 import ru.iqsklad.databinding.FragmentAuthChooseForwarderBinding
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.implementation.auth.ChooseForwarderViewModel
 import ru.iqsklad.presentation.presenter.auth.ChooseForwarderPresenter
 import ru.iqsklad.ui.adapter.UsersAdapter
+import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.utils.extensions.injectViewModel
 import javax.inject.Inject
 
@@ -42,7 +43,7 @@ class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBind
         presenter.getForwarders().observe(this, Observer { setUsers(it) })
     }
 
-    private fun setUsers(userList: List<User>) {
+    private fun setUsers(userList: List<UserUI>) {
         adapter.clear()
         adapter.addAll(userList)
     }
