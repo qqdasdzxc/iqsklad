@@ -34,7 +34,7 @@ class RfidScanner : IRfidScanner {
 
             while (isActive) {
                 val scannedStringArray = scanner!!.readTagFromBuffer()
-                if (scannedStringArray != null) {
+                scannedStringArray?.let {
                     val stringEPCResult = scanner!!.convertUiiToEPC(scannedStringArray[1])
                     rfidLiveData.postValue(stringEPCResult)
                 }

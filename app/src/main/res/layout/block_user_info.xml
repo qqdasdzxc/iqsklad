@@ -26,12 +26,12 @@
 
         <TextView
                 android:id="@+id/confirm_user_id_view"
+                confirmUserIDText="@{user.ID}"
                 style="@style/TextView.Regular.Black.14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:letterSpacing="@dimen/default_letter_spacing"
-                android:text="@{String.format(@string/auth_confirm_user_id, user.ID)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_name_view"

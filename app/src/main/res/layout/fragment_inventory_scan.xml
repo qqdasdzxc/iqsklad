@@ -10,8 +10,6 @@
 
         <import type="ru.iqsklad.data.dto.procedure.ProcedureType"/>
 
-        <import type="android.view.View"/>
-
         <variable
                 name="presenter"
                 type="ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter"/>
@@ -31,11 +29,11 @@
 
         <TextView
                 android:id="@+id/inventory_scan_title"
+                inventoryScanTitle="@{presenter.getInvoiceNumber()}"
                 style="@style/TextView.Regular.Black.24sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="@{String.format(@string/inventory_scan_title, presenter.getInvoiceNumber())}"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
@@ -69,6 +67,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_fact_label"
+                inventoryScanFactVisibility="@{presenter.getInventoryScanMode()}"
                 style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,7 +75,6 @@
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:text="@string/inventory_scan_fact_label"
                 android:letterSpacing="@dimen/default_letter_spacing"
-                android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
                 app:layout_constraintTop_toBottomOf="@id/inventory_scan_title"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -106,11 +104,11 @@
 
         <TextView
                 android:id="@+id/inventory_scan_info_label_view"
+                inventoryScanInfoLabelVisibility="@{presenter.getInventoryScanMode()}"
                 style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
-                android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
                 android:text="@string/inventory_scan_info_label"
                 app:layout_constraintStart_toStartOf="@id/label_divider"
                 app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>
@@ -140,12 +138,12 @@
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/inventory_scan_end_action_view"
+                inventoryScanEndActionTitle="@{presenter.getProcedureType()}"
+                inventoryScanEndActionVisibility="@{presenter.getInventoryScanMode()}"
                 style="@style/EmptyButton"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
                 android:layout_marginStart="@dimen/start_end_margin"
-                android:text="@{presenter.getProcedureType() == ProcedureType.PASS ? @string/inventory_scan_end_action_type_pass_title : @string/inventory_scan_end_action_type_receive_title}"
-                android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.STOPPED ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toTopOf="@id/inventory_scan_action_view"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +159,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:scanActionText="@{presenter.getInventoryScanMode()}"/>
+                scanActionTitle="@{presenter.getInventoryScanMode()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
