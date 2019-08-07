@@ -74,10 +74,11 @@ class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
     }
 
     private fun initCamera() {
-        val metrics = DisplayMetrics().also { binding.invoiceScanTextureView.display.getRealMetrics(it) }
+        //val metrics = DisplayMetrics().also { binding.invoiceScanTextureView.display.getRealMetrics(it) }
         val previewConfig = PreviewConfig.Builder().apply {
-            setTargetAspectRatio(Rational(metrics.widthPixels, metrics.heightPixels))
-            setTargetResolution(Size(640, 640))
+            //setTargetAspectRatio(Rational(metrics.widthPixels, metrics.heightPixels))
+            //setTargetResolution(Size(640, 640))
+            setLensFacing(CameraX.LensFacing.BACK)
         }.build()
 
         val preview = Preview(previewConfig)

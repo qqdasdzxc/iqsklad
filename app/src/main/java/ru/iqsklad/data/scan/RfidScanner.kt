@@ -29,13 +29,13 @@ class RfidScanner : IRfidScanner {
         scanner = RFIDWithUHF.getInstance()
 
         scanJob = CoroutineScope(Dispatchers.IO).async (start = CoroutineStart.LAZY) {
-            scanner!!.init()
-            scanner!!.startInventoryTag(0,0)
+            scanner?.init()
+            scanner?.startInventoryTag(0,0)
 
             while (isActive) {
-                val scannedStringArray = scanner!!.readTagFromBuffer()
+                val scannedStringArray = scanner?.readTagFromBuffer()
                 scannedStringArray?.let {
-                    val stringEPCResult = scanner!!.convertUiiToEPC(scannedStringArray[1])
+                    val stringEPCResult = scanner?.convertUiiToEPC(scannedStringArray[1])
                     rfidLiveData.postValue(stringEPCResult)
                 }
             }
