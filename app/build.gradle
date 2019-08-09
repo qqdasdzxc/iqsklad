@@ -48,7 +48,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$rootProject.ext.supportLibraryVersion"
-    implementation 'androidx.core:core-ktx:1.2.0-alpha02'
+    implementation 'androidx.core:core-ktx:1.2.0-alpha01'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
@@ -102,9 +102,11 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation rootProject.files('libs/cw-deviceapi20180918.jar')
+    //implementation rootProject.files('libs/cw-deviceapi20180918.jar')
     implementation rootProject.files('libs/jxl.jar')
     implementation rootProject.files('libs/xUtils-2.5.5.jar')
+    implementation rootProject.files('libs/SenterOpenApi_IoT_1.2.3.95_Common.jar')
+    implementation rootProject.files('libs/SenterOpenApi_IoT_1.2.3.95_Function_UltraHighFrequency_ModelD2.jar')
 }
 
 apply plugin: 'com.google.gms.google-services'

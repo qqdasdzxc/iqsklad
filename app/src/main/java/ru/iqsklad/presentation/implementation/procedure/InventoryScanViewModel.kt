@@ -6,17 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.iqsklad.data.dto.procedure.*
-import ru.iqsklad.data.scan.IRfidScanner
+import ru.iqsklad.data.scan.ScannerFactory
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
 import javax.inject.Inject
 
 class InventoryScanViewModel @Inject constructor(
     private var procedureDataHolder: ProcedureDataHolder,
-    private var rfidScanner: IRfidScanner
-) : ViewModel(),
-    InventoryScanPresenter {
+    scannerFactory: ScannerFactory
+) : ViewModel(), InventoryScanPresenter {
 
+    private val scanner = scannerFactory.createScanner()
     private val invoiceIDObservable = ObservableField<String>()
     private val invoiceInventoryListObservable = MutableLiveData<List<Inventory>>()
     private val inventoryViewModeObservable = ObservableField<InventoryScanMode>()
@@ -44,14 +44,14 @@ class InventoryScanViewModel @Inject constructor(
 
     override fun startScan(): LiveData<ScanResult?> {
         inventoryViewModeObservable.set(InventoryScanMode.SCANNING)
-        return Transformations.map(rfidScanner.startScan()) {
+        return Transformations.map(scanner!!.startScan()) {
             return@map processRfid(it)
         }
     }
 
     override fun stopScan() {
         inventoryViewModeObservable.set(InventoryScanMode.STOPPED)
-        rfidScanner.stopScan()
+        scanner?.stopScan()
     }
 
     private fun processRfid(rfid: RFID_EPC?): ScanResult? {

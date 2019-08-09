@@ -2,14 +2,13 @@ package ru.iqsklad.domain.di.module.procedure
 
 import dagger.Module
 import dagger.Provides
-import ru.iqsklad.data.scan.IRfidScanner
-import ru.iqsklad.data.scan.RfidScanner
+import ru.iqsklad.data.scan.ScannerFactory
 import ru.iqsklad.domain.di.scope.ProcedureScope
 
 @Module
-class ProcedureRfidScannerModule {
+class ScannerFactoryModule {
 
     @Provides
     @ProcedureScope
-    fun getRfidScanner(): IRfidScanner = RfidScanner()
+    fun getScannerFactory(): ScannerFactory = ScannerFactory()
 }
