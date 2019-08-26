@@ -25,7 +25,7 @@ class UhfD2Scanner: Scanner() {
             override fun onFinishedSuccessfully(p0: Int?, p1: Int, p2: Int) {}
 
             override fun onTagInventory(uii: UhfD2.UII?, frequencyPoint: UhfD2.UmdFrequencyPoint?, antennaId: Int?, rssi: UhfD2.UmdRssi?) {
-                getInventoryLiveData().postValue(uii?.convertToEPC())
+                uii?.convertToEPC()?.let { postInventory(it) }
             }
         })
     }

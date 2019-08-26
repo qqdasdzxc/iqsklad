@@ -37,6 +37,6 @@ abstract class Scanner {
 
     abstract fun getInventory()
 
-    protected fun getInventoryLiveData() = rfidLiveData
+    protected fun postInventory(value: RFID_EPC) = rfidLiveData.postValue(value)
 
 }
