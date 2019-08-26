@@ -42,11 +42,15 @@ class InventoryScanViewModel @Inject constructor(
 
     //override fun getOverAllScanCount(): ObservableField<Int> = inventoryOverAllScannedCount
 
-    override fun startScan(): LiveData<ScanResult?> {
-        inventoryViewModeObservable.set(InventoryScanMode.SCANNING)
-        return Transformations.map(scanner!!.startScan()) {
-            return@map processRfid(it)
+    override fun startScan(): LiveData<ScanResult?>? {
+        scanner?.let {
+            inventoryViewModeObservable.set(InventoryScanMode.SCANNING)
+            return Transformations.map(scanner.startScan()) {
+                return@map processRfid(it)
+            }
         }
+
+        return null
     }
 
     override fun stopScan() {

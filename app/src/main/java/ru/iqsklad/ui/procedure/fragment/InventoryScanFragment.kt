@@ -95,7 +95,7 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
     }
 
     private fun initScanObserve() {
-        presenter.startScan().observe(this, Observer {
+        presenter.startScan()?.observe(this, Observer {
             it?.let { scanResult ->
                 inventoryAdapter.notifyDataSetChanged()
                 scanResultAdapter.add(scanResult)
