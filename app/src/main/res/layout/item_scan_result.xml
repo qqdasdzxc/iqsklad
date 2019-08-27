@@ -16,6 +16,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:ignore="ContentDescription"
                 tools:src="@drawable/ic_status_success"/>
 
@@ -28,7 +29,7 @@
                 app:layout_constraintStart_toEndOf="@id/scan_result_status_image_view"
                 app:layout_constraintTop_toTopOf="@id/scan_result_status_image_view"
                 app:layout_constraintBottom_toBottomOf="@id/scan_result_status_image_view"
-                tools:text="@string/scan_result_success_procedure_type_pass_text"/>
+                tools:text="@string/scan_result_excluded_procedure_type_receive_text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

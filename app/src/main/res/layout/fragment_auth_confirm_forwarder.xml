@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -22,15 +22,28 @@
                 app:field_action_bar_type="type_logo_with_back"
                 app:field_action_bar_exit_visible="false"/>
 
+        <ImageView
+                android:id="@+id/user_photo_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/photo_sample"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/confirm_user_action_bar_view"
+                tools:ignore="ContentDescription" />
+
         <TextView
+                android:id="@+id/user_label_view"
                 style="@style/TextView.Regular.Black.16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/auth_confirm_user_info_label"
                 android:letterSpacing="@dimen/default_letter_spacing"
+                android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/user_info_view"/>
+                app:layout_constraintTop_toBottomOf="@id/user_photo_view"/>
 
         <include
                 android:id="@+id/user_info_view"
@@ -38,9 +51,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/start_end_margin"
-                app:layout_constraintBottom_toTopOf="@id/confirm_user_change_view"
+                app:layout_constraintTop_toBottomOf="@id/user_label_view"
                 app:user="@{user}"/>
-
 
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/confirm_user_change_view"

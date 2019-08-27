@@ -17,12 +17,12 @@ class ConfirmForwarderAuthFragment : BaseFragment<FragmentAuthConfirmForwarderBi
         initView()
     }
 
-    private fun initView() {
-        binding.user = ConfirmForwarderAuthFragmentArgs.fromBundle(arguments!!).user
-
-        binding.confirmUserChangeView.setOnClickListener { navController.navigateUp() }
-
-        binding.confirmUserAcceptView.setOnClickListener {
+    private fun initView() = binding.apply {
+        user = ConfirmForwarderAuthFragmentArgs.fromBundle(arguments!!).user
+        confirmUserChangeView.setOnClickListener {
+            navController.navigateUp()
+        }
+        confirmUserAcceptView.setOnClickListener {
             saveUserSession()
             confirmForwarderAction()
         }

@@ -14,7 +14,7 @@
     <string name="auth_choose_user_search_hint">Введите ФИО или ID экспедитора</string>
     <string name="auth_choose_title">Выберите экспедитора</string>
     <string name="auth_choose_error_title">Выберите экспедитора</string>
-    <string name="auth_confirm_user_info_label">Вы авторизуетесь в системе как:</string>
+    <string name="auth_confirm_user_info_label">Вы авторизуетесь в системе как</string>
     <string name="auth_confirm_user_id">ID: %s</string>
     <string name="auth_confirm_user_action_title">Верно, авторизоваться</string>
     <string name="auth_confirm_change_user_action_title">Выбрать другого экспедитора</string>

@@ -19,8 +19,8 @@ import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import ru.iqsklad.R
 import ru.iqsklad.ui.base.activity.BaseActivity
-import ru.iqsklad.ui.base.view.ActionBarView
 import ru.iqsklad.ui.base.bottom.StatusFragment
+import ru.iqsklad.ui.base.view.ActionBarView
 import ru.iqsklad.utils.pref.UserPreferences
 
 abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.ActionBarClickListener {
@@ -103,14 +103,14 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
     fun hideKeyBoard() {
         activity?.let {
             val manager = it.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            manager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+            manager.hideSoftInputFromWindow(it.findViewById<ViewGroup>(android.R.id.content).windowToken, 0)
         }
     }
 
     fun showKeyBoard() {
         activity?.let {
             val manager = it.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            manager.toggleSoftInput(0, InputMethodManager.SHOW_IMPLICIT)
+            manager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         }
     }
 

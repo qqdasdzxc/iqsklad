@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -19,8 +21,6 @@ import ru.iqsklad.R
 import ru.iqsklad.utils.extensions.hide
 import ru.iqsklad.utils.extensions.hideAsGone
 import ru.iqsklad.utils.extensions.show
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.view.menu.MenuPopupHelper
 
 
 class ActionBarView : ConstraintLayout {
@@ -219,6 +219,10 @@ class ActionBarView : ConstraintLayout {
             THEME_DARK -> {
                 ImageViewCompat.setImageTintList(
                     backImageView,
+                    ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+                )
+                ImageViewCompat.setImageTintList(
+                    statusImageView,
                     ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
                 )
                 ImageViewCompat.setImageTintList(
