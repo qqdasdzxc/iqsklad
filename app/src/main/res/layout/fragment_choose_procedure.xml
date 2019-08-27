@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -19,55 +20,104 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:field_action_bar_type="type_logo_without_back"/>
 
+        <ImageView
+                android:id="@+id/user_photo_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@mipmap/photo_sample"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose_procedure_action_bar_view"
+                tools:ignore="ContentDescription" />
+
+        <TextView
+                android:id="@+id/info_label_view"
+                style="@style/TextView.Regular.Black.16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/choose_procedure_user_info_label"
+                android:letterSpacing="@dimen/default_letter_spacing"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_photo_view"/>
+
         <include
                 android:id="@+id/user_info_view"
                 layout="@layout/block_user_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/choose_procedure_action_bar_view"
+                android:layout_marginBottom="@dimen/start_end_margin"
+                app:layout_constraintTop_toBottomOf="@id/info_label_view"
                 app:user="@{user}"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/start_end_margin"
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/procedure_pass_view"
+                style="@style/EmptyButton"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:text="@string/choose_procedure_pass_title"
+                app:layout_constraintBottom_toTopOf="@id/procedure_receive_view"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:strokeColor="@color/colorPrimary"
+                app:strokeWidth="@dimen/button_stroke_width"/>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/procedure_receive_view"
+                style="@style/EmptyButton"
+                android:layout_marginBottom="@dimen/start_end_margin"
+                android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginStart="@dimen/start_end_margin"
+                android:text="@string/choose_procedure_receive_title"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/user_info_view"
-                android:background="@drawable/procedure_choose_layout_background">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:strokeColor="@color/colorPrimary"
+                app:strokeWidth="@dimen/button_stroke_width"/>
 
-            <View
-                    android:id="@+id/procedure_divider_view"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:background="@color/black"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_margin="@dimen/start_end_margin"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/user_info_view"-->
+<!--                android:background="@drawable/procedure_choose_layout_background">-->
 
-            <TextView
-                    android:id="@+id/procedure_pass_view"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/choose_procedure_pass_title"
-                    android:textAlignment="center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/procedure_divider_view"/>
+<!--            <View-->
+<!--                    android:id="@+id/procedure_divider_view"-->
+<!--                    android:layout_width="1dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:background="@color/black"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
 
-            <TextView
-                    android:id="@+id/procedure_receive_view"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/choose_procedure_receive_title"
-                    android:textAlignment="center"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/procedure_divider_view"/>
+<!--            <TextView-->
+<!--                    android:id="@+id/procedure_pass_view"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/choose_procedure_pass_title"-->
+<!--                    android:textAlignment="center"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/procedure_divider_view"/>-->
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            <TextView-->
+<!--                    android:id="@+id/procedure_receive_view"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/choose_procedure_receive_title"-->
+<!--                    android:textAlignment="center"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/procedure_divider_view"/>-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

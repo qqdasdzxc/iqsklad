@@ -20,15 +20,16 @@
     <string name="auth_confirm_change_user_action_title">Выбрать другого экспедитора</string>
 
     <!-- Choose procedure -->
-    <string name="choose_procedure_pass_title">Сдать\nэкипировочное\nимущество</string>
-    <string name="choose_procedure_receive_title">Принять\nэкипировочное\nимущество</string>
+    <string name="choose_procedure_user_info_label">Вы авторизованы в системе как:</string>
+    <string name="choose_procedure_pass_title">Сдать имущество</string>
+    <string name="choose_procedure_receive_title">Принять имущество</string>
     <string name="choose_procedure_message">Выберите процедуру</string>
 
     <!-- Choose steward -->
     <string name="choose_steward_search_hint">Введите ФИО или ID бортпроводника</string>
     <string name="procedure_choose_steward_title">Выберите бортпроводника</string>
     <string name="procedure_choose_steward_not_exist">Бортпроводник отсутствует</string>
-    <string name="procedure_confirm_steward_info_label">Бортпроводником назначен:</string>
+    <string name="procedure_confirm_steward_info_label">Бортпроводником назначен</string>
     <string name="procedure_confirm_change_steward_action_title">Выбрать другого бортпроводника</string>
     <string name="procedure_confirm_steward_action_title">Верно, выбрать бортпроводника</string>
     <string name="procedure_pass_without_steward_action_title">Сдать имущество без бортпроводника</string>
