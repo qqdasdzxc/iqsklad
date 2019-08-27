@@ -77,47 +77,5 @@
                 app:strokeColor="@color/colorPrimary"
                 app:strokeWidth="@dimen/button_stroke_width"/>
 
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="0dp"-->
-<!--                android:layout_margin="@dimen/start_end_margin"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/user_info_view"-->
-<!--                android:background="@drawable/procedure_choose_layout_background">-->
-
-<!--            <View-->
-<!--                    android:id="@+id/procedure_divider_view"-->
-<!--                    android:layout_width="1dp"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:background="@color/black"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
-
-<!--            <TextView-->
-<!--                    android:id="@+id/procedure_pass_view"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/choose_procedure_pass_title"-->
-<!--                    android:textAlignment="center"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintEnd_toStartOf="@id/procedure_divider_view"/>-->
-
-<!--            <TextView-->
-<!--                    android:id="@+id/procedure_receive_view"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/choose_procedure_receive_title"-->
-<!--                    android:textAlignment="center"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/procedure_divider_view"/>-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
