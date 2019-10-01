@@ -58,7 +58,7 @@ dependencies {
     })
 
     //aac
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'android.arch.paging:runtime:1.0.1'
     implementation "android.arch.navigation:navigation-fragment:$rootProject.ext.navigationFragmentVersion"
     implementation "android.arch.navigation:navigation-ui:$rootProject.ext.navigationFragmentVersion"
@@ -92,7 +92,7 @@ dependencies {
     implementation "androidx.camera:camera-camera2:${camerax_version}"
 
     //barcode image analyzer
-    implementation 'com.google.firebase:firebase-ml-vision:22.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision:23.0.0'
 
     //permissions
     implementation 'com.karumi:dexter:5.0.0'
