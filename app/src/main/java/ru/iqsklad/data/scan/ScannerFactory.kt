@@ -27,6 +27,12 @@ class ScannerFactory {
             UhfD2.getInstance().reset()
         } catch (e: Exception) {
             false
+        } finally {
+            try {
+                UhfD2.getInstance().uninit()
+            } catch (e: UnsupportedOperationException) {
+                return false
+            }
         }
     }
 }
