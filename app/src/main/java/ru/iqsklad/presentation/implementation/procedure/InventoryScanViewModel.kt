@@ -20,6 +20,7 @@ class InventoryScanViewModel @Inject constructor(
     private val invoiceIDObservable = ObservableField<String>()
     private val invoiceInventoryListObservable = MutableLiveData<List<Inventory>>()
     private val inventoryViewModeObservable = ObservableField<InventoryScanMode>()
+    private val errorObservable = MutableLiveData<String>()
     //private val inventoryOverAllScannedCount = ObservableField(0)
 
     private val scannedRfidSet = HashSet<RFID_EPC>()
@@ -31,6 +32,8 @@ class InventoryScanViewModel @Inject constructor(
         invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice.inventoryList
         inventoryViewModeObservable.set(InventoryScanMode.PREVIEW)
     }
+
+    override fun getErrorLiveData(): LiveData<String> = errorObservable
 
     override fun getInvoiceNumber(): ObservableField<String> = invoiceIDObservable
 
@@ -45,10 +48,12 @@ class InventoryScanViewModel @Inject constructor(
     override fun startScan(): LiveData<ScanResult?>? {
         scanner?.let {
             inventoryViewModeObservable.set(InventoryScanMode.SCANNING)
-            return Transformations.map(scanner.startScan()) {
-                return@map processRfid(it)
+            return Transformations.map(it.startScan()) { result ->
+                return@map processRfid(result)
             }
         }
+
+        errorObservable.postValue("Устройство сканирования не найдено")
 
         return null
     }
@@ -59,14 +64,14 @@ class InventoryScanViewModel @Inject constructor(
     }
 
     private fun processRfid(rfid: RFID_EPC?): ScanResult? {
-        rfid?.let {
-            if (!scannedRfidSet.contains(rfid)) {
+        rfid?.let { nonNullRfid ->
+            if (!scannedRfidSet.contains(nonNullRfid)) {
                 //inventoryOverAllScannedCount.set(inventoryOverAllScannedCount.get()!! + 1)
-                scannedRfidSet.add(rfid)
-                return if (procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(it)) {
-                    ScanResult(rfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
+                scannedRfidSet.add(nonNullRfid)
+                return if (procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(nonNullRfid)) {
+                    ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
                 } else {
-                    ScanResult(rfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
+                    ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
                 }
             }
         }

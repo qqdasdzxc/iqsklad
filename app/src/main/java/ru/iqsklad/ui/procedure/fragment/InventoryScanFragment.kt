@@ -51,6 +51,10 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
     }
 
     private fun initObservable() {
+        presenter.getErrorLiveData().observe(this, Observer {
+            showMessage(it)
+        })
+
         presenter.getInvoiceInventoryLiveData().observe(this, Observer {
             inventoryAdapter.clear()
             inventoryAdapter.addAll(it)

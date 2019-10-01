@@ -27,8 +27,6 @@ class ScannerFactory {
             UhfD2.getInstance().reset()
         } catch (e: Exception) {
             false
-        } finally {
-            UhfD2.getInstance().uninit()
         }
     }
 }

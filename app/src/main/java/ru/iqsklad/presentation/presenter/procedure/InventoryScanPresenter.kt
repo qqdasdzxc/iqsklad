@@ -9,6 +9,8 @@ import ru.iqsklad.data.dto.procedure.ScanResult
 
 interface InventoryScanPresenter {
 
+    fun getErrorLiveData(): LiveData<String>
+
     fun getInvoiceNumber(): ObservableField<String>
 
     fun getInvoiceInventoryLiveData(): LiveData<List<Inventory>>
