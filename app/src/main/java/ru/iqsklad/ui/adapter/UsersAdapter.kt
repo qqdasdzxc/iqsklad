@@ -32,8 +32,7 @@ class UsersAdapter(private var listener: UserClickListener) :
     inner class UserViewHolder(private var binding: ItemChooseUserBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun populate(userUI: UserUI) {
-            binding.itemChooseUserFirstLetter.text = userUI.model.name[0].toString()
-            binding.itemChooseUserName.text = userUI.model.name
+            binding.userUi = userUI
             binding.root.setOnClickListener { listener.onUserClicked(userUI.model) }
 
             setVisibilityFirstLetter(userUI.showFirstLetter)

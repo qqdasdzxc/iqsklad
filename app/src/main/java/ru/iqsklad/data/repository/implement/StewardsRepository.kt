@@ -8,17 +8,17 @@ import ru.iqsklad.data.repository.contract.IStewardsRepository
 class StewardsRepository : IStewardsRepository {
 
     private val stubUsersList = listOf(
-        User("Кузьмин Дмитрий Игоревич", "111111"),
-        User("Иванов Иван Иванович", "222222"),
-        User("Петров Перт Петрович", "333333"),
-        User("Александров Сан Саныч", "444444")
+        User(id = "111111", lastName = "Кузьмин", firstName = "Дмитрий", middleName = "Игоревич", position = "2"),
+        User(id = "222222", lastName = "Иванов", firstName = "Иван", middleName = "Иванович", position = "2"),
+        User(id = "333333", lastName = "Петров", firstName = "Перт", middleName = "Петрович", position = "2"),
+        User(id = "444444", lastName = "Александров", firstName = "Сан", middleName = "Саныч", position = "1")
     )
 
     override fun getStewards(searchText: String): LiveData<List<User>> {
         val result = MutableLiveData<List<User>>()
         result.postValue(stubUsersList.filter {
-            it.name.toLowerCase().contains(searchText.trim())
-        }.sortedBy { it.name })
+            it.lastName.toLowerCase().contains(searchText.trim())
+        }.sortedBy { it.lastName })
         return result
     }
 }

@@ -8,7 +8,7 @@ object UserMapper {
             if (index == 0) {
                 result.add(UserUI(user, true))
             } else {
-                result.add(UserUI(user, users[index - 1].name[0] != user.name[0]))
+                result.add(UserUI(user, users[index - 1].lastName[0] != user.lastName[0]))
             }
         }
 

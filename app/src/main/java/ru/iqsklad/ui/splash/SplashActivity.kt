@@ -1,9 +1,9 @@
 package ru.iqsklad.ui.splash
 
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.ui.auth.activity.AuthActivity
@@ -25,7 +25,7 @@ class SplashActivity: AppCompatActivity() {
                 finish()
             } else {
                 val intent = Intent(this, ProcedureActivity::class.java)
-                intent.putExtra("user", User("asdzxc", userID))
+                intent.putExtra("user", User(id = "111111", lastName = "Кузьмин", firstName = "Дмитрий", middleName = "Игоревич", position = "1"))
                 startActivity(intent)
                 finish()
             }

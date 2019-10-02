@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
                 name="user"
-                type="ru.iqsklad.data.dto.user.User"/>
+                type="ru.iqsklad.data.dto.user.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,24 +20,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
-                android:text="@{user.name}"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Кузьмин Дмитрий Игоревич"/>
+                app:userName="@{user}"
+                tools:text="Кузьмин Дмитрий Игоревич" />
 
         <TextView
                 android:id="@+id/confirm_user_id_view"
-                confirmUserIDText="@{user.ID}"
                 style="@style/TextView.Regular.Black.14sp"
+                confirmUserIDText="@{user.id}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:letterSpacing="@dimen/default_letter_spacing"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/user_name_view"
-                tools:text="ID: 111111"/>
+                tools:text="ID: 111111" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

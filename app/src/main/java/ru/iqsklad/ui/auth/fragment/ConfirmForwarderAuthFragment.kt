@@ -29,7 +29,7 @@ class ConfirmForwarderAuthFragment : BaseFragment<FragmentAuthConfirmForwarderBi
     }
 
     private fun saveUserSession() {
-        UserPreferences.saveUserId(activity!!, binding.user!!.ID)
+        UserPreferences.saveUserId(activity!!, binding.user!!.id)
     }
 
     private fun confirmForwarderAction() {

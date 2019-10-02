@@ -10,6 +10,8 @@ import com.google.android.material.textfield.TextInputLayout
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
 import ru.iqsklad.data.dto.procedure.ProcedureType
+import ru.iqsklad.data.dto.user.User
+import ru.iqsklad.data.dto.user.UserUI
 
 @BindingAdapter("isError")
 fun TextInputLayout.updateError(isError: Boolean) {
@@ -33,6 +35,21 @@ fun MaterialButton.updateScanActionTitle(inventoryScanMode: InventoryScanMode) {
         InventoryScanMode.SCANNING -> R.string.inventory_scan_stop_action_title
         InventoryScanMode.STOPPED -> R.string.inventory_scan_resume_action_title
     })
+}
+
+@BindingAdapter("userNameFirstLetter")
+fun TextView.setUserNameFirstLetter(userUI: UserUI) {
+    text = userUI.model.getFirstLetterString()
+    if (userUI.showFirstLetter) {
+        show()
+    } else {
+        hide()
+    }
+}
+
+@BindingAdapter("userName")
+fun TextView.setUserName(user: User) {
+    text = user.getFullName()
 }
 
 @BindingAdapter("confirmUserIDText")

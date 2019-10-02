@@ -1,10 +1,7 @@
 package ru.iqsklad.domain.di.component
 
 import dagger.Subcomponent
-import ru.iqsklad.domain.di.module.procedure.ProcedureDataModule
-import ru.iqsklad.domain.di.module.procedure.ProcedureRepositoryModule
-import ru.iqsklad.domain.di.module.procedure.ScannerFactoryModule
-import ru.iqsklad.domain.di.module.procedure.ProcedureViewModelModule
+import ru.iqsklad.domain.di.module.procedure.*
 import ru.iqsklad.domain.di.scope.ProcedureScope
 import ru.iqsklad.presentation.implementation.procedure.*
 import ru.iqsklad.ui.procedure.fragment.*
@@ -12,7 +9,7 @@ import ru.iqsklad.ui.procedure.fragment.*
 @ProcedureScope
 @Subcomponent(
     modules = [ProcedureDataModule::class, ProcedureViewModelModule::class, ProcedureRepositoryModule::class,
-    ScannerFactoryModule::class]
+        ScannerFactoryModule::class, ProcedureApiModule::class]
 )
 interface ProcedureComponent {
 
