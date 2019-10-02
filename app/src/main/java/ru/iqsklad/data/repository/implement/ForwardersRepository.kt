@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import ru.dtk.lib.network.builder.DtkNetBuilder
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.data.repository.contract.IForwardersRepository
@@ -26,13 +28,18 @@ class ForwardersRepository @Inject constructor(
     )
 
     override fun getForwarders(searchText: String): LiveData<List<User>> {
-//        runBlocking {
-//            val job = async {
-//                api.getUsersAsync().await()
-//            }
-//            val response = job.await()
-//            val asd = String()
-//        }
+        runBlocking {
+            val job = async {
+                api.getUsersAsync().await()
+            }
+            val response = job.await()
+
+            val job1 = async {
+                api.getInvoicesAsync().await()
+            }
+            val response1 = job1.await()
+            val asd = String()
+        }
 
         val result = MutableLiveData<List<User>>()
         result.postValue(stubUsersList.filter {

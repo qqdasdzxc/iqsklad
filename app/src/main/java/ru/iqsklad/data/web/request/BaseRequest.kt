@@ -4,8 +4,9 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 
 open class BaseRequest(
-    private val jsonrpc: String = "2.0",
+    val jsonrpc: String = "2.0",
     val method: String? = null,
+    val params: Params? = null,
     val id: String = "1"
 ) {
 
@@ -16,8 +17,19 @@ open class BaseRequest(
                 mapOf(
                     Pair("jsonrpc", jsonrpc),
                     Pair("method", method),
+                    Pair("params", params?.createJsonRequestBody()),
                     Pair("id", id)
                 )
             ).toString()
+                .replace("\\\"","\"")
+                .replaceFirst("\"{", "{")
+                .replaceFirst("}\",", "},")
         )
+
+    class Params(
+        val params: Map<String, String>
+    ) {
+        fun createJsonRequestBody(): String =
+            JSONObject(params).toString().replace('\\',' ')
+    }
 }

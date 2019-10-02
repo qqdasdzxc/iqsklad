@@ -13,4 +13,16 @@ interface UsersApi {
     fun getUsersAsync(
         @Body body: RequestBody = BaseRequest(method = "person.getList").createJsonRequestBody()
     ): Deferred<UsersResponse>
+
+    @POST("eqar")
+    fun getInvoicesAsync(
+        @Body body: RequestBody = BaseRequest(
+            method = "invoice.getList",
+            params = BaseRequest.Params(
+                params = mapOf(
+                    Pair("date", "2019-10-02")
+                )
+            )
+        ).createJsonRequestBody()
+    ): Deferred<UsersResponse>
 }
