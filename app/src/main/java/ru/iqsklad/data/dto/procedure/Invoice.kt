@@ -1,6 +1,18 @@
 package ru.iqsklad.data.dto.procedure
 
-class Invoice {
+class Invoice(
+//    @SerializedName("id")
+//    val id: String,
+//    @SerializedName("view_number")
+//    val viewNumber: String,
+//    @SerializedName("status")
+//    val status: String,
+//    @SerializedName("when_created")
+//    val whenCreated: String,
+//    @SerializedName("items")
+//    val equipmentList: List<Equipment>
+) {
+
     var invoiceID: String? = null
     var inventoryList = mutableListOf(
         Inventory(

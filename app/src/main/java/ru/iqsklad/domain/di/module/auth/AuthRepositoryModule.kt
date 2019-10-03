@@ -8,6 +8,7 @@ import ru.dtk.lib.network.builder.DtkNetBuilder
 import ru.iqsklad.data.repository.contract.IForwardersRepository
 import ru.iqsklad.data.repository.implement.ForwardersRepository
 import ru.iqsklad.data.web.api.UsersApi
+import ru.iqsklad.data.web.factory.RequestBuilder
 import ru.iqsklad.domain.di.scope.AuthScope
 
 @Module
@@ -19,6 +20,7 @@ class AuthRepositoryModule {
     @Provides
     fun getForwardersRepository(
         api: UsersApi,
-        controller: DtkNetBuilder
-    ): IForwardersRepository = ForwardersRepository(api, controller)
+        controller: DtkNetBuilder,
+        requestBuilder: RequestBuilder
+    ): IForwardersRepository = ForwardersRepository(api, controller, requestBuilder)
 }
