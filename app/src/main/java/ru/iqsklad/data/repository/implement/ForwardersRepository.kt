@@ -9,7 +9,6 @@ import kotlinx.coroutines.runBlocking
 import ru.dtk.lib.network.builder.DtkNetBuilder
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.data.repository.contract.IForwardersRepository
-import ru.iqsklad.data.web.api.UsersApi
 import ru.iqsklad.data.web.factory.RequestBuilder
 import javax.inject.Inject
 
@@ -31,26 +30,18 @@ class ForwardersRepository @Inject constructor(
 
     override fun getForwarders(searchText: String): LiveData<List<User>> {
         runBlocking {
-            val job = async {
-                api.getUsersAsync(
-                    requestBuilder
-                        .createRequest()
-                        .setMethod("person.getList")
-                        .build()
-                ).await()
-            }
-            val response = job.await()
-
             val job1 = async {
-                api.getEquipmentsAsync(
+                api.getUsersChangesAsync(
                     requestBuilder
                         .createRequest()
-                        .setMethod("rfid.getList")
+                        .setMethod("person.getChange")
+                        .setParams(mapOf(
+                            Pair("last_update", "2019-10-10 10:25")
+                        ))
                         .build()
                 ).await()
             }
             val response1 = job1.await()
-            val asd = String()
         }
 
         val result = MutableLiveData<List<User>>()

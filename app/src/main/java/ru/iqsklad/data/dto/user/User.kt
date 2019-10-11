@@ -1,9 +1,11 @@
 package ru.iqsklad.data.dto.user
 
 import android.os.Parcelable
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+@Entity
 @Parcelize
 open class User(
     val id: String,

@@ -10,5 +10,9 @@ interface EquipmentApi {
 
     //method - "rfid.getList"
     @POST("eqar")
-    fun getEquipments(@Body requestBody: RequestBody): Deferred<UsersResponse>
+    fun getEquipmentsAsync(@Body requestBody: RequestBody): Deferred<UsersResponse>
+
+    //method - "rfid.getChange"
+    @POST("eqar")
+    fun getEquipmentsChangesAsync(@Body requestBody: RequestBody): Deferred<UsersResponse>
 }

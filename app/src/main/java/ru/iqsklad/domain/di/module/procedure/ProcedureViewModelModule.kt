@@ -15,7 +15,6 @@ abstract class ProcedureViewModelModule {
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-
     @Binds
     @IntoMap
     @ViewModelKey(ChooseProcedureViewModel::class)

@@ -54,6 +54,6 @@ ext {
     daggerVersion = '2.23'
     leakCanaryVersion = '1.6.3'
     navigationFragmentVersion = '1.0.0'
-    roomVersion = "2.0.0"
+    roomVersion = "2.2.0"
     camerax_version = "1.0.0-alpha05"
 }

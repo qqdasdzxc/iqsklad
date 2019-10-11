@@ -12,7 +12,7 @@ interface UsersApi {
     @POST("eqar")
     fun getUsersAsync(@Body body: RequestBody): Deferred<UsersResponse>
 
-    //method = "rfid.getList"
+    //method = "person.getChange"
     @POST("eqar")
-    fun getEquipmentsAsync(@Body body: RequestBody): Deferred<UsersResponse>
+    fun getUsersChangesAsync(@Body body: RequestBody): Deferred<UsersResponse>
 }
