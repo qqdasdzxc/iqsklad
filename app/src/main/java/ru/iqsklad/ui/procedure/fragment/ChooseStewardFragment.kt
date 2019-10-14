@@ -3,46 +3,44 @@ package ru.iqsklad.ui.procedure.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
+import ru.iqsklad.data.dto.ui.ErrorUiModel
+import ru.iqsklad.data.dto.ui.LoadingUiModel
+import ru.iqsklad.data.dto.ui.SuccessUiModel
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.data.dto.user.UserUI
 import ru.iqsklad.databinding.FragmentChooseStewardBinding
-import ru.iqsklad.domain.App
-import ru.iqsklad.presentation.implementation.procedure.ChooseStewardViewModel
-import ru.iqsklad.presentation.presenter.procedure.ChooseStewardPresenter
+import ru.iqsklad.presentation.implementation.user.ChooseUserViewModel
+import ru.iqsklad.presentation.presenter.user.ChooseUserPresenter
 import ru.iqsklad.ui.adapter.UsersAdapter
 import ru.iqsklad.ui.base.fragment.BaseFragment
-import ru.iqsklad.utils.extensions.injectViewModel
-import javax.inject.Inject
 
 class ChooseStewardFragment : BaseFragment<FragmentChooseStewardBinding>(), UsersAdapter.UserClickListener {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var presenter: ChooseStewardPresenter
+    private lateinit var presenter: ChooseUserPresenter
 
     private var adapter = UsersAdapter(this)
 
     override fun getLayoutResId(): Int = R.layout.fragment_choose_steward
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        App.procedureComponent?.inject(this)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = injectViewModel<ChooseStewardViewModel>(viewModelFactory)
+        presenter = getPresenter<ChooseUserViewModel>()
         binding.presenter = presenter
 
         initObserve()
     }
 
     private fun initObserve() {
-        presenter.getStewards().observe(this, Observer { setUsers(it) })
+        presenter.getStewards().observe(this, Observer { uiModel ->
+            when (uiModel) {
+                LoadingUiModel -> {
+                }
+                is SuccessUiModel -> setUsers(uiModel.data)
+                is ErrorUiModel -> showMessage(uiModel.error)
+            }
+        })
     }
 
     private fun setUsers(userList: List<UserUI>) {

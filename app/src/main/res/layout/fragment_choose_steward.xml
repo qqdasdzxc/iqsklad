@@ -8,7 +8,7 @@
 
         <variable
                 name="presenter"
-                type="ru.iqsklad.presentation.presenter.procedure.ChooseStewardPresenter"/>
+                type="ru.iqsklad.presentation.presenter.user.ChooseUserPresenter"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

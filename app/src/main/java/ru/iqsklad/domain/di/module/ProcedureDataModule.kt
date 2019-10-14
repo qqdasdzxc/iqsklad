@@ -1,14 +1,14 @@
-package ru.iqsklad.domain.di.module.procedure
+package ru.iqsklad.domain.di.module
 
 import dagger.Module
 import dagger.Provides
 import ru.iqsklad.data.dto.procedure.ProcedureDataHolder
-import ru.iqsklad.domain.di.scope.ProcedureScope
+import javax.inject.Singleton
 
 @Module
 class ProcedureDataModule {
 
-    @ProcedureScope
+    @Singleton
     @Provides
     fun getProcedureDataHolder(): ProcedureDataHolder = ProcedureDataHolder()
 }

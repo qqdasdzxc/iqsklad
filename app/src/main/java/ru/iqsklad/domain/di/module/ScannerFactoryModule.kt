@@ -1,14 +1,14 @@
-package ru.iqsklad.domain.di.module.procedure
+package ru.iqsklad.domain.di.module
 
 import dagger.Module
 import dagger.Provides
 import ru.iqsklad.data.scan.ScannerFactory
-import ru.iqsklad.domain.di.scope.ProcedureScope
+import javax.inject.Singleton
 
 @Module
 class ScannerFactoryModule {
 
+    @Singleton
     @Provides
-    @ProcedureScope
     fun getScannerFactory(): ScannerFactory = ScannerFactory()
 }

@@ -3,44 +3,42 @@ package ru.iqsklad.ui.auth.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
+import ru.iqsklad.data.dto.ui.ErrorUiModel
+import ru.iqsklad.data.dto.ui.LoadingUiModel
+import ru.iqsklad.data.dto.ui.SuccessUiModel
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.data.dto.user.UserUI
 import ru.iqsklad.databinding.FragmentAuthChooseForwarderBinding
-import ru.iqsklad.domain.App
-import ru.iqsklad.presentation.implementation.auth.ChooseForwarderViewModel
-import ru.iqsklad.presentation.presenter.auth.ChooseForwarderPresenter
+import ru.iqsklad.presentation.implementation.user.ChooseUserViewModel
+import ru.iqsklad.presentation.presenter.user.ChooseUserPresenter
 import ru.iqsklad.ui.adapter.UsersAdapter
 import ru.iqsklad.ui.base.fragment.BaseFragment
-import ru.iqsklad.utils.extensions.injectViewModel
-import javax.inject.Inject
 
 class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBinding>(), UsersAdapter.UserClickListener {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var presenter: ChooseForwarderPresenter
+    private lateinit var presenter: ChooseUserPresenter
 
     private var adapter = UsersAdapter(this)
 
     override fun getLayoutResId(): Int = R.layout.fragment_auth_choose_forwarder
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        App.authComponent?.inject(this)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = injectViewModel<ChooseForwarderViewModel>(viewModelFactory)
+        presenter = getPresenter<ChooseUserViewModel>()
         initObserve()
     }
 
     private fun initObserve() {
-        presenter.getForwarders().observe(this, Observer { setUsers(it) })
+        presenter.getForwarders().observe(this, Observer { uiModel ->
+            when (uiModel) {
+                LoadingUiModel -> {
+                }
+                is SuccessUiModel -> setUsers(uiModel.data)
+                is ErrorUiModel -> showMessage(uiModel.error)
+            }
+        })
     }
 
     private fun setUsers(userList: List<UserUI>) {

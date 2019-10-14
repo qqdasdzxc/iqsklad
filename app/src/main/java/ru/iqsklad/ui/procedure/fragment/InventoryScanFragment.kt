@@ -5,40 +5,28 @@ import android.view.View
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
 import ru.iqsklad.databinding.FragmentInventoryScanBinding
-import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
 import ru.iqsklad.ui.adapter.InventoryAdapter
 import ru.iqsklad.ui.adapter.ScanResultAdapter
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
-import ru.iqsklad.utils.extensions.injectViewModel
-import javax.inject.Inject
 
 class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), NeedToOverrideBackPressFragment {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var presenter: InventoryScanPresenter
     private var inventoryAdapter = InventoryAdapter()
     private var scanResultAdapter = ScanResultAdapter()
 
     override fun getLayoutResId(): Int = R.layout.fragment_inventory_scan
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        App.procedureComponent?.inject(this)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = injectViewModel<InventoryScanViewModel>(viewModelFactory)
+        presenter = getPresenter<InventoryScanViewModel>()
         binding.presenter = presenter
 
         initObservable()

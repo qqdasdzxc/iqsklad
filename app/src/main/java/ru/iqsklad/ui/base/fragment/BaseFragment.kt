@@ -96,8 +96,8 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
         showMessage(getString(messageResId))
     }
 
-    fun showMessage(message: String) {
-        Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
+    fun showMessage(message: String?) {
+        Snackbar.make(binding.root, message ?: getString(R.string.error_network_connected), Snackbar.LENGTH_LONG).show()
     }
 
     fun hideKeyBoard() {

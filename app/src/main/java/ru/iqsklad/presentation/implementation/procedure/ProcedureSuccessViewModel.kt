@@ -8,11 +8,13 @@ import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.ProcedureSuccessPresenter
 import javax.inject.Inject
 
-class ProcedureSuccessViewModel @Inject constructor(private var procedureDataHolder: ProcedureDataHolder) : ViewModel(),
-    ProcedureSuccessPresenter {
+class ProcedureSuccessViewModel : ViewModel(), ProcedureSuccessPresenter {
+
+    @Inject
+    lateinit var procedureDataHolder: ProcedureDataHolder
 
     init {
-        App.procedureComponent!!.inject(this)
+        App.appComponent.inject(this)
     }
 
     override fun getProcedureType(): ProcedureType = procedureDataHolder.procedureType

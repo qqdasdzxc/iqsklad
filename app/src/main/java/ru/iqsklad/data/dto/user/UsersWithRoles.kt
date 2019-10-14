@@ -6,5 +6,5 @@ class UsersWithRoles(
     @SerializedName("position")
     val userRoles: List<UserRole>,
     @SerializedName("items")
-    val users: List<User>
+    var users: List<User>
 )

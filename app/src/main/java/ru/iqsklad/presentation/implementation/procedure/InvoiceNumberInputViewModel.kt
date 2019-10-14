@@ -10,13 +10,16 @@ import ru.iqsklad.presentation.observable.TextField
 import ru.iqsklad.presentation.presenter.procedure.InvoiceNumberInputPresenter
 import javax.inject.Inject
 
-class InvoiceNumberInputViewModel @Inject constructor(private var procedureDataHolder: ProcedureDataHolder) :
-    ViewModel(), InvoiceNumberInputPresenter {
+class InvoiceNumberInputViewModel: ViewModel(), InvoiceNumberInputPresenter {
+
+    @Inject
+    lateinit var procedureDataHolder: ProcedureDataHolder
+
     private var invoiceNumberObservable: TextField = TextField()
     private var acceptInvoiceNumber = MutableLiveData<Boolean>()
 
     init {
-        App.procedureComponent!!.inject(this)
+        App.appComponent.inject(this)
     }
 
     override fun getAcceptInvoiceNumber(): LiveData<Boolean> = acceptInvoiceNumber

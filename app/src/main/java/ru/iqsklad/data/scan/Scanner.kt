@@ -8,17 +8,17 @@ import ru.iqsklad.data.dto.procedure.RFID_EPC
 abstract class Scanner {
 
     private val rfidLiveData = MutableLiveData<RFID_EPC>()
-    private var scanJob = Job()
+    private var scanJob: Deferred<Unit>? = null
 
     fun startScan(): LiveData<RFID_EPC> {
         initScan()
-        scanJob.start()
+        scanJob?.start()
 
         return rfidLiveData
     }
 
     fun stopScan() {
-        scanJob.cancel()
+        scanJob?.cancel()
     }
 
     private fun initScan() {

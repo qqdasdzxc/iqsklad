@@ -21,6 +21,7 @@
                 android:id="@+id/choose_forwarder_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/choose_forwarder_action_bar_view"

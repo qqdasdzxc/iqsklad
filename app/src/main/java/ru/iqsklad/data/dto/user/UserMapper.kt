@@ -12,6 +12,6 @@ object UserMapper {
             }
         }
 
-        return result
+        return result.sortedBy { it.model.lastName }
     }
 }

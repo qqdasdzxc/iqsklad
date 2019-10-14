@@ -11,10 +11,12 @@ import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
 import javax.inject.Inject
 
-class InventoryScanViewModel @Inject constructor(
-    private var procedureDataHolder: ProcedureDataHolder,
-    scannerFactory: ScannerFactory
-) : ViewModel(), InventoryScanPresenter {
+class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
+
+    @Inject
+    lateinit var procedureDataHolder: ProcedureDataHolder
+    @Inject
+    lateinit var scannerFactory: ScannerFactory
 
     private val scanner = scannerFactory.createScanner()
     private val invoiceIDObservable = ObservableField<String>()
@@ -26,7 +28,7 @@ class InventoryScanViewModel @Inject constructor(
     private val scannedRfidSet = HashSet<RFID_EPC>()
 
     init {
-        App.procedureComponent!!.inject(this)
+        App.appComponent.inject(this)
         procedureDataHolder.procedureInvoice.setInitState()
         invoiceIDObservable.set(procedureDataHolder.procedureInvoice.invoiceID)
         invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice.inventoryList

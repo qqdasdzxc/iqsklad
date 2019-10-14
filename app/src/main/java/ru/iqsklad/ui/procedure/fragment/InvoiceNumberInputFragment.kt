@@ -4,38 +4,25 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionManager
 import ru.iqsklad.R
-import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.databinding.FragmentInvoiceNumberInputBinding
-import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.implementation.procedure.InvoiceNumberInputViewModel
 import ru.iqsklad.presentation.presenter.procedure.InvoiceNumberInputPresenter
 import ru.iqsklad.ui.base.fragment.KeyboardStateChangeHandlerFragment
 import ru.iqsklad.utils.extensions.hideAsGone
-import ru.iqsklad.utils.extensions.injectViewModel
 import ru.iqsklad.utils.extensions.show
-import javax.inject.Inject
 
 class InvoiceNumberInputFragment: KeyboardStateChangeHandlerFragment<FragmentInvoiceNumberInputBinding>() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var presenter: InvoiceNumberInputPresenter
 
     override fun getLayoutResId(): Int = R.layout.fragment_invoice_number_input
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        App.procedureComponent?.inject(this)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        presenter = injectViewModel<InvoiceNumberInputViewModel>(viewModelFactory)
+        presenter = getPresenter<InvoiceNumberInputViewModel>()
         binding.presenter = presenter
 
         initObservable()

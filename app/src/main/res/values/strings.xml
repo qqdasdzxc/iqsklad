@@ -83,4 +83,7 @@
     <string name="status_resume_work_action_title">Продолжить работу</string>
     <string name="status_update_db_action_title">Обновить базу данных</string>
 
+    <!-- Error -->
+    <string name="error_network_connected">Ошибка сети, пожалуйста повторите попытку позже</string>
+
 </resources>

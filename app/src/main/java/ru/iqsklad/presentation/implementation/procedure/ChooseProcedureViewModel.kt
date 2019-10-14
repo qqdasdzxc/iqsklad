@@ -7,11 +7,13 @@ import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.ChooseProcedurePresenter
 import javax.inject.Inject
 
-class ChooseProcedureViewModel @Inject constructor(private var procedureDataHolder: ProcedureDataHolder) : ViewModel(),
-    ChooseProcedurePresenter {
+class ChooseProcedureViewModel : ViewModel(), ChooseProcedurePresenter {
+
+    @Inject
+    lateinit var procedureDataHolder: ProcedureDataHolder
 
     init {
-        App.procedureComponent!!.inject(this)
+        App.appComponent.inject(this)
     }
 
     override fun setProcedureType(procedureType: ProcedureType) {
