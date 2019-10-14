@@ -8,11 +8,6 @@
             android:icon="@drawable/ic_menu_call"/>
 
     <item
-            android:id="@+id/help"
-            android:title="@string/menu_help_title"
-            android:icon="@drawable/ic_menu_help"/>
-
-    <item
             android:id="@+id/exit"
             android:title="@string/menu_exit_title"
             android:icon="@drawable/ic_menu_exit"/>

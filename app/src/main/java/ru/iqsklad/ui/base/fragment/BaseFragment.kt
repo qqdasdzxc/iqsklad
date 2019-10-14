@@ -71,12 +71,10 @@ abstract class BaseFragment<B : ViewDataBinding> : Fragment(), ActionBarView.Act
 
     override fun onStatusClicked() = showStatusDialog()
 
-    override fun onHelpClicked() = navController.navigate(R.id.help_fragment)
-
     override fun onCallClicked() {}
 
     override fun onExitClicked() {
-        UserPreferences.removeUserID(activity!!)
+        UserPreferences.removeUser(activity!!)
         navController.navigate(R.id.auth_activity)
         activity?.finish()
     }

@@ -18,7 +18,7 @@ object UserPreferences {
         preferences.edit().putString(USER_KEY, ConverterUtils.objToJsonString(user)).apply()
     }
 
-    fun removeUserID(context: Context) {
+    fun removeUser(context: Context) {
         val preferences = context.getSharedPreferences(USER_PREFERENCES, Context.MODE_PRIVATE)
         preferences.edit().putString(USER_KEY, null).apply()
     }

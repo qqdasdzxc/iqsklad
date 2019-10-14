@@ -154,7 +154,6 @@ class ActionBarView : ConstraintLayout {
         menuInflater.inflate(R.menu.popup_menu, menu)
         setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.help -> actionClickListener?.onHelpClicked()
                 R.id.call -> actionClickListener?.onCallClicked()
                 R.id.exit -> actionClickListener?.onExitClicked()
             }
@@ -266,8 +265,6 @@ class ActionBarView : ConstraintLayout {
         fun onBackClicked()
 
         fun onStatusClicked()
-
-        fun onHelpClicked()
 
         fun onCallClicked()
 
