@@ -6,13 +6,14 @@ import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.InternalCoroutinesApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.dtk.lib.network.builder.DtkNetBuilder
 import ru.iqsklad.data.Constants
-import ru.iqsklad.utils.NetworkUtils
+import ru.iqsklad.utils.ConverterUtils
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -20,6 +21,7 @@ import javax.inject.Singleton
 class ClientModule {
 
     @Provides
+    @FlowPreview
     @InternalCoroutinesApi
     @ExperimentalCoroutinesApi
     fun getController(): DtkNetBuilder = DtkNetBuilder()
@@ -30,7 +32,7 @@ class ClientModule {
         return Retrofit.Builder()
                 .baseUrl(Constants.SERVER_URL_API_DEBUG)
                 .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-                .addConverterFactory(GsonConverterFactory.create(NetworkUtils.getGsonConverter()))
+                .addConverterFactory(GsonConverterFactory.create(ConverterUtils.getGsonConverter()))
                 .client(buildOkHttpClient(context))
                 .build()
     }

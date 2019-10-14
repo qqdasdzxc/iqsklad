@@ -5,7 +5,7 @@ import ru.iqsklad.data.dto.equipment.EquipmentType
 
 class RfidList(
     @SerializedName("equipment")
-    val equipmentsTypesList: EquipmentType,
+    val equipmentsTypesList: List<EquipmentType>,
     @SerializedName("items")
     val rfidList: List<Rfid>
 )
