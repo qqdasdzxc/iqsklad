@@ -1,5 +1,6 @@
 package ru.iqsklad.data
 
+import ru.dtk.lib.extensions.removeDays
 import ru.iqsklad.utils.extensions.getLastUpdatedTime
 import java.util.*
 
@@ -12,6 +13,6 @@ object Constants {
 
     val LOAD_ALL_DATA_PARAM = Pair("date", "1970")
     val LOAD_ALL_INVOICES_DATA_PARAM = Pair("date", Calendar.getInstance().apply {
-        add(Calendar.DAY_OF_YEAR, -100)
+        removeDays(100)
     }.getLastUpdatedTime())
 }

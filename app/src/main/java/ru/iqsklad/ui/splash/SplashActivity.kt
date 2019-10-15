@@ -28,22 +28,30 @@ class SplashActivity: AppCompatActivity() {
                 LoadingUiModel -> {
                 }
                 is SuccessUiModel -> {
-                    val user = UserPreferences.getUser(this)
-                    if (user == null) {
-                        val intent = Intent(this, AuthActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        val intent = Intent(this, ProcedureActivity::class.java)
-                        intent.putExtra("user", user)
-                        startActivity(intent)
-                        finish()
-                    }
+                    checkLogin()
                 }
                 is ErrorUiModel -> {
-                    Toast.makeText(this, uiModel.error ?: "Проверьте подключение к впн и перезапустите приложение!", Toast.LENGTH_LONG).show()
+                    if (uiModel.error == null) {
+                        checkLogin()
+                    } else {
+                        Toast.makeText(this, uiModel.error, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         })
+    }
+
+    private fun checkLogin() {
+        val user = UserPreferences.getUser(this)
+        if (user == null) {
+            val intent = Intent(this, AuthActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            val intent = Intent(this, ProcedureActivity::class.java)
+            intent.putExtra("user", user)
+            startActivity(intent)
+            finish()
+        }
     }
 }

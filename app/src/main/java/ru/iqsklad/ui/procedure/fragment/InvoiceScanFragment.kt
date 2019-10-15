@@ -39,7 +39,7 @@ class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
 
             getFindingInvoiceResult().observe(this@InvoiceScanFragment, Observer { uiModel ->
                 when (uiModel) {
-                    LoadingUiModel -> showMessage("Поиск накладной в базе...")
+                    LoadingUiModel -> {}//showMessage("Поиск накладной в базе...")
                     is SuccessUiModel -> {
                         if (uiModel.data == null) {
                             showMessage("Накладная не найдена! Попробуйте еще раз")

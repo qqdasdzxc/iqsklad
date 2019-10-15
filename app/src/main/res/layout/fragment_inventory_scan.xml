@@ -95,7 +95,7 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/inventory_list_view"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/top_bottom_margin"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

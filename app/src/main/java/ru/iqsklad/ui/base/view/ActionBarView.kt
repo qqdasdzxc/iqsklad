@@ -160,7 +160,7 @@ class ActionBarView : ConstraintLayout {
             true
         }
 
-        menu.getItem(2).isVisible = showExit
+        menu.getItem(1).isVisible = showExit
 
         val menuHelper = MenuPopupHelper(context, this.menu as MenuBuilder, view)
         menuHelper.setForceShowIcon(true)

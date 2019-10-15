@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.transition.TransitionManager
+import ru.dtk.lib.data.keyboard.KeyboardStatus
+import ru.dtk.lib.extensions.getKeyboardStatusLiveData
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.ui.ErrorUiModel
 import ru.iqsklad.data.dto.ui.LoadingUiModel
@@ -12,11 +14,11 @@ import ru.iqsklad.data.dto.ui.SuccessUiModel
 import ru.iqsklad.databinding.FragmentInvoiceNumberInputBinding
 import ru.iqsklad.presentation.implementation.procedure.FindInvoiceViewModel
 import ru.iqsklad.presentation.presenter.procedure.FindInvoicePresenter
-import ru.iqsklad.ui.base.fragment.KeyboardStateChangeHandlerFragment
+import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.utils.extensions.hideAsGone
 import ru.iqsklad.utils.extensions.show
 
-class InvoiceNumberInputFragment: KeyboardStateChangeHandlerFragment<FragmentInvoiceNumberInputBinding>() {
+class InvoiceNumberInputFragment: BaseFragment<FragmentInvoiceNumberInputBinding>() {
 
     private lateinit var presenter: FindInvoicePresenter
 
@@ -28,7 +30,7 @@ class InvoiceNumberInputFragment: KeyboardStateChangeHandlerFragment<FragmentInv
         presenter = getPresenter<FindInvoiceViewModel>().apply {
             getFindingInvoiceResult().observe(this@InvoiceNumberInputFragment, Observer { uiModel ->
                 when (uiModel) {
-                    LoadingUiModel -> showMessage("Поиск накладной в базе...")
+                    LoadingUiModel -> {}//showMessage("Поиск накладной в базе...")
                     is SuccessUiModel -> {
                         if (uiModel.data == null) {
                             showMessage("Накладная не найдена! Попробуйте еще раз")
@@ -38,6 +40,15 @@ class InvoiceNumberInputFragment: KeyboardStateChangeHandlerFragment<FragmentInv
                         }
                     }
                     is ErrorUiModel -> showMessage(uiModel.error)
+                }
+            })
+        }
+
+        activity?.let {
+            it.getKeyboardStatusLiveData().observe(this, Observer { keyBoardStatus ->
+                when (keyBoardStatus!!) {
+                    KeyboardStatus.OPEN -> onKeyboardOpen()
+                    KeyboardStatus.CLOSED -> onKeyboardHide()
                 }
             })
         }
@@ -56,6 +67,7 @@ class InvoiceNumberInputFragment: KeyboardStateChangeHandlerFragment<FragmentInv
     private fun initView() {
         binding.invoiceNumberInputActionView.setOnClickListener {
             acceptInvoiceNumber()
+            hideKeyBoard()
         }
 
         binding.invoiceNumberInputScanActionView.setOnClickListener {
@@ -79,11 +91,11 @@ class InvoiceNumberInputFragment: KeyboardStateChangeHandlerFragment<FragmentInv
         presenter.findInvoice(binding.invoiceNumberInputScanEditView.text.toString())
     }
 
-    override fun onKeyboardOpen() {
+    private fun onKeyboardOpen() {
         binding.invoiceNumberInputExampleImageView.hideAsGone()
     }
 
-    override fun onKeyboardHide() {
+    private fun onKeyboardHide() {
         binding.invoiceNumberInputExampleImageView.show()
     }
 

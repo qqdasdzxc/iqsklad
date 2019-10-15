@@ -3,6 +3,7 @@ package ru.iqsklad.domain.processor
 import ru.dtk.lib.call.DtkApiException
 import ru.iqsklad.data.exception.InvoiceNotFoundException
 import ru.iqsklad.data.web.response.api.ErrorResponse
+import javax.net.ssl.SSLPeerUnverifiedException
 
 object ErrorProcessor {
 
@@ -13,6 +14,9 @@ object ErrorProcessor {
             }
             is InvoiceNotFoundException -> {
                 ErrorResponse.Error(message = exception.message, typeCode = TypeCode.INVOICE_NOT_FOUND)
+            }
+            is SSLPeerUnverifiedException -> {
+                ErrorResponse.Error(message = "Проверьте подключение к впн!", typeCode = TypeCode.SSL_PEER_UNVERIFIED)
             }
             else -> {
                 exception.printStackTrace()

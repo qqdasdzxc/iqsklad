@@ -121,7 +121,7 @@ dependencies {
     implementation rootProject.files('libs/SenterOpenApi_IoT_1.2.3.95_Function_UltraHighFrequency_ModelD2.jar')
     //implementation rootProject.files('libs/dtk_lib-1.0.2-release.jar')
 
-    implementation(name: 'dtk_lib-1.0.2-release', ext: 'aar')
+    implementation(name: 'dtk_lib-1.0.3-release', ext: 'aar')
 }
 
 apply plugin: 'com.google.gms.google-services'
