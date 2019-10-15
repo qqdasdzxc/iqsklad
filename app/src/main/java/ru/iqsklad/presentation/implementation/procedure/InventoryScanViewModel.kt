@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.iqsklad.data.dto.procedure.*
+import ru.iqsklad.data.scan.Scanner
 import ru.iqsklad.data.scan.ScannerFactory
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
@@ -18,7 +19,7 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
     @Inject
     lateinit var scannerFactory: ScannerFactory
 
-    private val scanner = scannerFactory.createScanner()
+    private var scanner: Scanner? = null
     private val invoiceIDObservable = ObservableField<String>()
     private val invoiceInventoryListObservable = MutableLiveData<List<Inventory>>()
     private val inventoryViewModeObservable = ObservableField<InventoryScanMode>()
@@ -29,6 +30,7 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
 
     init {
         App.appComponent.inject(this)
+        scanner = scannerFactory.createScanner()
         //procedureDataHolder.procedureInvoice.setInitState()
         //invoiceIDObservable.set(procedureDataHolder.procedureInvoice.invoiceID)
         //invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice.inventoryList

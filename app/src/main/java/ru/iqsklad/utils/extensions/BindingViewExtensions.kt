@@ -64,7 +64,7 @@ fun TextView.setConfirmUserLoginText(userID: String) {
 }
 
 @BindingAdapter("inventoryScanTitle")
-fun TextView.setInventoryScanTitle(invoiceNumber: String) {
+fun TextView.setInventoryScanTitle(invoiceNumber: String?) {
     text = resources.getString(R.string.inventory_scan_title, invoiceNumber)
 }
 

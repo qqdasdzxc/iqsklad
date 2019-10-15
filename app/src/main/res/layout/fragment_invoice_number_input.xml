@@ -10,9 +10,6 @@
 
         <import type="ru.iqsklad.data.dto.procedure.ProcedureType"/>
 
-        <variable
-                name="presenter"
-                type="ru.iqsklad.presentation.presenter.procedure.InvoiceNumberInputPresenter"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,8 +63,7 @@
                 android:layout_marginTop="@dimen/start_end_margin"
                 app:layout_constraintTop_toBottomOf="@id/invoice_number_input_example_image_view"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:isError="@{safeUnbox(presenter.getInvoiceNumberObservable().observeWrapperEdit)}">
+                app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/invoice_number_input_scan_edit_view"
@@ -75,9 +71,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    android:text="@{presenter.getInvoiceNumberObservable().observeEdit}"
-                    app:addTextWatcher="@{presenter.getInvoiceNumberObservable().observeEdit}"/>
+                    android:singleLine="true"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

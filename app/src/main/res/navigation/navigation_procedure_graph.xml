@@ -66,6 +66,10 @@
                 android:id="@+id/action_invoice_scan_to_invoice_number_input"
                 app:destination="@id/invoice_number_input_fragment"/>
 
+        <action
+                android:id="@+id/action_invoice_scan_to_inventory_scan"
+                app:destination="@id/inventory_scan_fragment"/>
+
     </fragment>
 
     <fragment

@@ -13,7 +13,7 @@ import ru.iqsklad.databinding.FragmentStatusBinding
 import ru.iqsklad.presentation.implementation.update.UpdateViewModel
 import ru.iqsklad.presentation.presenter.update.UpdatePresenter
 import ru.iqsklad.ui.base.fragment.BaseRoundedBottomSheetDialogFragment
-import ru.iqsklad.utils.extensions.getTime
+import ru.iqsklad.utils.extensions.getTimeString
 import ru.iqsklad.utils.pref.LastUpdatePreferences
 
 class StatusFragment: BaseRoundedBottomSheetDialogFragment<FragmentStatusBinding>() {
@@ -80,7 +80,7 @@ class StatusFragment: BaseRoundedBottomSheetDialogFragment<FragmentStatusBinding
     private fun setLastUpdatedTime() {
         binding.statusLastUpdateTextView.text = getString(
             R.string.status_last_update_time,
-            LastUpdatePreferences.getTime(activity!!).getTime()
+            LastUpdatePreferences.getTime(activity!!).getTimeString()
         )
     }
 }

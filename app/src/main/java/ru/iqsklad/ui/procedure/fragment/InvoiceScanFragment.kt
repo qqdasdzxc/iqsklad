@@ -10,21 +10,49 @@ import android.util.Size
 import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.camera.core.*
 import androidx.lifecycle.Observer
 import ru.iqsklad.R
+import ru.iqsklad.data.dto.ui.ErrorUiModel
+import ru.iqsklad.data.dto.ui.LoadingUiModel
+import ru.iqsklad.data.dto.ui.SuccessUiModel
 import ru.iqsklad.databinding.FragmentInvoiceScanBinding
 import ru.iqsklad.domain.source.BarcodeImageAnalyzer
+import ru.iqsklad.presentation.implementation.procedure.FindInvoiceViewModel
+import ru.iqsklad.presentation.presenter.procedure.FindInvoicePresenter
 import ru.iqsklad.ui.base.activity.BaseActivity
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.utils.PermissionUtils
 
 class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
 
-    var analyzerUseCase: ImageAnalysis? = null
+    private var analyzerUseCase: ImageAnalysis? = null
+    private lateinit var presenter: FindInvoicePresenter
 
     override fun getLayoutResId(): Int = R.layout.fragment_invoice_scan
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        presenter = getPresenter<FindInvoiceViewModel>().apply {
+            refreshInvoices(activity!!)
+
+            getFindingInvoiceResult().observe(this@InvoiceScanFragment, Observer { uiModel ->
+                when (uiModel) {
+                    LoadingUiModel -> showMessage("Поиск накладной в базе...")
+                    is SuccessUiModel -> {
+                        if (uiModel.data == null) {
+                            showMessage("Накладная не найдена! Попробуйте еще раз")
+                        } else {
+                            setProcedureInvoice(uiModel.data)
+                            navigateToInventoryScan()
+                        }
+                    }
+                    is ErrorUiModel -> showMessage(uiModel.error)
+                }
+            })
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,11 +101,15 @@ class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
         navController.navigate(InvoiceScanFragmentDirections.actionInvoiceScanToInvoiceNumberInput())
     }
 
+    private fun navigateToInventoryScan() {
+        navController.navigate(InvoiceScanFragmentDirections.actionInvoiceScanToInventoryScan())
+    }
+
     private fun initCamera() {
-        //val metrics = DisplayMetrics().also { binding.invoiceScanTextureView.display.getRealMetrics(it) }
+        val metrics = DisplayMetrics().also { binding.invoiceScanTextureView.display.getRealMetrics(it) }
         val previewConfig = PreviewConfig.Builder().apply {
-            //setTargetAspectRatio(Rational(metrics.widthPixels, metrics.heightPixels))
-            //setTargetResolution(Size(640, 640))
+            setTargetAspectRatio(Rational(metrics.widthPixels, metrics.heightPixels))
+            setTargetResolution(Size(metrics.widthPixels, metrics.heightPixels))
             setLensFacing(CameraX.LensFacing.BACK)
         }.build()
 
@@ -98,8 +130,8 @@ class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
         }.build()
 
         val barcodeImageAnalyzer = BarcodeImageAnalyzer()
-        barcodeImageAnalyzer.getBarcodeDisplayValueLiveData().observe(this, Observer {
-            Toast.makeText(activity!!, it, Toast.LENGTH_SHORT).show()
+        barcodeImageAnalyzer.getBarcodeDisplayValueLiveData().observe(this, Observer { barcodeString ->
+            barcodeString?.let { handleScannedBarcodeValue(it) }
         })
 
         analyzerUseCase = ImageAnalysis(analyzerConfig).apply {
@@ -107,6 +139,10 @@ class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
         }
 
         CameraX.bindToLifecycle(this, preview, analyzerUseCase)
+    }
+
+    private fun handleScannedBarcodeValue(barcodeString: String) {
+        presenter.findInvoice(barcodeString)
     }
 
     private fun updateTransform() {

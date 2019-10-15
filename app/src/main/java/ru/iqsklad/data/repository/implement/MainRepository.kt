@@ -6,19 +6,22 @@ import kotlinx.coroutines.flow.flow
 import ru.dtk.lib.network.*
 import ru.dtk.lib.network.builder.DtkNetBuilder
 import ru.iqsklad.data.Constants.LOAD_ALL_DATA_PARAM
+import ru.iqsklad.data.Constants.LOAD_ALL_INVOICES_DATA_PARAM
 import ru.iqsklad.data.db.dao.MainDao
 import ru.iqsklad.data.dto.invoice.InvoicesMapper
-import ru.iqsklad.data.dto.procedure.Invoice
 import ru.iqsklad.data.dto.rfid.RfidsMapper
 import ru.iqsklad.data.dto.user.UserType
 import ru.iqsklad.data.dto.user.UsersMapper
 import ru.iqsklad.data.dto.user.UsersWithRoles
+import ru.iqsklad.data.exception.InvoiceNotFoundException
 import ru.iqsklad.data.repository.contract.IMainRepository
 import ru.iqsklad.data.web.api.MainApi
 import ru.iqsklad.data.web.factory.RequestBuilder
+import ru.iqsklad.data.web.response.InvoiceResponse
+import ru.iqsklad.data.web.response.InvoicesWithEquipmentResponse
+import ru.iqsklad.data.web.response.RfidListResponse
 import ru.iqsklad.data.web.response.UsersResponse
 import ru.iqsklad.data.web.response.api.EmptyResponse
-import ru.iqsklad.utils.extensions.getCurrentDate
 import javax.inject.Inject
 
 @FlowPreview
@@ -33,7 +36,8 @@ class MainRepository @Inject constructor(
 
     override fun getUsersWithChanges(
         type: UserType,
-        searchString: String
+        searchString: String,
+        lastUpdated: String
     ): LiveData<DtkApiModel<UsersResponse>> {
         return controller
             .createQuery<UsersResponse>("getUsers: $type")
@@ -46,7 +50,14 @@ class MainRepository @Inject constructor(
                 response.data = data
                 response
             }
-            .saveData { dao.saveUsers(it.data!!.users) }
+            .saveData {
+                it.data?.let { nonNullData ->
+                    UsersMapper.map(nonNullData)
+                    nonNullData.users?.let { nonNullUsers ->
+                        dao.saveUsers(nonNullUsers)
+                    }
+                }
+            }
             .execute {
                 api.getUsersChangesAsync(
                     requestBuilder
@@ -54,7 +65,8 @@ class MainRepository @Inject constructor(
                         .setMethod("person.getList")
                         .setParams(
                             mapOf(
-                                Pair("date", getCurrentDate())
+                                Pair("date", lastUpdated),
+                                Pair("last_update", "true")
                             )
                         )
                         .build()
@@ -63,48 +75,77 @@ class MainRepository @Inject constructor(
             .toLiveData()
     }
 
-    override fun getInvoice(invoiceID: Int): LiveData<Invoice> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getInvoice(invoiceID: String): LiveData<DtkApiModel<InvoiceResponse>> {
+        return flow {
+            coroutineScope {
+                emit(LoadingDtkApiModel)
+
+                try {
+                    val invoice = dao.getInvoice(invoiceID)
+                    if (invoice == null) {
+                        emit(ErrorDtkApiModel(InvoiceNotFoundException()))
+                    } else {
+                        emit(SuccessDtkApiModel(InvoiceResponse().apply { data = invoice }))
+                    }
+                } catch (exception: Exception) {
+                    emit(ErrorDtkApiModel(exception))
+                }
+            }
+        }.toLiveData()
     }
 
-//    override fun loadInvoices() {
-//        controller
-//            .createQuery<InvoicesWithEquipmentResponse>("getInvoices")
-//            .withCache()
-//            .loadingCondition { true }
-//            .saveData { dao.saveInvoices(it.data!!.invoices) }
-//            .execute {
-//                api.getInvoicesAsync(
-//                    requestBuilder
-//                        .createRequest()
-//                        .setMethod("invoice.getList")
-//                        .setParams(mapOf())
-//                        .build()
-//                )
-//            }
-//    }
-
-    override fun refreshInvoices() {
-//        controller
-//            .createQuery<InvoicesWithEquipmentResponse>("refreshInvoice")
-//            .withCache()
-//            .loadingCondition { true }
-//            .saveData { dao.saveInvoices(it.data!!.invoices) }
-//            .execute {
-//                api.getInvoicesAsync(
-//                    requestBuilder
-//                        .createRequest()
-//                        .setMethod("invoice.getList")
-//                        .setParams(mapOf(
-//                            Pair("last_update", "true")
-//                        ))
-//                        .build()
-//                )
-//            }
+    override fun refreshInvoices(lastUpdated: String) {
+        controller
+            .createQuery<InvoicesWithEquipmentResponse>("refreshInvoices")
+            .withCache()
+            .loadingCondition { true }
+            .saveData {
+                it.data?.let { nonNullData ->
+                    InvoicesMapper.map(nonNullData)
+                    nonNullData.invoices?.let { nonNullInvoices ->
+                        dao.saveInvoices(nonNullInvoices)
+                    }
+                }
+            }
+            .execute {
+                api.getInvoicesAsync(
+                    requestBuilder
+                        .createRequest()
+                        .setMethod("invoice.getList")
+                        .setParams(mapOf(
+                            Pair("date", lastUpdated),
+                            Pair("last_update", "true")
+                        ))
+                        .build()
+                )
+            }
     }
 
-    override fun refreshEquipments() {
-
+    override fun refreshEquipments(lastUpdated: String) {
+        controller
+            .createQuery<RfidListResponse>("refreshEquipments")
+            .withCache()
+            .loadingCondition { true }
+            .saveData {
+                it.data?.let { nonNullData ->
+                    RfidsMapper.map(nonNullData)
+                    nonNullData.rfidList?.let { nonNullRfidList ->
+                        dao.saveEquipment(nonNullRfidList)
+                    }
+                }
+            }
+            .execute {
+                api.getEquipmentsChangesAsync(
+                    requestBuilder
+                        .createRequest()
+                        .setMethod("rfid.getChange")
+                        .setParams(mapOf(
+                            Pair("date", lastUpdated),
+                            Pair("last_update", "true")
+                        ))
+                        .build()
+                )
+            }
     }
 
     override fun loadAllData(): LiveData<DtkApiModel<EmptyResponse>> {
@@ -114,7 +155,6 @@ class MainRepository @Inject constructor(
 
                 try {
                     runBlocking {
-
                         val usersResponse = api.getUsersAsync(
                             requestBuilder
                                 .createRequest()
@@ -124,9 +164,11 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        usersResponse.data!!.users?.let {
-                            UsersMapper.map(usersResponse.data!!)
-                            dao.saveUsers(it)
+                        usersResponse.data?.let { nonNullData ->
+                            UsersMapper.map(nonNullData)
+                            nonNullData.users?.let {
+                                dao.saveUsers(it)
+                            }
                         }
 
                         val invoicesResponse = api.getInvoicesAsync(
@@ -134,13 +176,15 @@ class MainRepository @Inject constructor(
                                 .createRequest()
                                 .setMethod("invoice.getList")
                                 .setParams(mapOf(
-                                    LOAD_ALL_DATA_PARAM
+                                    LOAD_ALL_INVOICES_DATA_PARAM
                                 ))
                                 .build()
                         ).await()
-                        invoicesResponse.data!!.invoices?.let {
-                            InvoicesMapper.map(invoicesResponse.data!!)
-                            dao.saveInvoices(it)
+                        invoicesResponse.data?.let { nonNullData ->
+                            InvoicesMapper.map(nonNullData)
+                            nonNullData.invoices?.let {
+                                dao.saveInvoices(it)
+                            }
                         }
 
                         val equipmentResponse = api.getEquipmentsAsync(
@@ -152,11 +196,12 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        equipmentResponse.data!!.rfidList?.let {
-                            RfidsMapper.map(equipmentResponse.data!!)
-                            dao.saveEquipment(it)
+                        equipmentResponse.data?.let { nonNullData ->
+                            RfidsMapper.map(nonNullData)
+                            nonNullData.rfidList?.let {
+                                dao.saveEquipment(it)
+                            }
                         }
-
                     }
                     emit(SuccessDtkApiModel(EmptyResponse()))
                 } catch (exception: Exception) {
@@ -182,9 +227,11 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        usersResponse.data!!.users?.let {
-                            UsersMapper.map(usersResponse.data!!)
-                            dao.saveUsers(it)
+                        usersResponse.data?.let { nonNullData ->
+                            UsersMapper.map(nonNullData)
+                            nonNullData.users?.let {
+                                dao.saveUsers(it)
+                            }
                         }
 
                         val invoicesResponse = api.getInvoicesChangesAsync(
@@ -197,9 +244,11 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        invoicesResponse.data!!.invoices?.let {
-                            InvoicesMapper.map(invoicesResponse.data!!)
-                            dao.saveInvoices(it)
+                        invoicesResponse.data?.let { nonNullData ->
+                            InvoicesMapper.map(nonNullData)
+                            nonNullData.invoices?.let {
+                                dao.saveInvoices(it)
+                            }
                         }
 
                         val equipmentResponse = api.getEquipmentsChangesAsync(
@@ -211,9 +260,11 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        equipmentResponse.data!!.rfidList?.let {
-                            RfidsMapper.map(equipmentResponse.data!!)
-                            dao.saveEquipment(it)
+                        equipmentResponse.data?.let { nonNullData ->
+                            RfidsMapper.map(nonNullData)
+                            nonNullData.rfidList?.let {
+                                dao.saveEquipment(it)
+                            }
                         }
                     }
                     emit(SuccessDtkApiModel(EmptyResponse()))

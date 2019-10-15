@@ -3,8 +3,8 @@ package ru.iqsklad.domain.di.component
 import dagger.Component
 import ru.iqsklad.domain.di.module.*
 import ru.iqsklad.presentation.implementation.procedure.ChooseProcedureViewModel
+import ru.iqsklad.presentation.implementation.procedure.FindInvoiceViewModel
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
-import ru.iqsklad.presentation.implementation.procedure.InvoiceNumberInputViewModel
 import ru.iqsklad.presentation.implementation.procedure.ProcedureSuccessViewModel
 import ru.iqsklad.presentation.implementation.update.UpdateViewModel
 import ru.iqsklad.presentation.implementation.user.ChooseUserViewModel
@@ -21,11 +21,11 @@ interface AppComponent {
 
     fun inject(presenter: ChooseProcedureViewModel)
 
-    fun inject(presenter: InvoiceNumberInputViewModel)
-
     fun inject(presenter: InventoryScanViewModel)
 
     fun inject(presenter: ProcedureSuccessViewModel)
 
     fun inject(presenter: UpdateViewModel)
+
+    fun inject(presenter: FindInvoiceViewModel)
 }

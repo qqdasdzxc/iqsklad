@@ -1,5 +1,6 @@
 package ru.iqsklad.presentation.implementation.user
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -15,7 +16,9 @@ import ru.iqsklad.data.dto.user.UsersMapper
 import ru.iqsklad.data.repository.contract.IMainRepository
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.user.ChooseUserPresenter
+import ru.iqsklad.utils.extensions.getTimeString
 import ru.iqsklad.utils.extensions.mapToResult
+import ru.iqsklad.utils.pref.LastUpdatePreferences
 import javax.inject.Inject
 
 class ChooseUserViewModel: ViewModel(), ChooseUserPresenter {
@@ -26,13 +29,14 @@ class ChooseUserViewModel: ViewModel(), ChooseUserPresenter {
     lateinit var procedureDataHolder: ProcedureDataHolder
 
     private val searchStringLiveData = MutableLiveData<String>()
+    private lateinit var lastUpdated: String
 
     private val forwardersLiveData = Transformations.switchMap(searchStringLiveData) {
-        getUsers(UserType.Forwarder)
+        getUsers(UserType.Forwarder, lastUpdated)
     }
 
     private val stewardsLiveData = Transformations.switchMap(searchStringLiveData) {
-        getUsers(UserType.Steward)
+        getUsers(UserType.Steward, lastUpdated)
     }
 
     init {
@@ -40,18 +44,29 @@ class ChooseUserViewModel: ViewModel(), ChooseUserPresenter {
         searchStringLiveData.postValue("")
     }
 
-    override fun getForwarders(): LiveData<UiModel<List<UserUI>>> = forwardersLiveData
+    override fun getForwarders(context: Context): LiveData<UiModel<List<UserUI>>> {
+        saveTime(context)
+        return forwardersLiveData
+    }
 
-    override fun getStewards(): LiveData<UiModel<List<UserUI>>> = stewardsLiveData
+    override fun getStewards(context: Context): LiveData<UiModel<List<UserUI>>> {
+        saveTime(context)
+        return stewardsLiveData
+    }
+
+    private fun saveTime(context: Context) {
+        lastUpdated = LastUpdatePreferences.getTime(context).getTimeString()
+    }
 
     override fun onSearchTextChanged(searchText: String) {
         searchStringLiveData.postValue(searchText)
     }
 
-    private fun getUsers(userType: UserType): LiveData<UiModel<List<UserUI>>> {
+    private fun getUsers(userType: UserType, lastUpdated: String): LiveData<UiModel<List<UserUI>>> {
         return mainRepository.getUsersWithChanges(
             type = userType,
-            searchString = searchStringLiveData.value!!.trim()
+            searchString = searchStringLiveData.value!!.trim(),
+            lastUpdated = lastUpdated
         ).mapToResult(
             { SuccessUiModel(UsersMapper.mapUsersForShowFirstLetter(it.data!!.users)) },
             { ErrorUiModel(it.message) }

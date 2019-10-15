@@ -1,8 +1,8 @@
 package ru.iqsklad.domain.processor
 
 import ru.dtk.lib.call.DtkApiException
+import ru.iqsklad.data.exception.InvoiceNotFoundException
 import ru.iqsklad.data.web.response.api.ErrorResponse
-import ru.servetta.customer.domain.processor.TypeCode
 
 object ErrorProcessor {
 
@@ -10,6 +10,9 @@ object ErrorProcessor {
         return when (exception) {
             is DtkApiException -> {
                 checkErrorResponse(exception.data)
+            }
+            is InvoiceNotFoundException -> {
+                ErrorResponse.Error(message = exception.message, typeCode = TypeCode.INVOICE_NOT_FOUND)
             }
             else -> {
                 exception.printStackTrace()

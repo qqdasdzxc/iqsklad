@@ -1,7 +1,7 @@
 package ru.iqsklad.data.web.response.api
 
 import com.google.gson.annotations.SerializedName
-import ru.servetta.customer.domain.processor.TypeCode
+import ru.iqsklad.domain.processor.TypeCode
 
 data class ErrorResponse(
     @SerializedName("error")

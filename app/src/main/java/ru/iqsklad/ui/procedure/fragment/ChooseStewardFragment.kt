@@ -33,7 +33,7 @@ class ChooseStewardFragment : BaseFragment<FragmentChooseStewardBinding>(), User
     }
 
     private fun initObserve() {
-        presenter.getStewards().observe(this, Observer { uiModel ->
+        presenter.getStewards(activity!!).observe(this, Observer { uiModel ->
             when (uiModel) {
                 LoadingUiModel -> {
                 }

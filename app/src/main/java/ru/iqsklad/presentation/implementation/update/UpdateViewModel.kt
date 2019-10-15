@@ -2,7 +2,6 @@ package ru.iqsklad.presentation.implementation.update
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.iqsklad.data.dto.ui.ErrorUiModel
 import ru.iqsklad.data.dto.ui.SuccessUiModel
@@ -33,13 +32,14 @@ class UpdateViewModel : ViewModel(), UpdatePresenter {
         return if (lastUpdateTime == LastUpdatePreferences.DEFAULT_LAST_UPDATE_TIME) {
             loadAllData(context)
         } else {
-            if (needToRefreshDB(context)) {
-                loadAllChanges(context)
-            } else {
-                val emptyLiveData = MutableLiveData<UiModel<Boolean>>()
-                emptyLiveData.postValue(SuccessUiModel(true))
-                emptyLiveData
-            }
+//            if (needToRefreshDB(context)) {
+//                loadAllChanges(context)
+//            } else {
+//                val emptyLiveData = MutableLiveData<UiModel<Boolean>>()
+//                emptyLiveData.postValue(SuccessUiModel(true))
+//                emptyLiveData
+//            }
+            loadAllChanges(context)
         }
     }
 

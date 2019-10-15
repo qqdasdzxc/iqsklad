@@ -31,7 +31,7 @@ class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBind
     }
 
     private fun initObserve() {
-        presenter.getForwarders().observe(this, Observer { uiModel ->
+        presenter.getForwarders(activity!!).observe(this, Observer { uiModel ->
             when (uiModel) {
                 LoadingUiModel -> {
                 }

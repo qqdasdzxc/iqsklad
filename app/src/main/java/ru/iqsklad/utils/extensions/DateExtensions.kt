@@ -24,6 +24,6 @@ fun Calendar.isRefreshTimeExpired(pastCalendar: Calendar): Boolean {
 
 fun Calendar.getLastUpdatedTime(): String = Date(timeInMillis).requestDateFormat()
 
-fun Long.getTime(): String {
+fun Long.getTimeString(): String {
     return Date(this).uiDateFormat()
 }
