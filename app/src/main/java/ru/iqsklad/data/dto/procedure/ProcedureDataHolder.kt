@@ -2,6 +2,6 @@ package ru.iqsklad.data.dto.procedure
 
 class ProcedureDataHolder {
     var procedureType = ProcedureType.PASS
-    var procedureInvoice = Invoice()
+    //var procedureInvoice = Invoice()
 
 }

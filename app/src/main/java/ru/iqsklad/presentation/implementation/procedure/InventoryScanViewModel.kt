@@ -29,9 +29,9 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
 
     init {
         App.appComponent.inject(this)
-        procedureDataHolder.procedureInvoice.setInitState()
-        invoiceIDObservable.set(procedureDataHolder.procedureInvoice.invoiceID)
-        invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice.inventoryList
+        //procedureDataHolder.procedureInvoice.setInitState()
+        //invoiceIDObservable.set(procedureDataHolder.procedureInvoice.invoiceID)
+        //invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice.inventoryList
         inventoryViewModeObservable.set(InventoryScanMode.PREVIEW)
     }
 
@@ -70,11 +70,11 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
             if (!scannedRfidSet.contains(nonNullRfid)) {
                 //inventoryOverAllScannedCount.set(inventoryOverAllScannedCount.get()!! + 1)
                 scannedRfidSet.add(nonNullRfid)
-                return if (procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(nonNullRfid)) {
-                    ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
-                } else {
-                    ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
-                }
+//                return if (procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(nonNullRfid)) {
+//                    ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
+//                } else {
+//                    ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
+//                }
             }
         }
 

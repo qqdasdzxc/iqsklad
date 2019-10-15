@@ -10,5 +10,7 @@ class Rfid(
     @SerializedName("rfidID")
     val rfidID: String,
     @SerializedName("equipmentID")
-    val equipmentID: String
+    val equipmentID: String,
+    @SerializedName("equipmentTypeTitle")
+    var equipmentTypeTitle: String? = null
 )

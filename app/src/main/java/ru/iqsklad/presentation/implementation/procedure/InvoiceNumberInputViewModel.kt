@@ -34,7 +34,7 @@ class InvoiceNumberInputViewModel: ViewModel(), InvoiceNumberInputPresenter {
             return
         }
 
-        procedureDataHolder.procedureInvoice.invoiceID = invoiceNumberObservable.observeEdit.get()
+        //procedureDataHolder.procedureInvoice.invoiceID = invoiceNumberObservable.observeEdit.get()
         acceptInvoiceNumber.postValue(true)
     }
 

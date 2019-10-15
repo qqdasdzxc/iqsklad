@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import ru.iqsklad.data.dto.procedure.Invoice
 import ru.iqsklad.data.dto.rfid.Rfid
 import ru.iqsklad.data.dto.user.User
 
@@ -28,9 +29,6 @@ interface MainDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveEquipment(rfidList: List<Rfid>)
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun saveInvoices(invoices: List<Invoice>)
-
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun saveInvoices(invoices: List<Invoice>)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveInvoices(invoices: List<Invoice>)
 }

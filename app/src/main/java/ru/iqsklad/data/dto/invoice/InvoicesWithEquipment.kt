@@ -10,5 +10,5 @@ class InvoicesWithEquipment(
     @SerializedName("equipment")
     val equipmentTypes: List<EquipmentType>,
     @SerializedName("invoiceList")
-    val invoices: List<Invoice>
+    val invoices: List<Invoice>?
 )

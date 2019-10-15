@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 class Equipment(
     @SerializedName("equipment")
     val equipmentID: String,
+    @SerializedName("equipmentTitle")
+    var equipmentTitle: String? = null,
     @SerializedName("count")
     val count: String,
     @SerializedName("count_created")

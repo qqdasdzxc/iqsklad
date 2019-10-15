@@ -18,7 +18,9 @@ open class User(
     @SerializedName("middle_name")
     val middleName: String,
     @SerializedName("position")
-    val position: String
+    val position: String,
+    @SerializedName("description")
+    var description: String? = null
 ) : Parcelable {
 
     fun getFullName(): String = "$lastName $firstName $middleName"

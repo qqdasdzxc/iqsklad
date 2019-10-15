@@ -9,9 +9,9 @@ import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.data.dto.ui.ErrorUiModel
 import ru.iqsklad.data.dto.ui.SuccessUiModel
 import ru.iqsklad.data.dto.ui.UiModel
-import ru.iqsklad.data.dto.user.UserMapper
 import ru.iqsklad.data.dto.user.UserType
 import ru.iqsklad.data.dto.user.UserUI
+import ru.iqsklad.data.dto.user.UsersMapper
 import ru.iqsklad.data.repository.contract.IMainRepository
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.user.ChooseUserPresenter
@@ -53,7 +53,7 @@ class ChooseUserViewModel: ViewModel(), ChooseUserPresenter {
             type = userType,
             searchString = searchStringLiveData.value!!.trim()
         ).mapToResult(
-            { SuccessUiModel(UserMapper.mapUsers(it.data!!.users)) },
+            { SuccessUiModel(UsersMapper.mapUsersForShowFirstLetter(it.data!!.users)) },
             { ErrorUiModel(it.message) }
         )
     }

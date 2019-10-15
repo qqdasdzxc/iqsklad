@@ -5,9 +5,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flow
 import ru.dtk.lib.network.*
 import ru.dtk.lib.network.builder.DtkNetBuilder
+import ru.iqsklad.data.Constants.LOAD_ALL_DATA_PARAM
 import ru.iqsklad.data.db.dao.MainDao
+import ru.iqsklad.data.dto.invoice.InvoicesMapper
 import ru.iqsklad.data.dto.procedure.Invoice
+import ru.iqsklad.data.dto.rfid.RfidsMapper
 import ru.iqsklad.data.dto.user.UserType
+import ru.iqsklad.data.dto.user.UsersMapper
 import ru.iqsklad.data.dto.user.UsersWithRoles
 import ru.iqsklad.data.repository.contract.IMainRepository
 import ru.iqsklad.data.web.api.MainApi
@@ -110,32 +114,49 @@ class MainRepository @Inject constructor(
 
                 try {
                     runBlocking {
+
                         val usersResponse = api.getUsersAsync(
                             requestBuilder
                                 .createRequest()
                                 .setMethod("person.getList")
-                                .setParams(mapOf())
+                                .setParams(mapOf(
+                                    LOAD_ALL_DATA_PARAM
+                                ))
                                 .build()
                         ).await()
-                        dao.saveUsers(usersResponse.data!!.users)
+                        usersResponse.data!!.users?.let {
+                            UsersMapper.map(usersResponse.data!!)
+                            dao.saveUsers(it)
+                        }
 
                         val invoicesResponse = api.getInvoicesAsync(
                             requestBuilder
                                 .createRequest()
                                 .setMethod("invoice.getList")
-                                .setParams(mapOf())
+                                .setParams(mapOf(
+                                    LOAD_ALL_DATA_PARAM
+                                ))
                                 .build()
                         ).await()
-                        //todo dao.invoices
+                        invoicesResponse.data!!.invoices?.let {
+                            InvoicesMapper.map(invoicesResponse.data!!)
+                            dao.saveInvoices(it)
+                        }
 
                         val equipmentResponse = api.getEquipmentsAsync(
                             requestBuilder
                                 .createRequest()
                                 .setMethod("rfid.getList")
-                                .setParams(mapOf())
+                                .setParams(mapOf(
+                                    LOAD_ALL_DATA_PARAM
+                                ))
                                 .build()
                         ).await()
-                        dao.saveEquipment(equipmentResponse.data!!.rfidList)
+                        equipmentResponse.data!!.rfidList?.let {
+                            RfidsMapper.map(equipmentResponse.data!!)
+                            dao.saveEquipment(it)
+                        }
+
                     }
                     emit(SuccessDtkApiModel(EmptyResponse()))
                 } catch (exception: Exception) {
@@ -162,6 +183,7 @@ class MainRepository @Inject constructor(
                                 .build()
                         ).await()
                         usersResponse.data!!.users?.let {
+                            UsersMapper.map(usersResponse.data!!)
                             dao.saveUsers(it)
                         }
 
@@ -175,7 +197,10 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        //todo dao.invoices
+                        invoicesResponse.data!!.invoices?.let {
+                            InvoicesMapper.map(invoicesResponse.data!!)
+                            dao.saveInvoices(it)
+                        }
 
                         val equipmentResponse = api.getEquipmentsChangesAsync(
                             requestBuilder
@@ -186,7 +211,10 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        dao.saveEquipment(equipmentResponse.data!!.rfidList)
+                        equipmentResponse.data!!.rfidList?.let {
+                            RfidsMapper.map(equipmentResponse.data!!)
+                            dao.saveEquipment(it)
+                        }
                     }
                     emit(SuccessDtkApiModel(EmptyResponse()))
                 } catch (exception: Exception) {
