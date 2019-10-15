@@ -2,9 +2,9 @@ package ru.iqsklad.data.dto.user
 
 object UserMapper {
 
-    fun mapUsers(users: List<User>): List<UserUI> {
+    fun mapUsers(users: List<User>?): List<UserUI> {
         val result = mutableListOf<UserUI>()
-        users.forEachIndexed { index, user ->
+        users?.forEachIndexed { index, user ->
             if (index == 0) {
                 result.add(UserUI(user, true))
             } else {

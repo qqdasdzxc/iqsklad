@@ -1,12 +1,10 @@
 package ru.iqsklad.ui.base.fragment
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.annotation.LayoutRes
@@ -19,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.snackbar.Snackbar
 import ru.iqsklad.R
 
 abstract class BaseRoundedBottomSheetDialogFragment<V : ViewDataBinding> : BottomSheetDialogFragment() {
@@ -68,8 +65,8 @@ abstract class BaseRoundedBottomSheetDialogFragment<V : ViewDataBinding> : Botto
         showMessage(getString(messageResId))
     }
 
-    fun showMessage(message: String) {
-        Toast.makeText(context, message, Snackbar.LENGTH_LONG).show()
+    fun showMessage(message: String?) {
+        Toast.makeText(context, message ?: getString(R.string.error_network_connected), Toast.LENGTH_LONG).show()
     }
 
     override fun onDetach() {

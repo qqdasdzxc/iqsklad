@@ -2,6 +2,7 @@ package ru.iqsklad.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,9 +16,7 @@ import ru.iqsklad.ui.auth.activity.AuthActivity
 import ru.iqsklad.ui.procedure.activity.ProcedureActivity
 import ru.iqsklad.utils.pref.UserPreferences
 
-
 class SplashActivity: AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +41,7 @@ class SplashActivity: AppCompatActivity() {
                     }
                 }
                 is ErrorUiModel -> {
-                    //???
+                    Toast.makeText(this, uiModel.error ?: "Проверьте подключение к впн и перезапустите приложение!", Toast.LENGTH_LONG).show()
                 }
             }
         })

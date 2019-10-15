@@ -161,7 +161,9 @@ class MainRepository @Inject constructor(
                                 ))
                                 .build()
                         ).await()
-                        dao.saveUsers(usersResponse.data!!.users)
+                        usersResponse.data!!.users?.let {
+                            dao.saveUsers(it)
+                        }
 
                         val invoicesResponse = api.getInvoicesChangesAsync(
                             requestBuilder

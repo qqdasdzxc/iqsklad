@@ -74,5 +74,5 @@ class UpdateViewModel : ViewModel(), UpdatePresenter {
         return calendarNow.isRefreshTimeExpired(calendarPast)
     }
 
-    //override fun updateAllData(context: Context): LiveData<UiModel<Boolean>> = loadAllChanges()
+    override fun updateAllData(context: Context): LiveData<UiModel<Boolean>> = loadAllChanges(context)
 }

@@ -10,5 +10,5 @@ interface UpdatePresenter {
 
     fun needToRefreshDB(context: Context): Boolean
 
-    //fun updateAllData(context: Context): LiveData<UiModel<Boolean>>
+    fun updateAllData(context: Context): LiveData<UiModel<Boolean>>
 }

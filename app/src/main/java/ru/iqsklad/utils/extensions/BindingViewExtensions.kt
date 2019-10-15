@@ -1,17 +1,23 @@
 package ru.iqsklad.utils.extensions
 
 import android.text.TextWatcher
+import android.view.animation.Animation
+import android.view.animation.Animation.RELATIVE_TO_SELF
+import android.view.animation.RotateAnimation
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import ru.iqsklad.R
+import ru.iqsklad.data.dto.dbstatus.DatabaseStatus
 import ru.iqsklad.data.dto.procedure.InventoryScanMode
 import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.data.dto.user.UserUI
+
 
 @BindingAdapter("isError")
 fun TextInputLayout.updateError(isError: Boolean) {
@@ -135,4 +141,30 @@ fun TextView.setProcedureSuccessTitle(procedureType: ProcedureType, invoiceNumbe
     } else {
         resources.getString(R.string.procedure_success_receive_type_text, invoiceNumber)
     }
+}
+
+@BindingAdapter("srcDatabaseStatus")
+fun ImageView.setSrcDbStatus(databaseStatus: DatabaseStatus) {
+    setImageResource(databaseStatus.imageResourceID)
+
+    when (databaseStatus) {
+        DatabaseStatus.NotUpdated, DatabaseStatus.Updated -> {
+            clearAnimation()
+        }
+        DatabaseStatus.Updating -> {
+            startAnimation(RotateAnimation(
+                0f, 360f,
+                RELATIVE_TO_SELF, 0.5f,
+                RELATIVE_TO_SELF, 0.5f
+            ).apply {
+                duration = 2000
+                repeatCount = Animation.INFINITE
+            })
+        }
+    }
+}
+
+@BindingAdapter("textDatabaseStatus")
+fun TextView.setTextDbStatus(databaseStatus: DatabaseStatus) {
+    text = resources.getString(databaseStatus.stringID)
 }

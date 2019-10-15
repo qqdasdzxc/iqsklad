@@ -2,7 +2,6 @@
     <string name="app_name">IQ-Sklad</string>
     
     <!-- General -->
-    <string name="menu_help_title">Справка</string>
     <string name="menu_call_title">+7 495 123-45-67</string>
     <string name="menu_exit_title">Выйти</string>
     <string name="tune">Настроить</string>
@@ -82,6 +81,10 @@
     <!-- Status -->
     <string name="status_resume_work_action_title">Продолжить работу</string>
     <string name="status_update_db_action_title">Обновить базу данных</string>
+    <string name="status_last_update_time">Последнее обновление: %s</string>
+    <string name="status_updated">База данных актуальна</string>
+    <string name="status_not_updated">База данных не актуальна</string>
+    <string name="status_updating">Обновление базы данных</string>
 
     <!-- Error -->
     <string name="error_network_connected">Ошибка сети, пожалуйста повторите попытку позже</string>

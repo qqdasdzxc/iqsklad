@@ -23,7 +23,7 @@ interface MainDao {
     fun getUsers(typeID: Int, searchString: String): List<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveUsers(users: List<User>)
+    fun saveUsers(users: List<User>?)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveEquipment(rfidList: List<Rfid>)
