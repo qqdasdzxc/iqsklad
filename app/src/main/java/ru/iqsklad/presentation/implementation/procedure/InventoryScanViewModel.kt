@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import ru.iqsklad.data.dto.equipment.Equipment
 import ru.iqsklad.data.dto.procedure.*
 import ru.iqsklad.data.scan.Scanner
 import ru.iqsklad.data.scan.ScannerFactory
@@ -21,10 +22,10 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
 
     private var scanner: Scanner? = null
     private val invoiceIDObservable = ObservableField<String>()
-    private val invoiceInventoryListObservable = MutableLiveData<List<Inventory>>()
-    private val inventoryViewModeObservable = ObservableField<InventoryScanMode>()
+    private val invoiceInventoryListObservable = MutableLiveData<List<Equipment>>()
+    private val inventoryViewModeObservable = ObservableField<EquipmentScanMode>()
     private val errorObservable = MutableLiveData<String>()
-    //private val inventoryOverAllScannedCount = ObservableField(0)
+    private val inventoryOverAllScannedCount = ObservableField(0)
 
     private val scannedRfidSet = HashSet<RFID_EPC>()
 
@@ -32,26 +33,26 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
         App.appComponent.inject(this)
         scanner = scannerFactory.createScanner()
         //procedureDataHolder.procedureInvoice.setInitState()
-        //invoiceIDObservable.set(procedureDataHolder.procedureInvoice.invoiceID)
-        //invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice.inventoryList
-        inventoryViewModeObservable.set(InventoryScanMode.PREVIEW)
+        invoiceIDObservable.set(procedureDataHolder.procedureInvoice?.id)
+        invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice?.equipmentList
+        inventoryViewModeObservable.set(EquipmentScanMode.PREVIEW)
     }
 
     override fun getErrorLiveData(): LiveData<String> = errorObservable
 
     override fun getInvoiceNumber(): ObservableField<String> = invoiceIDObservable
 
-    override fun getInvoiceInventoryLiveData(): LiveData<List<Inventory>> = invoiceInventoryListObservable
+    override fun getInvoiceInventoryLiveData(): LiveData<List<Equipment>> = invoiceInventoryListObservable
 
-    override fun getInventoryScanMode(): ObservableField<InventoryScanMode> = inventoryViewModeObservable
+    override fun getEquipmentScanMode(): ObservableField<EquipmentScanMode> = inventoryViewModeObservable
 
     override fun getProcedureType(): ProcedureType = procedureDataHolder.procedureType
 
-    //override fun getOverAllScanCount(): ObservableField<Int> = inventoryOverAllScannedCount
+    override fun getOverAllScanCount(): ObservableField<Int> = inventoryOverAllScannedCount
 
     override fun startScan(): LiveData<ScanResult?>? {
         scanner?.let {
-            inventoryViewModeObservable.set(InventoryScanMode.SCANNING)
+            inventoryViewModeObservable.set(EquipmentScanMode.SCANNING)
             return Transformations.map(it.startScan()) { result ->
                 return@map processRfid(result)
             }
@@ -63,15 +64,16 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
     }
 
     override fun stopScan() {
-        inventoryViewModeObservable.set(InventoryScanMode.STOPPED)
+        inventoryViewModeObservable.set(EquipmentScanMode.STOPPED)
         scanner?.stopScan()
     }
 
     private fun processRfid(rfid: RFID_EPC?): ScanResult? {
         rfid?.let { nonNullRfid ->
             if (!scannedRfidSet.contains(nonNullRfid)) {
-                //inventoryOverAllScannedCount.set(inventoryOverAllScannedCount.get()!! + 1)
+                inventoryOverAllScannedCount.set(inventoryOverAllScannedCount.get()!! + 1)
                 scannedRfidSet.add(nonNullRfid)
+                return ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
 //                return if (procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(nonNullRfid)) {
 //                    ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
 //                } else {

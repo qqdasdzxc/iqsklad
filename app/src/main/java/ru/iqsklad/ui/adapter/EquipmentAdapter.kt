@@ -6,41 +6,41 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.iqsklad.R
-import ru.iqsklad.data.dto.procedure.Inventory
-import ru.iqsklad.data.dto.procedure.InventoryScanMode
+import ru.iqsklad.data.dto.equipment.Equipment
+import ru.iqsklad.data.dto.procedure.EquipmentScanMode
 import ru.iqsklad.databinding.ItemInventoryBinding
 import ru.iqsklad.ui.base.adapter.RecyclerListAdapter
 
-class InventoryAdapter : RecyclerListAdapter<Inventory, InventoryAdapter.InventoryViewHolder>() {
+class EquipmentAdapter : RecyclerListAdapter<Equipment, EquipmentAdapter.EquipmentViewHolder>() {
 
-    private var inventoryScanMode: InventoryScanMode = InventoryScanMode.PREVIEW
+    private var equipmentScanMode: EquipmentScanMode = EquipmentScanMode.PREVIEW
 
-    override fun onBindCustomViewHolder(holder: InventoryViewHolder, position: Int) {
+    override fun onBindCustomViewHolder(holder: EquipmentViewHolder, position: Int) {
         holder.populate(getItem(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InventoryViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EquipmentViewHolder {
         val binding = DataBindingUtil.inflate<ItemInventoryBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_inventory,
             parent,
             false
         )
-        return InventoryViewHolder(binding)
+        return EquipmentViewHolder(binding)
     }
 
-    fun setScanMode(inventoryScanMode: InventoryScanMode) {
-        this.inventoryScanMode = inventoryScanMode
+    fun setScanMode(equipmentScanMode: EquipmentScanMode) {
+        this.equipmentScanMode = equipmentScanMode
         notifyDataSetChanged()
     }
 
-    inner class InventoryViewHolder(private var binding: ItemInventoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class EquipmentViewHolder(private var binding: ItemInventoryBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun populate(inventory: Inventory) {
-            binding.inventory = inventory
-            binding.inventoryScanMode = inventoryScanMode
+        fun populate(equipment: Equipment) {
+            binding.equipment = equipment
+            binding.equipmentScanMode = equipmentScanMode
 
-            updateScannedCountColor(inventory.scannedCount, inventory.plannedCount)
+            updateScannedCountColor(equipment.scannedCount, equipment.count.toInt())
         }
 
         private fun updateScannedCountColor(scannedCount: Int, plannedCount: Int) {

@@ -65,9 +65,9 @@ class Invoice(
 //        return false
 //    }
 //
-//    fun setInitState() {
-//        for (inventory in inventoryList) {
-//            inventory.scannedCount = 0
-//        }
-//    }
+    fun setInitState() {
+        for (inventory in equipmentList) {
+            inventory.scannedCount = 0
+        }
+    }
 }

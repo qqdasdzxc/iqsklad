@@ -1,6 +1,6 @@
 package ru.iqsklad.data.dto.procedure
 
-enum class InventoryScanMode {
+enum class EquipmentScanMode {
     PREVIEW,
     SCANNING,
     STOPPED

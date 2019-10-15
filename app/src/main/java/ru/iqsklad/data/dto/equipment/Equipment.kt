@@ -15,4 +15,6 @@ class Equipment(
     val countStockIn: String? = null,
     @SerializedName("count_stock_out")
     val countStockOut: String? = null
-)
+) {
+    var scannedCount: Int = 0
+}

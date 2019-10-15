@@ -19,5 +19,5 @@ class ProcedureSuccessViewModel : ViewModel(), ProcedureSuccessPresenter {
 
     override fun getProcedureType(): ProcedureType = procedureDataHolder.procedureType
 
-    override fun getInvoiceNumber(): String = "asd"//procedureDataHolder.procedureInvoice.invoiceID!!
+    override fun getInvoiceNumber(): String = procedureDataHolder.procedureInvoice!!.id
 }

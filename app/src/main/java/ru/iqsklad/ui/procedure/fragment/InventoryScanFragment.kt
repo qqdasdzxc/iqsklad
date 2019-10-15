@@ -6,11 +6,11 @@ import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
 import ru.iqsklad.R
-import ru.iqsklad.data.dto.procedure.InventoryScanMode
+import ru.iqsklad.data.dto.procedure.EquipmentScanMode
 import ru.iqsklad.databinding.FragmentInventoryScanBinding
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
-import ru.iqsklad.ui.adapter.InventoryAdapter
+import ru.iqsklad.ui.adapter.EquipmentAdapter
 import ru.iqsklad.ui.adapter.ScanResultAdapter
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
@@ -18,7 +18,7 @@ import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
 class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), NeedToOverrideBackPressFragment {
 
     private lateinit var presenter: InventoryScanPresenter
-    private var inventoryAdapter = InventoryAdapter()
+    private var equipmentAdapter = EquipmentAdapter()
     private var scanResultAdapter = ScanResultAdapter()
 
     override fun getLayoutResId(): Int = R.layout.fragment_inventory_scan
@@ -44,14 +44,14 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
         })
 
         presenter.getInvoiceInventoryLiveData().observe(this, Observer {
-            inventoryAdapter.clear()
-            inventoryAdapter.addAll(it)
+            equipmentAdapter.clear()
+            equipmentAdapter.addAll(it)
         })
 
-        presenter.getInventoryScanMode().addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        presenter.getEquipmentScanMode().addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 sender?.let {
-                    inventoryAdapter.setScanMode((sender as ObservableField<*>).get() as InventoryScanMode)
+                    equipmentAdapter.setScanMode((sender as ObservableField<*>).get() as EquipmentScanMode)
                 }
             }
         })
@@ -66,7 +66,7 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
     }
 
     private fun initView() {
-        binding.inventoryListView.adapter = inventoryAdapter
+        binding.inventoryListView.adapter = equipmentAdapter
         binding.scanResultListView.adapter = scanResultAdapter
 
         binding.inventoryScanActionView.setOnClickListener {
@@ -79,17 +79,17 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
     }
 
     private fun processScanAction() {
-        when (presenter.getInventoryScanMode().get()) {
-            InventoryScanMode.PREVIEW -> initScanObserve()
-            InventoryScanMode.SCANNING -> stopScanObserve()
-            InventoryScanMode.STOPPED -> resumeScanObserve()
+        when (presenter.getEquipmentScanMode().get()) {
+            EquipmentScanMode.PREVIEW -> initScanObserve()
+            EquipmentScanMode.SCANNING -> stopScanObserve()
+            EquipmentScanMode.STOPPED -> resumeScanObserve()
         }
     }
 
     private fun initScanObserve() {
         presenter.startScan()?.observe(this, Observer {
             it?.let { scanResult ->
-                inventoryAdapter.notifyDataSetChanged()
+                equipmentAdapter.notifyDataSetChanged()
                 scanResultAdapter.add(scanResult)
                 binding.scanResultListView.scrollToPosition(scanResultAdapter.itemCount - 1)
             }

@@ -13,7 +13,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.dbstatus.DatabaseStatus
-import ru.iqsklad.data.dto.procedure.InventoryScanMode
+import ru.iqsklad.data.dto.procedure.EquipmentScanMode
 import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.data.dto.user.User
 import ru.iqsklad.data.dto.user.UserUI
@@ -35,11 +35,11 @@ fun EditText.updateTextWatcher(listener: TextWatcher) {
 }
 
 @BindingAdapter("scanActionTitle")
-fun MaterialButton.updateScanActionTitle(inventoryScanMode: InventoryScanMode) {
-    setText(when (inventoryScanMode) {
-        InventoryScanMode.PREVIEW -> R.string.inventory_scan_start_action_title
-        InventoryScanMode.SCANNING -> R.string.inventory_scan_stop_action_title
-        InventoryScanMode.STOPPED -> R.string.inventory_scan_resume_action_title
+fun MaterialButton.updateScanActionTitle(equipmentScanMode: EquipmentScanMode) {
+    setText(when (equipmentScanMode) {
+        EquipmentScanMode.PREVIEW -> R.string.inventory_scan_start_action_title
+        EquipmentScanMode.SCANNING -> R.string.inventory_scan_stop_action_title
+        EquipmentScanMode.STOPPED -> R.string.inventory_scan_resume_action_title
     })
 }
 
@@ -69,8 +69,8 @@ fun TextView.setInventoryScanTitle(invoiceNumber: String?) {
 }
 
 @BindingAdapter("inventoryScannedCountVisibility")
-fun TextView.setInventoryScannedCountVisibility(inventoryScanMode: InventoryScanMode) {
-    if (inventoryScanMode == InventoryScanMode.PREVIEW) hideAsGone() else show()
+fun TextView.setInventoryScannedCountVisibility(equipmentScanMode: EquipmentScanMode) {
+    if (equipmentScanMode == EquipmentScanMode.PREVIEW) hideAsGone() else show()
 }
 
 @BindingAdapter("inventoryScannedCountText")
@@ -79,18 +79,18 @@ fun TextView.setInventoryScannedCountText(scannedCount: Int) {
 }
 
 @BindingAdapter("inventoryPlannedCountText")
-fun TextView.setInventoryPlannedCountText(plannedCount: Int) {
-    text = plannedCount.toString()
+fun TextView.setInventoryPlannedCountText(plannedCountString: String) {
+    text = plannedCountString
 }
 
 @BindingAdapter("inventoryScanFactVisibility")
-fun TextView.setInventoryScanFactVisibility(inventoryScanMode: InventoryScanMode) {
-    if (inventoryScanMode == InventoryScanMode.PREVIEW) hideAsGone() else show()
+fun TextView.setInventoryScanFactVisibility(equipmentScanMode: EquipmentScanMode) {
+    if (equipmentScanMode == EquipmentScanMode.PREVIEW) hideAsGone() else show()
 }
 
 @BindingAdapter("inventoryScanInfoLabelVisibility")
-fun TextView.setInventoryScanInfoLabelVisibility(inventoryScanMode: InventoryScanMode) {
-    if (inventoryScanMode == InventoryScanMode.PREVIEW) hideAsGone() else show()
+fun TextView.setInventoryScanInfoLabelVisibility(equipmentScanMode: EquipmentScanMode) {
+    if (equipmentScanMode == EquipmentScanMode.PREVIEW) hideAsGone() else show()
 }
 
 @BindingAdapter("inventoryScanEndActionTitle")
@@ -103,8 +103,8 @@ fun MaterialButton.setInventoryScanEndActionTitle(procedureType: ProcedureType) 
 }
 
 @BindingAdapter("inventoryScanEndActionVisibility")
-fun MaterialButton.setInventoryScanEndActionVisibility(inventoryScanMode: InventoryScanMode) {
-    if (inventoryScanMode == InventoryScanMode.STOPPED) show() else hideAsGone()
+fun MaterialButton.setInventoryScanEndActionVisibility(equipmentScanMode: EquipmentScanMode) {
+    if (equipmentScanMode == EquipmentScanMode.STOPPED) show() else hideAsGone()
 }
 
 @BindingAdapter("procedureCancelTitle")

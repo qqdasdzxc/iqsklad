@@ -6,7 +6,9 @@
 
     <data>
 
-        <import type="ru.iqsklad.data.dto.procedure.InventoryScanMode"/>
+        <import type="android.view.View"/>
+
+        <import type="ru.iqsklad.data.dto.procedure.EquipmentScanMode"/>
 
         <import type="ru.iqsklad.data.dto.procedure.ProcedureType"/>
 
@@ -67,7 +69,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_fact_label"
-                inventoryScanFactVisibility="@{presenter.getInventoryScanMode()}"
+                inventoryScanFactVisibility="@{presenter.getEquipmentScanMode()}"
                 style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,7 +106,7 @@
 
         <TextView
                 android:id="@+id/inventory_scan_info_label_view"
-                inventoryScanInfoLabelVisibility="@{presenter.getInventoryScanMode()}"
+                inventoryScanInfoLabelVisibility="@{presenter.getEquipmentScanMode()}"
                 style="@style/TitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -113,16 +115,16 @@
                 app:layout_constraintStart_toStartOf="@id/label_divider"
                 app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>
 
-        <!--<TextView-->
-                <!--android:id="@+id/inventory_scan_count_label_view"-->
-                <!--style="@style/TitleTextView"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/start_end_margin"-->
-                <!--android:visibility="@{presenter.getInventoryScanMode() == InventoryScanMode.PREVIEW ? View.GONE : View.VISIBLE}"-->
-                <!--android:text="@{String.format(@string/inventory_scan_count_label, presenter.getOverAllScanCount())}"-->
-                <!--app:layout_constraintEnd_toEndOf="@id/label_divider"-->
-                <!--app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>-->
+        <TextView
+                android:id="@+id/inventory_scan_count_label_view"
+                style="@style/TitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/start_end_margin"
+                android:visibility="@{presenter.getEquipmentScanMode() == EquipmentScanMode.PREVIEW ? View.GONE : View.VISIBLE}"
+                android:text="@{String.format(@string/inventory_scan_count_label, presenter.getOverAllScanCount())}"
+                app:layout_constraintEnd_toEndOf="@id/label_divider"
+                app:layout_constraintTop_toBottomOf="@id/inventory_list_view"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/scan_result_list_view"
@@ -139,7 +141,7 @@
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/inventory_scan_end_action_view"
                 inventoryScanEndActionTitle="@{presenter.getProcedureType()}"
-                inventoryScanEndActionVisibility="@{presenter.getInventoryScanMode()}"
+                inventoryScanEndActionVisibility="@{presenter.getEquipmentScanMode()}"
                 style="@style/EmptyButton"
                 android:layout_marginTop="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
@@ -159,7 +161,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                scanActionTitle="@{presenter.getInventoryScanMode()}"/>
+                scanActionTitle="@{presenter.getEquipmentScanMode()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
