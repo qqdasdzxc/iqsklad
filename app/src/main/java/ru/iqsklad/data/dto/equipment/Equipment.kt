@@ -1,6 +1,7 @@
 package ru.iqsklad.data.dto.equipment
 
 import com.google.gson.annotations.SerializedName
+typealias RFID_EPC = String
 
 class Equipment(
     @SerializedName("equipment")
@@ -14,7 +15,9 @@ class Equipment(
     @SerializedName("count_stock_in")
     val countStockIn: String? = null,
     @SerializedName("count_stock_out")
-    val countStockOut: String? = null
+    val countStockOut: String? = null,
+    @SerializedName("rfid_ids")
+    val rfids: List<RFID_EPC>
 ) {
     var scannedCount: Int = 0
 }

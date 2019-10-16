@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import ru.iqsklad.data.dto.equipment.Equipment
+import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.procedure.*
 import ru.iqsklad.data.scan.Scanner
 import ru.iqsklad.data.scan.ScannerFactory
@@ -32,7 +33,7 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
     init {
         App.appComponent.inject(this)
         scanner = scannerFactory.createScanner()
-        //procedureDataHolder.procedureInvoice.setInitState()
+        procedureDataHolder.procedureInvoice?.setInitState()
         invoiceIDObservable.set(procedureDataHolder.procedureInvoice?.id)
         invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice?.equipmentList
         inventoryViewModeObservable.set(EquipmentScanMode.PREVIEW)
@@ -64,7 +65,9 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
     }
 
     override fun stopScan() {
-        inventoryViewModeObservable.set(EquipmentScanMode.STOPPED)
+        if (inventoryViewModeObservable.get() == EquipmentScanMode.SCANNING) {
+            inventoryViewModeObservable.set(EquipmentScanMode.STOPPED)
+        }
         scanner?.stopScan()
     }
 
@@ -73,12 +76,12 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
             if (!scannedRfidSet.contains(nonNullRfid)) {
                 inventoryOverAllScannedCount.set(inventoryOverAllScannedCount.get()!! + 1)
                 scannedRfidSet.add(nonNullRfid)
-                return ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
-//                return if (procedureDataHolder.procedureInvoice.increaseScannedCountIfContains(nonNullRfid)) {
-//                    ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
-//                } else {
-//                    ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
-//                }
+
+                return if (procedureDataHolder.procedureInvoice!!.increaseScannedCountIfContains(nonNullRfid)) {
+                    ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
+                } else {
+                    ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
+                }
             }
         }
 

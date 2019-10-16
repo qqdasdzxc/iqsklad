@@ -98,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/top_bottom_margin"
                 android:scrollbars="vertical"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="@id/label_divider"
                 app:layout_constraintEnd_toEndOf="@id/label_divider"

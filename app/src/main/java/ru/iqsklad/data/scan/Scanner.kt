@@ -3,7 +3,7 @@ package ru.iqsklad.data.scan
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.*
-import ru.iqsklad.data.dto.procedure.RFID_EPC
+import ru.iqsklad.data.dto.equipment.RFID_EPC
 
 abstract class Scanner {
 
