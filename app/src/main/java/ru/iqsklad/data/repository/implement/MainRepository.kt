@@ -1,7 +1,10 @@
 package ru.iqsklad.data.repository.implement
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.flow
 import ru.dtk.lib.network.*
 import ru.dtk.lib.network.builder.DtkNetBuilder
@@ -154,53 +157,51 @@ class MainRepository @Inject constructor(
                 emit(LoadingDtkApiModel)
 
                 try {
-                    runBlocking {
-                        val usersResponse = api.getUsersAsync(
-                            requestBuilder
-                                .createRequest()
-                                .setMethod("person.getList")
-                                .setParams(mapOf(
-                                    LOAD_ALL_DATA_PARAM
-                                ))
-                                .build()
-                        ).await()
-                        usersResponse.data?.let { nonNullData ->
-                            UsersMapper.map(nonNullData)
-                            nonNullData.users?.let {
-                                dao.saveUsers(it)
-                            }
+                    val usersResponse = api.getUsersAsync(
+                        requestBuilder
+                            .createRequest()
+                            .setMethod("person.getList")
+                            .setParams(mapOf(
+                                LOAD_ALL_DATA_PARAM
+                            ))
+                            .build()
+                    ).await()
+                    usersResponse.data?.let { nonNullData ->
+                        UsersMapper.map(nonNullData)
+                        nonNullData.users?.let {
+                            dao.saveUsers(it)
                         }
+                    }
 
-                        val invoicesResponse = api.getInvoicesAsync(
-                            requestBuilder
-                                .createRequest()
-                                .setMethod("invoice.getList")
-                                .setParams(mapOf(
-                                    LOAD_ALL_INVOICES_DATA_PARAM
-                                ))
-                                .build()
-                        ).await()
-                        invoicesResponse.data?.let { nonNullData ->
-                            InvoicesMapper.map(nonNullData)
-                            nonNullData.invoices?.let {
-                                dao.saveInvoices(it)
-                            }
+                    val invoicesResponse = api.getInvoicesAsync(
+                        requestBuilder
+                            .createRequest()
+                            .setMethod("invoice.getList")
+                            .setParams(mapOf(
+                                LOAD_ALL_INVOICES_DATA_PARAM
+                            ))
+                            .build()
+                    ).await()
+                    invoicesResponse.data?.let { nonNullData ->
+                        InvoicesMapper.map(nonNullData)
+                        nonNullData.invoices?.let {
+                            dao.saveInvoices(it)
                         }
+                    }
 
-                        val equipmentResponse = api.getEquipmentsAsync(
-                            requestBuilder
-                                .createRequest()
-                                .setMethod("rfid.getList")
-                                .setParams(mapOf(
-                                    LOAD_ALL_DATA_PARAM
-                                ))
-                                .build()
-                        ).await()
-                        equipmentResponse.data?.let { nonNullData ->
-                            RfidsMapper.map(nonNullData)
-                            nonNullData.rfidList?.let {
-                                dao.saveEquipment(it)
-                            }
+                    val equipmentResponse = api.getEquipmentsAsync(
+                        requestBuilder
+                            .createRequest()
+                            .setMethod("rfid.getList")
+                            .setParams(mapOf(
+                                LOAD_ALL_DATA_PARAM
+                            ))
+                            .build()
+                    ).await()
+                    equipmentResponse.data?.let { nonNullData ->
+                        RfidsMapper.map(nonNullData)
+                        nonNullData.rfidList?.let {
+                            dao.saveEquipment(it)
                         }
                     }
                     emit(SuccessDtkApiModel(EmptyResponse()))
@@ -217,54 +218,52 @@ class MainRepository @Inject constructor(
                 emit(LoadingDtkApiModel)
 
                 try {
-                    runBlocking {
-                        val usersResponse = api.getUsersChangesAsync(
-                            requestBuilder
-                                .createRequest()
-                                .setMethod("person.getChange")
-                                .setParams(mapOf(
-                                    Pair("last_update", lastUpdated)
-                                ))
-                                .build()
-                        ).await()
-                        usersResponse.data?.let { nonNullData ->
-                            UsersMapper.map(nonNullData)
-                            nonNullData.users?.let {
-                                dao.saveUsers(it)
-                            }
+                    val usersResponse = api.getUsersChangesAsync(
+                        requestBuilder
+                            .createRequest()
+                            .setMethod("person.getChange")
+                            .setParams(mapOf(
+                                Pair("last_update", lastUpdated)
+                            ))
+                            .build()
+                    ).await()
+                    usersResponse.data?.let { nonNullData ->
+                        UsersMapper.map(nonNullData)
+                        nonNullData.users?.let {
+                            dao.saveUsers(it)
                         }
+                    }
 
-                        val invoicesResponse = api.getInvoicesChangesAsync(
-                            requestBuilder
-                                .createRequest()
-                                .setMethod("invoice.getList")
-                                .setParams(mapOf(
-                                    Pair("date", lastUpdated),
-                                    Pair("last_update", "true")
-                                ))
-                                .build()
-                        ).await()
-                        invoicesResponse.data?.let { nonNullData ->
-                            InvoicesMapper.map(nonNullData)
-                            nonNullData.invoices?.let {
-                                dao.saveInvoices(it)
-                            }
+                    val invoicesResponse = api.getInvoicesChangesAsync(
+                        requestBuilder
+                            .createRequest()
+                            .setMethod("invoice.getList")
+                            .setParams(mapOf(
+                                Pair("date", lastUpdated),
+                                Pair("last_update", "true")
+                            ))
+                            .build()
+                    ).await()
+                    invoicesResponse.data?.let { nonNullData ->
+                        InvoicesMapper.map(nonNullData)
+                        nonNullData.invoices?.let {
+                            dao.saveInvoices(it)
                         }
+                    }
 
-                        val equipmentResponse = api.getEquipmentsChangesAsync(
-                            requestBuilder
-                                .createRequest()
-                                .setMethod("rfid.getChange")
-                                .setParams(mapOf(
-                                    Pair("last_update", lastUpdated)
-                                ))
-                                .build()
-                        ).await()
-                        equipmentResponse.data?.let { nonNullData ->
-                            RfidsMapper.map(nonNullData)
-                            nonNullData.rfidList?.let {
-                                dao.saveEquipment(it)
-                            }
+                    val equipmentResponse = api.getEquipmentsChangesAsync(
+                        requestBuilder
+                            .createRequest()
+                            .setMethod("rfid.getChange")
+                            .setParams(mapOf(
+                                Pair("last_update", lastUpdated)
+                            ))
+                            .build()
+                    ).await()
+                    equipmentResponse.data?.let { nonNullData ->
+                        RfidsMapper.map(nonNullData)
+                        nonNullData.rfidList?.let {
+                            dao.saveEquipment(it)
                         }
                     }
                     emit(SuccessDtkApiModel(EmptyResponse()))
