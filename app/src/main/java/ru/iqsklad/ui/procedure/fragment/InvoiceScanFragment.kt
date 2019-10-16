@@ -23,6 +23,7 @@ import ru.iqsklad.presentation.presenter.procedure.FindInvoicePresenter
 import ru.iqsklad.ui.base.activity.BaseActivity
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.utils.PermissionUtils
+import ru.iqsklad.utils.extensions.safeNavigate
 
 class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
 
@@ -102,7 +103,9 @@ class InvoiceScanFragment : BaseFragment<FragmentInvoiceScanBinding>() {
     }
 
     private fun navigateToInventoryScan() {
-        navController.navigate(InvoiceScanFragmentDirections.actionInvoiceScanToInventoryScan())
+        safeNavigate(R.id.invoice_scan_fragment) {
+            navController.navigate(InvoiceScanFragmentDirections.actionInvoiceScanToInventoryScan())
+        }
     }
 
     private fun initCamera() {
