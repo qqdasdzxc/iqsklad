@@ -23,9 +23,11 @@ class Invoice(
 ) {
     fun increaseScannedCountIfContains(rfid: String): Boolean {
         for (equipment in equipmentList) {
-            if (equipment.rfids.contains(rfid)) {
-                equipment.scannedCount++
-                return true
+            equipment.rfids?.let {
+                if (it.contains(rfid)) {
+                    equipment.scannedCount++
+                    return true
+                }
             }
         }
         return false

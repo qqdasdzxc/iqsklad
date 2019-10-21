@@ -17,7 +17,7 @@ class Equipment(
     @SerializedName("count_stock_out")
     val countStockOut: String? = null,
     @SerializedName("rfid_ids")
-    val rfids: List<RFID_EPC>
+    val rfids: List<RFID_EPC>?
 ) {
     var scannedCount: Int = 0
 }

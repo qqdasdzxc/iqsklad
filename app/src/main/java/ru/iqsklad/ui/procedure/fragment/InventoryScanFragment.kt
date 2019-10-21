@@ -2,9 +2,11 @@ package ru.iqsklad.ui.procedure.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
 import androidx.lifecycle.Observer
+import androidx.transition.TransitionManager
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.EquipmentScanMode
 import ru.iqsklad.databinding.FragmentInventoryScanBinding
@@ -14,12 +16,15 @@ import ru.iqsklad.ui.adapter.EquipmentAdapter
 import ru.iqsklad.ui.adapter.ScanResultAdapter
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
+import ru.iqsklad.ui.procedure.view.OpenCloseView
 
 class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), NeedToOverrideBackPressFragment {
 
     private lateinit var presenter: InventoryScanPresenter
     private var equipmentAdapter = EquipmentAdapter()
     private var scanResultAdapter = ScanResultAdapter()
+
+    private var animateConstraintSet = ConstraintSet()
 
     override fun getLayoutResId(): Int = R.layout.fragment_inventory_scan
 
@@ -65,16 +70,44 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
         initView()
     }
 
-    private fun initView() {
-        binding.inventoryListView.adapter = equipmentAdapter
-        binding.scanResultListView.adapter = scanResultAdapter
+    private fun initView() = with(binding) {
+        animateConstraintSet.clone(inventoryScanRootView)
 
-        binding.inventoryScanActionView.setOnClickListener {
+        inventoryListView.adapter = equipmentAdapter
+        scanResultListView.adapter = scanResultAdapter
+
+        inventoryScanActionView.setOnClickListener {
             processScanAction()
         }
 
-        binding.inventoryScanEndActionView.setOnClickListener {
+        inventoryScanEndActionView.setOnClickListener {
             navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureSuccess())
+        }
+
+        inventoryScanInfoLabelView.setOnClickListener {
+
+        }
+
+        inventoryOpenCloseInfoView.setListener(object : OpenCloseView.OpenCloseChangeListener {
+            override fun onOpen() {
+                animateScanResultList(true)
+            }
+
+            override fun onClose() {
+                animateScanResultList(false)
+            }
+        })
+    }
+
+    private fun animateScanResultList(isOpen: Boolean) = with(binding) {
+        TransitionManager.beginDelayedTransition(inventoryScanRootView)
+        animateConstraintSet.apply {
+            if (isOpen) {
+                connect(scanResultListView.id, ConstraintSet.BOTTOM, inventoryScanEndActionView.id, ConstraintSet.TOP)
+            } else {
+                clear(scanResultListView.id, ConstraintSet.BOTTOM)
+            }
+            applyTo(inventoryScanRootView)
         }
     }
 

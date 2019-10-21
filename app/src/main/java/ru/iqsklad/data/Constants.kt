@@ -13,7 +13,7 @@ object Constants {
 
     val LOAD_ALL_DATA_PARAM = Pair("date", "1970")
     val LOAD_ALL_INVOICES_DATA_PARAM = Pair("date", Calendar.getInstance().apply {
-        removeDays(20)
+        removeDays(3)
     }.getLastUpdatedTime())
 
 //тестовые метки
