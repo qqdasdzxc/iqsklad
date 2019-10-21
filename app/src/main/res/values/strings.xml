@@ -20,8 +20,8 @@
 
     <!-- Choose procedure -->
     <string name="choose_procedure_user_info_label">Вы авторизованы в системе как:</string>
-    <string name="choose_procedure_pass_title">Сдать имущество</string>
-    <string name="choose_procedure_receive_title">Принять имущество</string>
+    <string name="choose_procedure_pass_title">Сдать на борт</string>
+    <string name="choose_procedure_receive_title">Принять с борта</string>
     <string name="choose_procedure_message">Выберите процедуру</string>
 
     <!-- Choose steward -->
@@ -30,7 +30,7 @@
     <string name="procedure_choose_steward_not_exist">Бортпроводник отсутствует</string>
     <string name="procedure_confirm_steward_info_label">Бортпроводником назначен</string>
     <string name="procedure_confirm_change_steward_action_title">Выбрать другого бортпроводника</string>
-    <string name="procedure_confirm_steward_action_title">Верно, выбрать бортпроводника</string>
+    <string name="procedure_confirm_steward_action_title">Верно</string>
     <string name="procedure_pass_without_steward_action_title">Сдать имущество без бортпроводника</string>
     <string name="procedure_receive_without_steward_action_title">Принять имущество без бортпроводника</string>
 
