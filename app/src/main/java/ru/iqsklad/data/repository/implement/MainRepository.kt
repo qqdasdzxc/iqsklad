@@ -11,7 +11,9 @@ import ru.dtk.lib.network.builder.DtkNetBuilder
 import ru.iqsklad.data.Constants.LOAD_ALL_DATA_PARAM
 import ru.iqsklad.data.Constants.LOAD_ALL_INVOICES_DATA_PARAM
 import ru.iqsklad.data.db.dao.MainDao
+import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.invoice.InvoicesMapper
+import ru.iqsklad.data.dto.rfid.Rfid
 import ru.iqsklad.data.dto.rfid.RfidsMapper
 import ru.iqsklad.data.dto.user.UserType
 import ru.iqsklad.data.dto.user.UsersMapper
@@ -272,5 +274,9 @@ class MainRepository @Inject constructor(
                 }
             }
         }.toLiveData()
+    }
+
+    override fun getRfidFromDB(epc: RFID_EPC): Rfid? {
+        return dao.getRfid(epc)
     }
 }

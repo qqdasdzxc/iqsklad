@@ -19,6 +19,7 @@ abstract class Scanner {
 
     fun stopScan() {
         scanJob?.cancel()
+        turnOff()
     }
 
     private fun initScan() {
@@ -36,6 +37,8 @@ abstract class Scanner {
     abstract fun stopInventory()
 
     abstract fun getInventory()
+
+    abstract fun turnOff()
 
     protected fun postInventory(value: RFID_EPC) = rfidLiveData.postValue(value)
 

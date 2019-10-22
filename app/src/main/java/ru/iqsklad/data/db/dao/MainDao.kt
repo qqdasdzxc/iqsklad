@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.procedure.Invoice
 import ru.iqsklad.data.dto.rfid.Rfid
 import ru.iqsklad.data.dto.user.User
@@ -34,4 +35,7 @@ interface MainDao {
 
     @Query("SELECT * FROM invoice WHERE id LIKE :invoiceID")
     fun getInvoice(invoiceID: String): Invoice?
+
+    @Query("SELECT * FROM rfid WHERE rfidID LIKE :epc")
+    fun getRfid(epc: RFID_EPC): Rfid?
 }

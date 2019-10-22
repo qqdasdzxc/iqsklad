@@ -1,25 +1,35 @@
 package ru.iqsklad.presentation.implementation.procedure
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.launch
 import ru.iqsklad.data.dto.equipment.Equipment
 import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.procedure.*
+import ru.iqsklad.data.repository.contract.IMainRepository
 import ru.iqsklad.data.scan.Scanner
 import ru.iqsklad.data.scan.ScannerFactory
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.HashSet
 
-class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
+class InventoryScanViewModel : ViewModel(), InventoryScanPresenter {
 
     @Inject
     lateinit var procedureDataHolder: ProcedureDataHolder
     @Inject
     lateinit var scannerFactory: ScannerFactory
+    @Inject
+    lateinit var repository: IMainRepository
 
     private var scanner: Scanner? = null
     private val invoiceIDObservable = ObservableField<String>()
@@ -27,8 +37,11 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
     private val inventoryViewModeObservable = ObservableField<EquipmentScanMode>()
     private val errorObservable = MutableLiveData<String>()
     private val inventoryOverAllScannedCount = ObservableField(0)
+    private val updateScanResultLiveData = MutableLiveData<ScanResult>()
 
     private val scannedRfidSet = HashSet<RFID_EPC>()
+    private val rfidInfoToLoadQueue = ArrayDeque<RFID_EPC>()
+    private var gettingRfidInfo = false
 
     init {
         App.appComponent.inject(this)
@@ -39,18 +52,29 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
         inventoryViewModeObservable.set(EquipmentScanMode.PREVIEW)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+
+        scanner?.turnOff()
+    }
+
     override fun getErrorLiveData(): LiveData<String> = errorObservable
 
     override fun getInvoiceNumber(): ObservableField<String> = invoiceIDObservable
 
-    override fun getInvoiceInventoryLiveData(): LiveData<List<Equipment>> = invoiceInventoryListObservable
+    override fun getInvoiceInventoryLiveData(): LiveData<List<Equipment>> =
+        invoiceInventoryListObservable
 
-    override fun getEquipmentScanMode(): ObservableField<EquipmentScanMode> = inventoryViewModeObservable
+    override fun getEquipmentScanMode(): ObservableField<EquipmentScanMode> =
+        inventoryViewModeObservable
 
     override fun getProcedureType(): ProcedureType = procedureDataHolder.procedureType
 
     override fun getOverAllScanCount(): ObservableField<Int> = inventoryOverAllScannedCount
 
+    override fun getUpdateScanResult(): LiveData<ScanResult> = updateScanResultLiveData
+
+    @InternalCoroutinesApi
     override fun startScan(): LiveData<ScanResult?>? {
         scanner?.let {
             inventoryViewModeObservable.set(EquipmentScanMode.SCANNING)
@@ -60,7 +84,6 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
         }
 
         errorObservable.postValue("Устройство сканирования не найдено")
-
         return null
     }
 
@@ -80,11 +103,33 @@ class InventoryScanViewModel: ViewModel(), InventoryScanPresenter {
                 return if (procedureDataHolder.procedureInvoice!!.increaseScannedCountIfContains(nonNullRfid)) {
                     ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
                 } else {
-                    ScanResult(nonNullRfid, ScanResultType.EXCLUDED, invoiceIDObservable.get()!!)
+                    rfidInfoToLoadQueue.addLast(rfid)
+                    loadNextRfidInfo(invoiceIDObservable.get()!!)
+                    ScanResult(nonNullRfid, ScanResultType.LOADING, invoiceIDObservable.get()!!)
                 }
             }
         }
 
         return null
+    }
+
+    //todo refactor on flow
+    private fun loadNextRfidInfo(invoiceID: String) {
+        if (!gettingRfidInfo) {
+            val rfidToScan = rfidInfoToLoadQueue.peek()
+            rfidToScan?.let { rfid ->
+                gettingRfidInfo = true
+                CoroutineScope(Dispatchers.Default).launch {
+                    Log.d("start loading", rfid)
+                    val rfidResult = repository.getRfidFromDB(epc = rfid)
+                    val scanResultType = if (rfidResult == null) ScanResultType.EXCLUDED_FROM_DATABASE else ScanResultType.EXCLUDED_FROM_INVOICE
+                    Log.d("end loading", rfid)
+                    rfidInfoToLoadQueue.pop()
+                    gettingRfidInfo = false
+                    loadNextRfidInfo(invoiceID)
+                    updateScanResultLiveData.postValue(ScanResult(rfid, scanResultType, invoiceID))
+                }
+            }
+        }
     }
 }

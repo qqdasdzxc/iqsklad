@@ -2,5 +2,7 @@ package ru.iqsklad.data.dto.procedure
 
 enum class ScanResultType {
     SUCCESS,
-    EXCLUDED
+    EXCLUDED_FROM_INVOICE,
+    EXCLUDED_FROM_DATABASE,
+    LOADING
 }

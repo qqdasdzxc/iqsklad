@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.transition.TransitionManager
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.EquipmentScanMode
+import ru.iqsklad.data.dto.procedure.ScanResult
 import ru.iqsklad.databinding.FragmentInventoryScanBinding
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
@@ -44,11 +45,11 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
     }
 
     private fun initObservable() {
-        presenter.getErrorLiveData().observe(this, Observer {
+        presenter.getErrorLiveData().observe(viewLifecycleOwner, Observer {
             showMessage(it)
         })
 
-        presenter.getInvoiceInventoryLiveData().observe(this, Observer {
+        presenter.getInvoiceInventoryLiveData().observe(viewLifecycleOwner, Observer {
             equipmentAdapter.clear()
             equipmentAdapter.addAll(it)
         })
@@ -61,7 +62,15 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
             }
         })
 
+        presenter.getUpdateScanResult().observe(viewLifecycleOwner, Observer {
+            updateScanResult(it)
+        })
+
         scanResultAdapter.setProcedureType(presenter.getProcedureType())
+    }
+
+    private fun updateScanResult(scanResult: ScanResult) {
+        scanResultAdapter.update(scanResult)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

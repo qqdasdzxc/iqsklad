@@ -21,6 +21,8 @@ interface InventoryScanPresenter {
 
     fun getOverAllScanCount(): ObservableField<Int>
 
+    fun getUpdateScanResult(): LiveData<ScanResult>
+
     fun startScan(): LiveData<ScanResult?>?
 
     fun stopScan()

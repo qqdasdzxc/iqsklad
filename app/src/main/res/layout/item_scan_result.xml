@@ -29,7 +29,7 @@
                 app:layout_constraintStart_toEndOf="@id/scan_result_status_image_view"
                 app:layout_constraintTop_toTopOf="@id/scan_result_status_image_view"
                 app:layout_constraintBottom_toBottomOf="@id/scan_result_status_image_view"
-                tools:text="@string/scan_result_excluded_procedure_type_receive_text"/>
+                tools:text="@string/scan_result_excluded_from_invoice_procedure_type_receive_text"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

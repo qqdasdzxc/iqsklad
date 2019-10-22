@@ -18,6 +18,10 @@ class UhfD2Scanner: Scanner() {
         //scanner = null
     }
 
+    override fun turnOff() {
+        UhfD2.getInstance().uninit()
+    }
+
     override fun getInventory() {
         UhfD2.getInstance().iso18k6cRealTimeInventory(1, object : UhfD2.UmdOnIso18k6cRealTimeInventory() {
             override fun onFinishedWithError(p0: UhfD2.UmdErrorCode?) {}

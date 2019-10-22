@@ -2,6 +2,8 @@ package ru.iqsklad.data.repository.contract
 
 import androidx.lifecycle.LiveData
 import ru.dtk.lib.network.DtkApiModel
+import ru.iqsklad.data.dto.equipment.RFID_EPC
+import ru.iqsklad.data.dto.rfid.Rfid
 import ru.iqsklad.data.dto.user.UserType
 import ru.iqsklad.data.web.response.InvoiceResponse
 import ru.iqsklad.data.web.response.UsersResponse
@@ -22,4 +24,6 @@ interface IMainRepository {
     fun loadAllChanges(lastUpdated: String): LiveData<DtkApiModel<EmptyResponse>>
 
     fun loadAllData(): LiveData<DtkApiModel<EmptyResponse>>
+
+    fun getRfidFromDB(epc: RFID_EPC): Rfid?
 }

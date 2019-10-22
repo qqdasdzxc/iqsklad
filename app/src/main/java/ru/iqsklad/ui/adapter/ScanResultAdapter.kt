@@ -2,7 +2,6 @@ package ru.iqsklad.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -51,10 +50,18 @@ class ScanResultAdapter : RecyclerListAdapter<ScanResult, ScanResultAdapter.Scan
                             R.string.scan_result_success_procedure_type_pass_text,
                             scanResult.rfid
                         )
-                        ScanResultType.EXCLUDED -> binding.root.context.getString(
-                            R.string.scan_result_excluded_procedure_type_pass_text,
+                        ScanResultType.EXCLUDED_FROM_INVOICE -> binding.root.context.getString(
+                            R.string.scan_result_excluded_from_invoice_procedure_type_pass_text,
                             scanResult.rfid,
                             scanResult.invoiceNumber
+                        )
+                        ScanResultType.EXCLUDED_FROM_DATABASE -> binding.root.context.getString(
+                            R.string.scan_result_excluded_from_database_procedure_type_pass_text,
+                            scanResult.rfid
+                        )
+                        ScanResultType.LOADING -> binding.root.context.getString(
+                            R.string.scan_result_loading_info_text,
+                            scanResult.rfid
                         )
                     }
                 }
@@ -64,10 +71,18 @@ class ScanResultAdapter : RecyclerListAdapter<ScanResult, ScanResultAdapter.Scan
                             R.string.scan_result_success_procedure_type_receive_text,
                             scanResult.rfid
                         )
-                        ScanResultType.EXCLUDED -> binding.root.context.getString(
-                            R.string.scan_result_excluded_procedure_type_receive_text,
+                        ScanResultType.EXCLUDED_FROM_INVOICE -> binding.root.context.getString(
+                            R.string.scan_result_excluded_from_invoice_procedure_type_receive_text,
                             scanResult.rfid,
                             scanResult.invoiceNumber
+                        )
+                        ScanResultType.EXCLUDED_FROM_DATABASE -> binding.root.context.getString(
+                            R.string.scan_result_excluded_from_database_procedure_type_receive_text,
+                            scanResult.rfid
+                        )
+                        ScanResultType.LOADING -> binding.root.context.getString(
+                            R.string.scan_result_loading_info_text,
+                            scanResult.rfid
                         )
                     }
                 }
@@ -78,7 +93,7 @@ class ScanResultAdapter : RecyclerListAdapter<ScanResult, ScanResultAdapter.Scan
         private fun getScanResultImage(scanResult: ScanResult): Int {
             return when (scanResult.scanResultType) {
                 ScanResultType.SUCCESS -> R.drawable.ic_status_success
-                ScanResultType.EXCLUDED -> R.drawable.ic_status_undefined
+                ScanResultType.EXCLUDED_FROM_INVOICE, ScanResultType.EXCLUDED_FROM_DATABASE, ScanResultType.LOADING -> R.drawable.ic_status_undefined
             }
         }
     }
