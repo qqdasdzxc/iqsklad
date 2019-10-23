@@ -10,6 +10,9 @@ import androidx.transition.TransitionManager
 import ru.iqsklad.R
 import ru.iqsklad.data.dto.procedure.EquipmentScanMode
 import ru.iqsklad.data.dto.procedure.ScanResult
+import ru.iqsklad.data.dto.ui.ErrorUiModel
+import ru.iqsklad.data.dto.ui.LoadingUiModel
+import ru.iqsklad.data.dto.ui.SuccessUiModel
 import ru.iqsklad.databinding.FragmentInventoryScanBinding
 import ru.iqsklad.presentation.implementation.procedure.InventoryScanViewModel
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
@@ -18,6 +21,8 @@ import ru.iqsklad.ui.adapter.ScanResultAdapter
 import ru.iqsklad.ui.base.fragment.BaseFragment
 import ru.iqsklad.ui.base.fragment.NeedToOverrideBackPressFragment
 import ru.iqsklad.ui.procedure.view.OpenCloseView
+import ru.iqsklad.utils.extensions.hide
+import ru.iqsklad.utils.extensions.show
 
 class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), NeedToOverrideBackPressFragment {
 
@@ -90,11 +95,7 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
         }
 
         inventoryScanEndActionView.setOnClickListener {
-            navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureSuccess())
-        }
-
-        inventoryScanInfoLabelView.setOnClickListener {
-
+            sendScanResults()
         }
 
         inventoryOpenCloseInfoView.setListener(object : OpenCloseView.OpenCloseChangeListener {
@@ -106,6 +107,36 @@ class InventoryScanFragment : BaseFragment<FragmentInventoryScanBinding>(), Need
                 animateScanResultList(false)
             }
         })
+    }
+
+    private fun sendScanResults() {
+        presenter.sendScanResults().observe(viewLifecycleOwner, Observer { uiModel ->
+            when (uiModel) {
+                LoadingUiModel -> {
+                    showLoadingResults(true)
+                }
+                is SuccessUiModel -> {
+                    showLoadingResults(false)
+                    navController.navigate(InventoryScanFragmentDirections.actionInventoryScanToProcedureSuccess())
+                }
+                is ErrorUiModel -> {
+                    showLoadingResults(false)
+                    showMessage(uiModel.error)
+                }
+            }
+        })
+    }
+
+    private fun showLoadingResults(isLoading: Boolean) = binding.apply {
+        if (isLoading) {
+            inventoryLoadingView.show()
+            inventoryScanActionView.hide()
+            inventoryScanEndActionView.hide()
+        } else {
+            inventoryLoadingView.hide()
+            inventoryScanActionView.show()
+            inventoryScanEndActionView.show()
+        }
     }
 
     private fun animateScanResultList(isOpen: Boolean) = with(binding) {

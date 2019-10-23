@@ -18,7 +18,7 @@ class RequestBuilder {
         return this
     }
 
-    fun setParams(params: Map<String, String>): RequestBuilder {
+    fun setParams(params: Map<String, Any>): RequestBuilder {
         request.params = BaseRequest.Params(params)
         return this
     }

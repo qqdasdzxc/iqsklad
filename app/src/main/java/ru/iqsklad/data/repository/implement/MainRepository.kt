@@ -13,6 +13,7 @@ import ru.iqsklad.data.Constants.LOAD_ALL_INVOICES_DATA_PARAM
 import ru.iqsklad.data.db.dao.MainDao
 import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.invoice.InvoicesMapper
+import ru.iqsklad.data.dto.procedure.ProcedureDataHolder
 import ru.iqsklad.data.dto.rfid.Rfid
 import ru.iqsklad.data.dto.rfid.RfidsMapper
 import ru.iqsklad.data.dto.user.UserType
@@ -117,10 +118,12 @@ class MainRepository @Inject constructor(
                     requestBuilder
                         .createRequest()
                         .setMethod("invoice.getList")
-                        .setParams(mapOf(
-                            Pair("date", lastUpdated),
-                            Pair("last_update", "true")
-                        ))
+                        .setParams(
+                            mapOf(
+                                Pair("date", lastUpdated),
+                                Pair("last_update", "true")
+                            )
+                        )
                         .build()
                 )
             }
@@ -144,10 +147,12 @@ class MainRepository @Inject constructor(
                     requestBuilder
                         .createRequest()
                         .setMethod("rfid.getChange")
-                        .setParams(mapOf(
-                            Pair("date", lastUpdated),
-                            Pair("last_update", "true")
-                        ))
+                        .setParams(
+                            mapOf(
+                                Pair("date", lastUpdated),
+                                Pair("last_update", "true")
+                            )
+                        )
                         .build()
                 )
             }
@@ -163,9 +168,11 @@ class MainRepository @Inject constructor(
                         requestBuilder
                             .createRequest()
                             .setMethod("person.getList")
-                            .setParams(mapOf(
-                                LOAD_ALL_DATA_PARAM
-                            ))
+                            .setParams(
+                                mapOf(
+                                    LOAD_ALL_DATA_PARAM
+                                )
+                            )
                             .build()
                     ).await()
                     usersResponse.data?.let { nonNullData ->
@@ -179,9 +186,11 @@ class MainRepository @Inject constructor(
                         requestBuilder
                             .createRequest()
                             .setMethod("invoice.getList")
-                            .setParams(mapOf(
-                                LOAD_ALL_INVOICES_DATA_PARAM
-                            ))
+                            .setParams(
+                                mapOf(
+                                    LOAD_ALL_INVOICES_DATA_PARAM
+                                )
+                            )
                             .build()
                     ).await()
                     invoicesResponse.data?.let { nonNullData ->
@@ -195,9 +204,11 @@ class MainRepository @Inject constructor(
                         requestBuilder
                             .createRequest()
                             .setMethod("rfid.getList")
-                            .setParams(mapOf(
-                                LOAD_ALL_DATA_PARAM
-                            ))
+                            .setParams(
+                                mapOf(
+                                    LOAD_ALL_DATA_PARAM
+                                )
+                            )
                             .build()
                     ).await()
                     equipmentResponse.data?.let { nonNullData ->
@@ -224,9 +235,11 @@ class MainRepository @Inject constructor(
                         requestBuilder
                             .createRequest()
                             .setMethod("person.getChange")
-                            .setParams(mapOf(
-                                Pair("last_update", lastUpdated)
-                            ))
+                            .setParams(
+                                mapOf(
+                                    Pair("last_update", lastUpdated)
+                                )
+                            )
                             .build()
                     ).await()
                     usersResponse.data?.let { nonNullData ->
@@ -240,10 +253,12 @@ class MainRepository @Inject constructor(
                         requestBuilder
                             .createRequest()
                             .setMethod("invoice.getList")
-                            .setParams(mapOf(
-                                Pair("date", lastUpdated),
-                                Pair("last_update", "true")
-                            ))
+                            .setParams(
+                                mapOf(
+                                    Pair("date", lastUpdated),
+                                    Pair("last_update", "true")
+                                )
+                            )
                             .build()
                     ).await()
                     invoicesResponse.data?.let { nonNullData ->
@@ -257,9 +272,11 @@ class MainRepository @Inject constructor(
                         requestBuilder
                             .createRequest()
                             .setMethod("rfid.getChange")
-                            .setParams(mapOf(
-                                Pair("last_update", lastUpdated)
-                            ))
+                            .setParams(
+                                mapOf(
+                                    Pair("last_update", lastUpdated)
+                                )
+                            )
                             .build()
                     ).await()
                     equipmentResponse.data?.let { nonNullData ->
@@ -279,4 +296,34 @@ class MainRepository @Inject constructor(
     override fun getRfidFromDB(epc: RFID_EPC): Rfid? {
         return dao.getRfid(epc)
     }
+
+    override fun sendScanResults(procedureDataHolder: ProcedureDataHolder): LiveData<DtkApiModel<EmptyResponse>> {
+        return flow {
+            coroutineScope {
+                emit(LoadingDtkApiModel)
+
+                try {
+                    api.sendScanEquipmentResults(
+                        requestBuilder
+                            .createRequest()
+                            .setMethod("invoice.send")
+                            .setParams(
+                                mapOf(
+                                    Pair("invoice", procedureDataHolder.procedureInvoice!!.id.toInt()),
+                                    Pair("type", procedureDataHolder.procedureType.id),
+                                    Pair("serials", procedureDataHolder.scannedRfidSet.toString())
+                                )
+                            )
+                            .build()
+                    ).await()
+                    emit(SuccessDtkApiModel(EmptyResponse()))
+                } catch (exception: Exception) {
+                    //todo записать в базу
+
+                    emit(SuccessDtkApiModel(EmptyResponse()))
+                }
+            }
+        }.toLiveData()
+    }
+
 }

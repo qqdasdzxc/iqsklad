@@ -6,6 +6,7 @@ import ru.iqsklad.data.dto.equipment.Equipment
 import ru.iqsklad.data.dto.procedure.EquipmentScanMode
 import ru.iqsklad.data.dto.procedure.ProcedureType
 import ru.iqsklad.data.dto.procedure.ScanResult
+import ru.iqsklad.data.dto.ui.UiModel
 
 interface InventoryScanPresenter {
 
@@ -26,4 +27,6 @@ interface InventoryScanPresenter {
     fun startScan(): LiveData<ScanResult?>?
 
     fun stopScan()
+
+    fun sendScanResults(): LiveData<UiModel<Boolean>>
 }

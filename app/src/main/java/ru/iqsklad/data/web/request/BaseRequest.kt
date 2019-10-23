@@ -7,6 +7,6 @@ open class BaseRequest(
     var id: String = "1"
 ) {
     class Params(
-        val params: Map<String, String>
+        val params: Map<String, Any>
     )
 }

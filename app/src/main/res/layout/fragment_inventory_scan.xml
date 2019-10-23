@@ -177,5 +177,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+        <ProgressBar
+                android:id="@+id/inventory_loading_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/inventory_scan_action_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/inventory_scan_end_action_view" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,14 +13,17 @@ import kotlinx.coroutines.launch
 import ru.iqsklad.data.dto.equipment.Equipment
 import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.procedure.*
+import ru.iqsklad.data.dto.ui.ErrorUiModel
+import ru.iqsklad.data.dto.ui.SuccessUiModel
+import ru.iqsklad.data.dto.ui.UiModel
 import ru.iqsklad.data.repository.contract.IMainRepository
 import ru.iqsklad.data.scan.Scanner
 import ru.iqsklad.data.scan.ScannerFactory
 import ru.iqsklad.domain.App
 import ru.iqsklad.presentation.presenter.procedure.InventoryScanPresenter
+import ru.iqsklad.utils.extensions.mapToResult
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.HashSet
 
 class InventoryScanViewModel : ViewModel(), InventoryScanPresenter {
 
@@ -39,14 +42,13 @@ class InventoryScanViewModel : ViewModel(), InventoryScanPresenter {
     private val inventoryOverAllScannedCount = ObservableField(0)
     private val updateScanResultLiveData = MutableLiveData<ScanResult>()
 
-    private val scannedRfidSet = HashSet<RFID_EPC>()
     private val rfidInfoToLoadQueue = ArrayDeque<RFID_EPC>()
     private var gettingRfidInfo = false
 
     init {
         App.appComponent.inject(this)
         scanner = scannerFactory.createScanner()
-        procedureDataHolder.procedureInvoice?.setInitState()
+        procedureDataHolder.setInitState()
         invoiceIDObservable.set(procedureDataHolder.procedureInvoice?.id)
         invoiceInventoryListObservable.value = procedureDataHolder.procedureInvoice?.equipmentList
         inventoryViewModeObservable.set(EquipmentScanMode.PREVIEW)
@@ -96,9 +98,9 @@ class InventoryScanViewModel : ViewModel(), InventoryScanPresenter {
 
     private fun processRfid(rfid: RFID_EPC?): ScanResult? {
         rfid?.let { nonNullRfid ->
-            if (!scannedRfidSet.contains(nonNullRfid)) {
+            if (!procedureDataHolder.scannedRfidSet.contains(nonNullRfid)) {
                 inventoryOverAllScannedCount.set(inventoryOverAllScannedCount.get()!! + 1)
-                scannedRfidSet.add(nonNullRfid)
+                procedureDataHolder.scannedRfidSet.add(nonNullRfid)
 
                 return if (procedureDataHolder.procedureInvoice!!.increaseScannedCountIfContains(nonNullRfid)) {
                     ScanResult(nonNullRfid, ScanResultType.SUCCESS, invoiceIDObservable.get()!!)
@@ -132,4 +134,14 @@ class InventoryScanViewModel : ViewModel(), InventoryScanPresenter {
             }
         }
     }
+
+    override fun sendScanResults(): LiveData<UiModel<Boolean>> =
+        repository.sendScanResults(procedureDataHolder).mapToResult(
+            successAction = {
+                SuccessUiModel(true)
+            },
+            errorAction = {
+                ErrorUiModel(it.message)
+            }
+        )
 }

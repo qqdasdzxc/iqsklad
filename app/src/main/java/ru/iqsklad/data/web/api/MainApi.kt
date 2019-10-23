@@ -8,6 +8,7 @@ import ru.iqsklad.data.web.response.AllDataChangesResponse
 import ru.iqsklad.data.web.response.InvoicesWithEquipmentResponse
 import ru.iqsklad.data.web.response.RfidListResponse
 import ru.iqsklad.data.web.response.UsersResponse
+import ru.iqsklad.data.web.response.api.EmptyResponse
 
 interface MainApi {
 
@@ -39,4 +40,8 @@ interface MainApi {
     //method = "module.getAllChanges"
     @POST("eqar")
     fun getAllChangesAsync(@Body body: RequestBody): Deferred<AllDataChangesResponse>
+
+    //method = "invoice.send"
+    @POST("eqar")
+    fun sendScanEquipmentResults(@Body body: RequestBody): Deferred<EmptyResponse>
 }
