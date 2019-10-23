@@ -11,6 +11,7 @@ import ru.iqsklad.data.repository.contract.IMainRepository
 import ru.iqsklad.data.repository.implement.MainRepository
 import ru.iqsklad.data.web.api.MainApi
 import ru.iqsklad.data.web.factory.RequestBuilder
+import ru.iqsklad.domain.ProcedureResultsSender
 import javax.inject.Singleton
 
 @Module
@@ -25,6 +26,7 @@ class RepositoryModule {
         api: MainApi,
         dao: MainDao,
         controller: DtkNetBuilder,
-        requestBuilder: RequestBuilder
-    ): IMainRepository = MainRepository(api, dao, controller, requestBuilder)
+        requestBuilder: RequestBuilder,
+        procedureResultsSender: ProcedureResultsSender
+    ): IMainRepository = MainRepository(api, dao, controller, requestBuilder, procedureResultsSender)
 }

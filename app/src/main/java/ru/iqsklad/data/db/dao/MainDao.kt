@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.procedure.Invoice
+import ru.iqsklad.data.dto.procedure.ProcedureResult
 import ru.iqsklad.data.dto.rfid.Rfid
 import ru.iqsklad.data.dto.user.User
 
@@ -38,4 +39,13 @@ interface MainDao {
 
     @Query("SELECT * FROM rfid WHERE rfidID LIKE :epc")
     fun getRfid(epc: RFID_EPC): Rfid?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveProcedureResult(procedureResult: ProcedureResult)
+
+    @Query("SELECT * FROM procedureResult")
+    fun getProcedureResults(): List<ProcedureResult>
+
+    @Query("DELETE FROM procedureResult WHERE procedureResultID LIKE :procedureResultID")
+    fun deleteProcedureResult(procedureResultID: Int)
 }

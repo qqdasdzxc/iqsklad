@@ -14,6 +14,7 @@ import ru.iqsklad.data.db.dao.MainDao
 import ru.iqsklad.data.dto.equipment.RFID_EPC
 import ru.iqsklad.data.dto.invoice.InvoicesMapper
 import ru.iqsklad.data.dto.procedure.ProcedureDataHolder
+import ru.iqsklad.data.dto.procedure.ProcedureResult
 import ru.iqsklad.data.dto.rfid.Rfid
 import ru.iqsklad.data.dto.rfid.RfidsMapper
 import ru.iqsklad.data.dto.user.UserType
@@ -28,6 +29,7 @@ import ru.iqsklad.data.web.response.InvoicesWithEquipmentResponse
 import ru.iqsklad.data.web.response.RfidListResponse
 import ru.iqsklad.data.web.response.UsersResponse
 import ru.iqsklad.data.web.response.api.EmptyResponse
+import ru.iqsklad.domain.ProcedureResultsSender
 import javax.inject.Inject
 
 @FlowPreview
@@ -37,7 +39,8 @@ class MainRepository @Inject constructor(
     private var api: MainApi,
     private var dao: MainDao,
     private var controller: DtkNetBuilder,
-    private var requestBuilder: RequestBuilder
+    private var requestBuilder: RequestBuilder,
+    private var procedureResultsSender: ProcedureResultsSender
 ) : IMainRepository {
 
     override fun getUsersWithChanges(
@@ -318,7 +321,13 @@ class MainRepository @Inject constructor(
                     ).await()
                     emit(SuccessDtkApiModel(EmptyResponse()))
                 } catch (exception: Exception) {
-                    //todo записать в базу
+                    dao.saveProcedureResult(
+                        ProcedureResult(
+                            invoiceID = procedureDataHolder.procedureInvoice!!.id.toInt(),
+                            procedureTypeID = procedureDataHolder.procedureType.id,
+                            scannedRfids = procedureDataHolder.scannedRfidSet.toList()
+                        )
+                    )
 
                     emit(SuccessDtkApiModel(EmptyResponse()))
                 }

@@ -14,6 +14,11 @@ object Constants {
     val LOAD_ALL_DATA_PARAM = Pair("date", "1970")
     val LOAD_ALL_INVOICES_DATA_PARAM = Pair("date", Calendar.getInstance().apply {
         removeDays(3)
+        //КОММЕНТАРИЙ РАЗРАБОТЧКА S7
+//        Чтобы выгрузить накладные при первом запуске приложения достаточно запустить
+//        {"jsonrpc": "2.0", "method": "invoice.getList", "id": "1"}.
+//        В этом случае придут все накладные за текущий день и 2 передыдущих,
+//        этих данных будет достаточно.
     }.getLastUpdatedTime())
 
 //тестовые метки

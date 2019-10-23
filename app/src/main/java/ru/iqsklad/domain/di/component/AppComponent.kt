@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [AppModule::class, ClientModule::class, RequestModule::class, ApiModule::class, RepositoryModule::class,
-    DaoModule::class, ProcedureDataModule::class, ScannerFactoryModule::class]
+    DaoModule::class, ProcedureDataModule::class, ScannerFactoryModule::class, ProcedureResultsSenderModule::class]
 )
 interface AppComponent {
 
