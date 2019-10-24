@@ -87,6 +87,7 @@
     <string name="status_resume_work_action_title">Продолжить работу</string>
     <string name="status_update_db_action_title">Обновить базу данных</string>
     <string name="status_last_update_time">Последнее обновление: %s</string>
+    <string name="status_last_update_time_error_title">База не обновлялась</string>
     <string name="status_updated">База данных актуальна</string>
     <string name="status_not_updated">База данных не актуальна</string>
     <string name="status_updating">Обновление базы данных</string>

@@ -78,9 +78,14 @@ class StatusFragment: BaseRoundedBottomSheetDialogFragment<FragmentStatusBinding
     }
 
     private fun setLastUpdatedTime() {
-        binding.statusLastUpdateTextView.text = getString(
-            R.string.status_last_update_time,
-            LastUpdatePreferences.getTime(activity!!).getTimeString()
-        )
+        val lastUpdateTimeInMillis = LastUpdatePreferences.getTime(activity!!)
+        if (lastUpdateTimeInMillis == 0L) {
+            binding.statusLastUpdateTextView.text = getString(R.string.status_last_update_time_error_title)
+        } else {
+            binding.statusLastUpdateTextView.text = getString(
+                R.string.status_last_update_time,
+                LastUpdatePreferences.getTime(activity!!).getTimeString()
+            )
+        }
     }
 }
