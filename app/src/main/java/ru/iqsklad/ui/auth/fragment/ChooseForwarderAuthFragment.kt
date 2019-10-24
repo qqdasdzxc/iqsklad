@@ -27,18 +27,29 @@ class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBind
         super.onActivityCreated(savedInstanceState)
 
         presenter = getPresenter<ChooseUserViewModel>()
-        initObserve()
+        getForwarders()
     }
 
-    private fun initObserve() {
+    private fun getForwarders() {
         presenter.getForwarders(activity!!).observe(this, Observer { uiModel ->
             when (uiModel) {
                 LoadingUiModel -> {
+                    setLoading(true)
                 }
-                is SuccessUiModel -> setUsers(uiModel.data)
-                is ErrorUiModel -> showMessage(uiModel.error)
+                is SuccessUiModel -> {
+                    setLoading(false)
+                    setUsers(uiModel.data)
+                }
+                is ErrorUiModel -> {
+                    setLoading(false)
+                    showMessage(uiModel.error)
+                }
             }
         })
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        binding.chooseForwarderRefreshView.isRefreshing = isLoading
     }
 
     private fun setUsers(userList: List<UserUI>) {
@@ -52,10 +63,14 @@ class ChooseForwarderAuthFragment : BaseFragment<FragmentAuthChooseForwarderBind
         initView()
     }
 
-    private fun initView() {
-        binding.chooseForwarderRecyclerView.adapter = adapter
+    private fun initView() = with(binding) {
+        chooseForwarderRecyclerView.adapter = adapter
 
-        binding.chooseForwarderActionBarView.observeSearchText().observe(this, Observer {
+        chooseForwarderRefreshView.setOnRefreshListener {
+            presenter.onSearchTextChanged(chooseForwarderActionBarView.getSearchText())
+        }
+
+        chooseForwarderActionBarView.observeSearchText().observe(this@ChooseForwarderAuthFragment, Observer {
             presenter.onSearchTextChanged(it)
         })
     }

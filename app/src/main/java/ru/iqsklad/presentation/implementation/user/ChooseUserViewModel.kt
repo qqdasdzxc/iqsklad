@@ -63,7 +63,7 @@ class ChooseUserViewModel: ViewModel(), ChooseUserPresenter {
     }
 
     private fun getUsers(userType: UserType, lastUpdated: String): LiveData<UiModel<List<UserUI>>> {
-        return mainRepository.getUsersWithChanges(
+        return mainRepository.getUsers(
             type = userType,
             searchString = searchStringLiveData.value!!.trim(),
             lastUpdated = lastUpdated

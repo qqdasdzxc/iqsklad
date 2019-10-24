@@ -14,7 +14,7 @@ interface IMainRepository {
 
     //fun getAllUsers(): LiveData<DtkApiModel<UsersResponse>>
 
-    fun getUsersWithChanges(type: UserType, searchString: String, lastUpdated: String): LiveData<DtkApiModel<UsersResponse>>
+    fun getUsers(type: UserType, searchString: String, lastUpdated: String): LiveData<DtkApiModel<UsersResponse>>
 
     fun getInvoice(invoiceID: String): LiveData<DtkApiModel<InvoiceResponse>>
 

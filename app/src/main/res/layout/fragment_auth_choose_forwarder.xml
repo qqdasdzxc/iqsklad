@@ -17,16 +17,23 @@
                 app:field_action_bar_hint="@string/auth_choose_user_search_hint"
                 app:field_action_bar_exit_visible="false"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/choose_forwarder_recycler_view"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/choose_forwarder_refresh_view"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:overScrollMode="never"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/choose_forwarder_action_bar_view"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:listitem="@layout/item_choose_user"/>
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/choose_forwarder_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_choose_user"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

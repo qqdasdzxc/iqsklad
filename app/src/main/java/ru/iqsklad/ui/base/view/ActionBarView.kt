@@ -237,6 +237,8 @@ class ActionBarView : ConstraintLayout {
         return searchObservableField
     }
 
+    fun getSearchText(): String = searchEditView.text.toString()
+
     fun setActionClickListener(listener: ActionBarClickListener) {
         actionClickListener = listener
     }

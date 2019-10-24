@@ -41,45 +41,26 @@ class MainRepository @Inject constructor(
     private var requestBuilder: RequestBuilder
 ) : IMainRepository {
 
-    override fun getUsersWithChanges(
+    override fun getUsers(
         type: UserType,
         searchString: String,
         lastUpdated: String
     ): LiveData<DtkApiModel<UsersResponse>> {
-        return controller
-            .createQuery<UsersResponse>("getUsers: $type")
-            .withCache()
-            .loadingCondition { it?.data == null }
-            .loadData {
-                val response = UsersResponse()
-                val data = UsersWithRoles(emptyList(), emptyList())
-                data.users = dao.getUsers(type.roleID, searchString)
-                response.data = data
-                response
-            }
-            .saveData {
-                it.data?.let { nonNullData ->
-                    UsersMapper.map(nonNullData)
-                    nonNullData.users?.let { nonNullUsers ->
-                        dao.saveUsers(nonNullUsers)
-                    }
+        return flow {
+            coroutineScope {
+                emit(LoadingDtkApiModel)
+
+                try {
+                    val response = UsersResponse()
+                    val data = UsersWithRoles(emptyList(), emptyList())
+                    data.users = dao.getUsers(type.roleID, searchString)
+                    response.data = data
+                    emit(SuccessDtkApiModel(response))
+                } catch (exception: Exception) {
+                    emit(ErrorDtkApiModel(exception))
                 }
             }
-            .execute {
-                api.getUsersChangesAsync(
-                    requestBuilder
-                        .createRequest()
-                        .setMethod("person.getList")
-                        .setParams(
-                            mapOf(
-                                Pair("date", lastUpdated),
-                                Pair("last_update", "true")
-                            )
-                        )
-                        .build()
-                )
-            }
-            .toLiveData()
+        }.toLiveData()
     }
 
     override fun getInvoice(invoiceID: String): LiveData<DtkApiModel<InvoiceResponse>> {
