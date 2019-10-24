@@ -8,7 +8,7 @@ import ru.iqsklad.data.web.response.AllDataChangesResponse
 import ru.iqsklad.data.web.response.InvoicesWithEquipmentResponse
 import ru.iqsklad.data.web.response.RfidListResponse
 import ru.iqsklad.data.web.response.UsersResponse
-import ru.iqsklad.data.web.response.api.EmptyResponse
+import ru.iqsklad.data.web.response.api.BaseResponse
 
 interface MainApi {
 
@@ -43,5 +43,5 @@ interface MainApi {
 
     //method = "invoice.send"
     @POST("eqar")
-    fun sendScanEquipmentResults(@Body body: RequestBody): Deferred<EmptyResponse>
+    fun sendScanEquipmentResults(@Body body: RequestBody): Deferred<BaseResponse<String>>
 }

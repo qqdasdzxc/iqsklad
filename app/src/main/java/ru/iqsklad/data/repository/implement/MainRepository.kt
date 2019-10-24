@@ -29,7 +29,6 @@ import ru.iqsklad.data.web.response.InvoicesWithEquipmentResponse
 import ru.iqsklad.data.web.response.RfidListResponse
 import ru.iqsklad.data.web.response.UsersResponse
 import ru.iqsklad.data.web.response.api.EmptyResponse
-import ru.iqsklad.domain.ProcedureResultsSender
 import javax.inject.Inject
 
 @FlowPreview
@@ -39,8 +38,7 @@ class MainRepository @Inject constructor(
     private var api: MainApi,
     private var dao: MainDao,
     private var controller: DtkNetBuilder,
-    private var requestBuilder: RequestBuilder,
-    private var procedureResultsSender: ProcedureResultsSender
+    private var requestBuilder: RequestBuilder
 ) : IMainRepository {
 
     override fun getUsersWithChanges(
@@ -301,12 +299,23 @@ class MainRepository @Inject constructor(
     }
 
     override fun sendScanResults(procedureDataHolder: ProcedureDataHolder): LiveData<DtkApiModel<EmptyResponse>> {
+
+        fun saveProcedureResultToDB() {
+            dao.saveProcedureResult(
+                ProcedureResult(
+                    invoiceID = procedureDataHolder.procedureInvoice!!.id.toInt(),
+                    procedureTypeID = procedureDataHolder.procedureType.id,
+                    scannedRfids = procedureDataHolder.scannedRfidSet.toList()
+                )
+            )
+        }
+
         return flow {
             coroutineScope {
                 emit(LoadingDtkApiModel)
 
                 try {
-                    api.sendScanEquipmentResults(
+                    val response = api.sendScanEquipmentResults(
                         requestBuilder
                             .createRequest()
                             .setMethod("invoice.send")
@@ -319,15 +328,12 @@ class MainRepository @Inject constructor(
                             )
                             .build()
                     ).await()
+                    if (response.data != "success") {
+                        saveProcedureResultToDB()
+                    }
                     emit(SuccessDtkApiModel(EmptyResponse()))
                 } catch (exception: Exception) {
-                    dao.saveProcedureResult(
-                        ProcedureResult(
-                            invoiceID = procedureDataHolder.procedureInvoice!!.id.toInt(),
-                            procedureTypeID = procedureDataHolder.procedureType.id,
-                            scannedRfids = procedureDataHolder.scannedRfidSet.toList()
-                        )
-                    )
+                    saveProcedureResultToDB()
 
                     emit(SuccessDtkApiModel(EmptyResponse()))
                 }
