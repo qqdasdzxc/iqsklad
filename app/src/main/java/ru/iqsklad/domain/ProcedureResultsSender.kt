@@ -52,7 +52,7 @@ class ProcedureResultsSender(
 
     private suspend fun sendProcedureResult(procedureResult: ProcedureResult) {
         try {
-            api.sendScanEquipmentResults(
+            val response = api.sendScanEquipmentResults(
                 requestBuilder
                     .createRequest()
                     .setMethod("invoice.send")
@@ -65,11 +65,10 @@ class ProcedureResultsSender(
                     )
                     .build()
             ).await()
-            //todo check result
-            //если дошли до этого места, значит запрос ушел без ошибок
-            dao.deleteProcedureResult(procedureResult.procedureResultID)
+            if (response.data == "success") {
+                dao.deleteProcedureResult(procedureResult.procedureResultID)
+            }
         } catch (exception: Exception) {
-
         }
     }
 

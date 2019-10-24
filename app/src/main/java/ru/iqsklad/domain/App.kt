@@ -7,8 +7,12 @@ import ru.iqsklad.domain.di.component.AppComponent
 import ru.iqsklad.domain.di.component.DaggerAppComponent
 import ru.iqsklad.domain.di.module.AppModule
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+import javax.inject.Inject
 
 class App: Application() {
+
+    @Inject
+    lateinit var procedureResultsSender: ProcedureResultsSender
 
     companion object {
         lateinit var appComponent: AppComponent
@@ -40,6 +44,8 @@ class App: Application() {
             .builder()
             .appModule(AppModule(this))
             .build()
+
+        appComponent.inject(this)
     }
 
 }

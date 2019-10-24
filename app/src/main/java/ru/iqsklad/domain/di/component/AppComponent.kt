@@ -1,6 +1,7 @@
 package ru.iqsklad.domain.di.component
 
 import dagger.Component
+import ru.iqsklad.domain.App
 import ru.iqsklad.domain.di.module.*
 import ru.iqsklad.presentation.implementation.procedure.ChooseProcedureViewModel
 import ru.iqsklad.presentation.implementation.procedure.FindInvoiceViewModel
@@ -28,4 +29,6 @@ interface AppComponent {
     fun inject(presenter: UpdateViewModel)
 
     fun inject(presenter: FindInvoiceViewModel)
+
+    fun inject(app: App)
 }
