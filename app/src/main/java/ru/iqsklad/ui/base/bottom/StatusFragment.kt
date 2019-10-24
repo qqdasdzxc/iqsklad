@@ -60,7 +60,7 @@ class StatusFragment: BaseRoundedBottomSheetDialogFragment<FragmentStatusBinding
 
     private fun updateDb() {
         isCancelable = false
-        presenter.updateAllData(activity!!).observe(this, Observer { uiModel ->
+        presenter.updateDB(activity!!).observe(this, Observer { uiModel ->
             when (uiModel) {
                 LoadingUiModel -> binding.dbStatus = DatabaseStatus.Updating
                 is SuccessUiModel -> {
