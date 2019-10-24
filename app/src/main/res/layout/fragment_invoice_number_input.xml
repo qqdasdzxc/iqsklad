@@ -82,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/start_end_margin"
                 android:layout_marginEnd="@dimen/start_end_margin"
+                android:layout_marginBottom="@dimen/start_end_margin"
                 android:text="@string/invoice_number_input_back_to_scan_message_title"
                 app:layout_constraintBottom_toTopOf="@id/invoice_number_input_scan_action_view"
                 app:layout_constraintStart_toStartOf="parent"
