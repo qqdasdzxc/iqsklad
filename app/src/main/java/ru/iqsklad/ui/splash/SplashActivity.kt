@@ -31,11 +31,10 @@ class SplashActivity: AppCompatActivity() {
                     checkLogin()
                 }
                 is ErrorUiModel -> {
-                    if (uiModel.error == null) {
-                        checkLogin()
-                    } else {
-                        Toast.makeText(this, uiModel.error, Toast.LENGTH_LONG).show()
+                    uiModel.error?.let {
+                        Toast.makeText(this, it, Toast.LENGTH_LONG).show()
                     }
+                    checkLogin()
                 }
             }
         })
