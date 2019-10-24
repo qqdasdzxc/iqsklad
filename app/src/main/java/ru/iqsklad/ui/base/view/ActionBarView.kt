@@ -154,13 +154,13 @@ class ActionBarView : ConstraintLayout {
         menuInflater.inflate(R.menu.popup_menu, menu)
         setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.call -> actionClickListener?.onCallClicked()
+                //R.id.call -> actionClickListener?.onCallClicked()
                 R.id.exit -> actionClickListener?.onExitClicked()
             }
             true
         }
 
-        menu.getItem(1).isVisible = showExit
+        menu.getItem(0).isVisible = showExit
 
         val menuHelper = MenuPopupHelper(context, this.menu as MenuBuilder, view)
         menuHelper.setForceShowIcon(true)
